@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+             mc:Ignorable="d" Width="56" Height="100"
+			 x:Name="button"
+             x:Class="Blockdiagramm.Controls.Ribbon.BigButtonMenu">
+	<UserControl.Styles>
+		<Style Selector="Button.BigButtonUp">
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="CornerRadius" Value="3,3,0,0"/>
+		</Style>
+		<Style Selector="Button.BigButtonDown">
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="CornerRadius" Value="0,0,3,3"/>
+		</Style>
+		<Style Selector="Button.BigButton Panel Border.Background">
+			<Setter Property="Opacity" Value="0"/>
+		</Style>
+		<Style Selector="Button.BigButton:pointerover Panel Border.Background">
+			<Setter Property="Opacity" Value="0.15"/>
+		</Style>
+		<Style Selector="Button.BigButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="White"/>
+		</Style>
+		<Style Selector="Panel:pointerover Border.Edge">
+			<Setter Property="BorderThickness" Value="0.25"/>
+		</Style>
+	</UserControl.Styles>
+	<Panel>
+		<StackPanel Spacing="0">
+			<Button Width="56" Height="60" 
+					Classes="BigButton BigButtonUp" 
+					Padding="0"
+					ToolTip.Placement="Bottom">
+				<Panel>
+					<Border Classes="Background" Background="Black" CornerRadius="3,3,0,0">
+						<Border.Transitions>
+							<Transitions>
+								<DoubleTransition Property="Opacity" Duration="0:0:0.3">
+									<DoubleTransition.Easing>
+										<SplineEasing X1="0.25" Y1="0.8" X2="0.5" Y2="1"/>
+									</DoubleTransition.Easing>
+								</DoubleTransition>
+							</Transitions>
+						</Border.Transitions>
+					</Border>
+				
+					<StackPanel Margin="2">
+						<i:Icon Value="{Binding Path=Icon, ElementName=button}" FontSize="32" Foreground="Black" Height="50"/>
+					</StackPanel>
+
+					<ToolTip.Tip>
+						<rb:RibbonTooltip Tooltip="{Binding Tooltip, ElementName=button}"/>
+					</ToolTip.Tip>
+				</Panel>
+			</Button>
+			<Button x:Name="btnMenu" Width="56" Height="41" 
+					Classes="BigButton BigButtonDown" Margin="0,-1,0,0" Padding="0"
+					Click="OnMenuButtonClick" LostFocus="OnMenuButtonLostFocus">
+				<Panel>
+					<Border Classes="Background" Background="Black" CornerRadius="0,0,3,3">
+						<Border.Transitions>
+							<Transitions>
+								<DoubleTransition Property="Opacity" Duration="0:0:0.3">
+									<DoubleTransition.Easing>
+										<SplineEasing X1="0.25" Y1="0.8" X2="0.5" Y2="1"/>
+									</DoubleTransition.Easing>
+								</DoubleTransition>
+							</Transitions>
+						</Border.Transitions>
+					</Border>
+					<RelativePanel Margin="2,4,2,8">
+						<TextBlock Text="{Binding Path=Title, ElementName=button}"
+									 HorizontalAlignment="Center"
+									 FontSize="12.8"
+								     RelativePanel.AlignHorizontalCenterWithPanel="True"
+								     RelativePanel.AlignTopWithPanel="True"/>
+						<i:Icon Value="mdi-menu-down" FontSize="8" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+					</RelativePanel>		
+				</Panel>
+			</Button>
+		</StackPanel>
+		<Border Margin="1" Classes="Edge" BorderBrush="Black" CornerRadius="3"/>
+		<Popup x:Name="popMenu" PlacementTarget="{Binding ElementName=btnMenu}" PlacementMode="Bottom" StaysOpen="False">
+			<Panel Background="White">
+				<StackPanel x:Name="spMenuPanel" />
+				<Border CornerRadius="3" BorderBrush="#FF000000" BorderThickness="1"/>
+			</Panel>
+		</Popup>
+	</Panel>
+</UserControl>

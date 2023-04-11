@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:dg="using:Blockdiagramm.Controls.Diagram"
+			 xmlns:dc="clr-namespace:Blockdiagramm.Controls.Diagram.Converters;assembly=Blockdiagramm"
+             x:Class="Blockdiagramm.Controls.Diagram.Wire.VertexWire">
+	<UserControl.Resources>
+		<dc:WireTypeToStrokeThicknessConverter x:Key="WireTypeToStrokeThicknessConverter"/>
+		<dc:WireStatusToStrokeConverter x:Key="WireStatusToStrokeConverter"/>
+	</UserControl.Resources>
+	<dg:DynamicPolyline x:Name="dplWire"
+					Stroke="{Binding WireStatus, Converter={StaticResource WireStatusToStrokeConverter}}" 
+					StrokeThickness="{Binding WireType, Converter={StaticResource WireTypeToStrokeThicknessConverter}}"/>
+
+</UserControl>
+

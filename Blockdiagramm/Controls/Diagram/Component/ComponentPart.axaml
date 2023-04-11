@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:dgc="using:Blockdiagramm.Controls.Diagram.Component"
+             mc:Ignorable="d" 
+             x:Class="Blockdiagramm.Controls.Diagram.Component.ComponentPart"
+			 x:Name="component"
+			 xmlns:test="clr-namespace:Blockdiagramm.ViewModels.Diagram.Component;assembly=Blockdiagramm"
+			 >
+	<UserControl.Styles>
+		<Style Selector="TextBlock.ComponentName">
+			<Setter Property="FontWeight" Value="650" />
+			<Setter Property="FontSize" Value="11" />
+			<Setter Property="TextAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="TextBlock.InstanceName">
+			<Setter Property="FontWeight" Value="400" />
+			<Setter Property="FontSize" Value="13.5" />
+			<Setter Property="TextAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="Border.SelectionIndicator">
+			<Setter Property="BorderBrush" Value="OrangeRed"/>
+			<Setter Property="BorderDashArray" Value="5,5"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="Margin" Value="0"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Style.Animations>
+				<Animation Duration="0:0:.5" RepeatCount="INFINITE">
+					<KeyFrame Cue="0%">
+						<Setter Property="BorderDashOffset" Value="0"/>
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="BorderDashOffset" Value="10"/>
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+	</UserControl.Styles>
+	<Grid MinHeight="80" 
+		  PointerPressed="OnComponentBodyPointerPressed"
+		  PointerReleased="OnComponentBodyPointerReleased"
+		  PointerMoved="OnComponentBodyPointerMoved">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Border BorderBrush="Black" BorderThickness="1" 
+				Margin="10"
+				Background="#FFFCDB"
+				Grid.ColumnSpan="3"/>
+		<StackPanel Grid.Column="0" Margin="5,20" HorizontalAlignment="Left">
+			<ItemsControl Items="{Binding SlavePorts}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<dgc:ComponentPort PortPressed="OnPortPressed"/>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
+		<StackPanel Grid.Column="1" VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					Margin="20,0">
+			<TextBlock Classes="ComponentName" Text="{Binding Name}"/>
+			<Rectangle Height="1" Fill="#7F000000" Margin="2,3"/>
+			<TextBlock Classes="InstanceName" Text="{Binding InstanceName}" DoubleTapped="OnInstanceNameDoubleTapped"/>
+		</StackPanel>
+		<StackPanel Grid.Column="2" Margin="6,20"
+				HorizontalAlignment="Right">
+			<ItemsControl Items="{Binding MasterPorts}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<dgc:ComponentPort PortPressed="OnPortPressed"/>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
+		<Border Classes="SelectionIndicator" Grid.ColumnSpan="3" IsVisible="{Binding IsSelected, ElementName=component}"/>
+	</Grid>
+</UserControl>

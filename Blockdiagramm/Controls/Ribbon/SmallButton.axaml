@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+			 xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+             mc:Ignorable="d" Height="32"
+             x:Class="Blockdiagramm.Controls.Ribbon.SmallButton"
+			 x:Name="button">
+	<UserControl.Styles>
+		<Style Selector="Button.BigButton">
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="CornerRadius" Value="3"/>
+		</Style>
+		<Style Selector="Button.BigButton Panel Border.Background">
+			<Setter Property="Opacity" Value="0"/>
+		</Style>
+		<Style Selector="Button.BigButton:pointerover Panel Border.Background">
+			<Setter Property="Opacity" Value="0.15"/>
+		</Style>
+		<Style Selector="Button.BigButton:pointerover Panel Border.Edge">
+			<Setter Property="BorderThickness" Value="0.25"/>
+		</Style>
+		<Style Selector="Button.BigButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="White"/>
+		</Style>
+	</UserControl.Styles>
+	<Button Height="32" 
+			Classes="BigButton" Margin="0" Padding="0"
+			ToolTip.Placement="Bottom">
+		<Panel>
+			<Border Classes="Background" Background="Black" CornerRadius="3">
+				<Border.Transitions>
+					<Transitions>
+						<DoubleTransition Property="Opacity" Duration="0:0:0.3">
+							<DoubleTransition.Easing>
+								<SplineEasing X1="0.25" Y1="0.8" X2="0.5" Y2="1"/>
+							</DoubleTransition.Easing>
+						</DoubleTransition>
+					</Transitions>
+				</Border.Transitions>
+			</Border>
+			<Border Classes="Edge" BorderBrush="Black" CornerRadius="3"/>
+			<StackPanel Orientation="Horizontal" Margin="5">
+				<i:Icon Value="{Binding Path=Icon, ElementName=button}" FontSize="14" Foreground="Black" Height="50"/>
+				<TextBlock Text="{Binding Path=Title, ElementName=button}"
+							VerticalAlignment="Center"
+							FontSize="12.8"
+						    Padding="5,0,0,0"/>
+			</StackPanel>
+			<ToolTip.Tip>
+				<rb:RibbonTooltip Tooltip="{Binding Tooltip, ElementName=button}"/>
+			</ToolTip.Tip>
+		</Panel>
+	</Button>
+</UserControl>

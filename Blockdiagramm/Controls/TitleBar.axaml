@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             x:Class="Blockdiagramm.Controls.TitleBar">
+	<UserControl.Styles>
+		<Style Selector="TextBlock.Title">
+			<Setter Property="FontSize" Value="21"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="Button.TitleButton">
+			<Setter Property="RelativePanel.AlignVerticalCenterWithPanel" Value="True" />
+			<Setter Property="Margin" Value="12,0,0,0"/>
+			<Setter Property="Width" Value="32"/>
+			<Setter Property="Height" Value="32"/>
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+	</UserControl.Styles>
+	<Grid Margin="12,0,12,0">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+		<StackPanel Orientation="Horizontal" Grid.Column="0">
+			<TextBlock x:Name="tbMainTitle" Text="Block::" Classes="Title"/>
+			<TextBlock x:Name="tbSubTitle" Text="diagramm" Classes="Title" FontWeight="Bold"/>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal" Grid.Column="2">
+			<Button x:Name="btnMinimize" Command="{Binding MinimizeWindowCommand}" Classes="TitleButton">
+				<i:Icon Value="mdi-window-minimize" Foreground="White"/>
+			</Button>
+			<Button x:Name="btnMaximize" Command="{Binding MaximizeWindowCommand}" Classes="TitleButton">
+				<i:Icon Value="mdi-window-maximize" Foreground="White"/>
+			</Button>
+			<Button x:Name="btnClose" Command="{Binding CloseWindowCommand}" Classes="TitleButton">
+				<i:Icon Value="mdi-window-close" Foreground="White"/>
+			</Button>
+		</StackPanel>
+		<Rectangle Fill="Transparent" Grid.Column="1" PointerPressed="OnTitleBarBeginDrag"/>
+	</Grid>
+</UserControl>

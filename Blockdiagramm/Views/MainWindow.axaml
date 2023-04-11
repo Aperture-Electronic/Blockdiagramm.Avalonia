@@ -1,0 +1,74 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Blockdiagramm.ViewModels"
+		xmlns:c="using:Blockdiagramm.Controls"
+		xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+		xmlns:dc="using:Blockdiagramm.Controls.Diagram"
+		xmlns:rbc="using:Blockdiagramm.Views.RibbonCards"
+		xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="768"
+        x:Class="Blockdiagramm.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Blockdiagramm"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		ExtendClientAreaToDecorationsHint="True">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+	<Window.Styles>
+		<Style Selector="Grid.TitleBar">
+			<Setter Property="Background" Value="#1976D2"/>
+		</Style>
+		<Style Selector="Button.LeftMenuButton">
+			<Setter Property="Width" Value="45"/>
+			<Setter Property="Height" Value="45"/>
+			<Setter Property="CornerRadius" Value="0"/>
+			<Setter Property="Focusable" Value="False"/>
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+		<Style Selector="Button.LeftMenuButton i|Icon">
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="20"/>
+		</Style>
+	</Window.Styles>
+	<Grid>
+		<Grid.RowDefinitions>
+            <RowDefinition Height="235"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0" Classes="TitleBar">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<c:TitleBar BeginDrag="BeginDrag"/>
+			<rb:RibbonPanel Grid.Row="1" />
+		</Grid>
+		<Grid Grid.Row="1" ColumnDefinitions="350, 4, *">
+			<StackPanel Orientation="Horizontal">
+				<StackPanel Background="#ECECEC" Width="45">
+					<Button Classes="LeftMenuButton">
+						<i:Icon Value="mdi-file-cabinet"/>
+					</Button>
+					<Button Classes="LeftMenuButton">
+						<i:Icon Value="mdi-cube-outline"/>
+					</Button>
+					<Button Classes="LeftMenuButton">
+						<i:Icon Value="mdi-graph-outline"/>
+					</Button>
+				</StackPanel>
+			</StackPanel>
+			<GridSplitter Grid.Column="1" 
+						  Background="#2B579A" ResizeDirection="Columns"
+						  BorderBrush="Transparent"
+						  BorderThickness="0"
+						  MinWidth="0"
+						  Width="3"/>
+			<dc:DiagramCanvas Grid.Column="2"/>
+		</Grid>
+	</Grid>
+</Window>

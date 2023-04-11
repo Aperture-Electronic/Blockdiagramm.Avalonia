@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:dgclr="clr-namespace:Blockdiagramm.Controls.Diagram"
+			 xmlns:dgcvt="clr-namespace:Blockdiagramm.Controls.Diagram.Converters;assembly=Blockdiagramm"
+			 mc:Ignorable="d"
+			 Height="20"
+             x:Class="Blockdiagramm.Controls.Diagram.Component.ComponentPort">
+	<UserControl.Resources>
+		<dgcvt:PortDirectionToZIndexConverter x:Key="PortDirectionToZIndexConverter"/>
+	</UserControl.Resources>
+	<UserControl.Styles>
+		<Style Selector="Ellipse">
+			<Setter Property="Fill" Value="White"/>
+			<Setter Property="Stroke" Value="Black"/>
+			<Setter Property="StrokeThickness" Value="1"/>
+			<Setter Property="Width" Value="10"/>
+			<Setter Property="Height" Value="10"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="ZIndex" Value="0"/>
+		</Style>
+		<Style Selector="Ellipse.Selected">
+			<Setter Property="Stroke" Value="DarkRed"/>
+			<Setter Property="StrokeThickness" Value="2"/>
+		</Style>
+	</UserControl.Styles>
+	<dgclr:ZIndexStackPanel Orientation="Horizontal" Spacing="6.5">
+		<Ellipse x:Name="stack"
+				 PointerEnter="OnPortStackPointerEnter"
+				 PointerLeave="OnPortStackPointerLeave"
+				 PointerPressed="OnPortStackPointerPressed"/>
+		<TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center"
+				   FontFamily="Iosevka"
+	             ZIndex="{Binding Direction, Converter={StaticResource PortDirectionToZIndexConverter}}"/>
+	</dgclr:ZIndexStackPanel>
+</UserControl>

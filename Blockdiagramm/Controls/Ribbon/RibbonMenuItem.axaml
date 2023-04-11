@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+             mc:Ignorable="d" MinWidth="150" Height="30"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+			 xmlns:cvt="clr-namespace:Blockdiagramm.Controls.Ribbon.Converters;assembly=Blockdiagramm"
+			 x:Class="Blockdiagramm.Controls.Ribbon.RibbonMenuItem"
+			 x:Name="menu">
+	<UserControl.Resources>
+		<cvt:LocationInListToMenuCornerRadiusConverter x:Key="LocationInListToMenuCornerRadiusConverter"/>
+	</UserControl.Resources>
+	<UserControl.Styles>
+		<Style Selector="Button">
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="MinWidth" Value="150"/>
+			<Setter Property="Focusable" Value="False"/>
+		</Style>
+		<Style Selector="Button:pressed">
+			<Setter Property="RenderTransform" Value="scale(1)" />
+		</Style>
+		<Style Selector="Button:pressed  /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#7f9f9f9f" />
+		</Style>
+	</UserControl.Styles>
+	<Button Padding="0" Margin="0" Height="30" 
+			MinWidth="150" ToolTip.Placement="Bottom"
+			Click="OnMenuButtonClick">
+		<Button.CornerRadius>
+			<MultiBinding Converter="{StaticResource LocationInListToMenuCornerRadiusConverter}">
+				<Binding ElementName="menu" Path="IsFirst" />
+				<Binding ElementName="menu" Path="IsLast" />
+			</MultiBinding>
+		</Button.CornerRadius>
+		<Grid Margin="5">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="12"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<i:Icon FontSize="10" Foreground="Black" Value="{Binding Icon, ElementName=menu}" Grid.Column="0"
+					VerticalAlignment="Center"/>
+			<TextBlock Padding="5,0,0,0" Text="{Binding Title, ElementName=menu}" Grid.Column="1"
+					   VerticalAlignment="Center"/>
+			<TextBlock Padding="20,0,0,0" Text="{Binding Shortcut, ElementName=menu}"
+					   FontWeight="650" Foreground="#4F4F4F" Grid.Column="2"
+					   MinWidth="50"
+					   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+		</Grid>
+		<ToolTip.Tip>
+			<rb:RibbonTooltip Tooltip="{Binding Tooltip, ElementName=menu}"/>
+		</ToolTip.Tip>
+	</Button>
+</UserControl>

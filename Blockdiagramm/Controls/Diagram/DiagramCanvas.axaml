@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:dc="using:Blockdiagramm.Controls.Diagram"
+			 xmlns:dg="using:Blockdiagramm.Controls.Diagram.Background"
+			 xmlns:dcm="using:Blockdiagramm.Controls.Diagram.Component"
+			 xmlns:dcw="using:Blockdiagramm.Controls.Diagram.Wire"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Blockdiagramm.Controls.Diagram.DiagramCanvas"
+			 xmlns:test="clr-namespace:Blockdiagramm.ViewModels.Diagram.Component;assembly=Blockdiagramm">
+	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+		<Canvas x:Name="canvas" Background="White" PointerPressed="OnCanvasPointerPressed">
+			<dg:DiagramGrid x:Name="bgGrid" Width="600" Height="300" Canvas.Left="0" Canvas.Top="0" ZIndex="-1"/>
+			<dcm:ComponentPart PortPressed="OnPortPressed">
+				<dcm:ComponentPart.DataContext>
+					<test:ComponentPartModel Name="test_part" InstanceName="test_part_inst_0">
+						<test:ComponentPartModel.Ports>
+							<test:ComponentPortModel Name="clk" Direction="Slave"/>
+							<test:ComponentPortModel Name="rst_n" Direction="Slave"/>
+							<test:ComponentPortModel Name="dout" Direction="Master"/>
+						</test:ComponentPartModel.Ports>
+					</test:ComponentPartModel>
+				</dcm:ComponentPart.DataContext>
+			</dcm:ComponentPart>
+		</Canvas>
+	</ScrollViewer>
+</UserControl>

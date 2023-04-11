@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+			 xmlns:rbm="clr-namespace:Blockdiagramm.Models.Ribbon;assembly=Blockdiagramm"
+             mc:Ignorable="d"
+             x:Class="Blockdiagramm.Views.RibbonCards.ProjectRibbonCard">
+	<rb:RibbonCard Title="Project">
+		<rb:RibbonCard.CardContent>
+			<Grid Grid.Row="0" Margin="5">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<rb:BigButtonMenu Title="Save" Icon="mdi-database-check-outline" Grid.RowSpan="3">
+					<rb:BigButtonMenu.Tooltip>
+						<rbm:RibbonTooltipModel Title="Save Project" Content="Save the current project." />
+					</rb:BigButtonMenu.Tooltip>
+					<rb:BigButtonMenu.MenuItems>
+						<rb:RibbonMenuItem Title="Save As..." Icon="mdi-database-check-outline">
+							<rb:RibbonMenuItem.Tooltip>
+								<rbm:RibbonTooltipModel Title="Save As" Content="Save the current project with a new name." />
+							</rb:RibbonMenuItem.Tooltip>
+						</rb:RibbonMenuItem>
+					</rb:BigButtonMenu.MenuItems>
+				</rb:BigButtonMenu>
+				<rb:SmallButton Title="New" Icon="mdi-database-plus-outline" Grid.Column="1" Margin="0">
+					<rb:SmallButton.Tooltip>
+						<rbm:RibbonTooltipModel Title="New Project" Content="Create a new project." />
+					</rb:SmallButton.Tooltip>
+				</rb:SmallButton>
+				<rb:SmallButton Title="Open" Icon="mdi-database-edit-outline" Grid.Column="1" Grid.Row="1" Margin="0">
+					<rb:SmallButton.Tooltip>
+						<rbm:RibbonTooltipModel Title="Open Project" Content="Open an existing project." />
+					</rb:SmallButton.Tooltip>
+				</rb:SmallButton>
+				<rb:SmallButton Title="Close" Icon="mdi-database-remove-outline" Grid.Column="1" Grid.Row="2" Margin="0">
+					<rb:SmallButton.Tooltip>
+						<rbm:RibbonTooltipModel Title="Close Project" Content="Close the current project." />
+					</rb:SmallButton.Tooltip>
+				</rb:SmallButton>
+				<rb:SmallButton Title="" Icon="mdi-database-cog-outline" Grid.Column="2">
+					<rb:SmallButton.Tooltip>
+						<rbm:RibbonTooltipModel Title="Project Settings" Content="Edit the project settings." />
+					</rb:SmallButton.Tooltip>
+				</rb:SmallButton>
+			</Grid>
+		</rb:RibbonCard.CardContent>
+	</rb:RibbonCard>
+</UserControl>

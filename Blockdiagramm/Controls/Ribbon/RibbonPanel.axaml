@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+		     xmlns:rbc="using:Blockdiagramm.Views.RibbonCards"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="200"
+             x:Class="Blockdiagramm.Controls.Ribbon.RibbonPanel">
+	<UserControl.Styles>
+		<Style Selector="TabItem.RibbonMenu">
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Width" Value="72"/>
+			<Setter Property="Height" Value="36"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="Foreground" Value="Black"/>
+		</Style>
+		<Style Selector="TabItem.RibbonMenu:selected">
+			<Setter Property="Foreground" Value="#2B579A"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
+	</UserControl.Styles>
+	<TabControl Background="White" BorderBrush="#1976d2" BorderThickness="0.2" CornerRadius="5,5,0,0"
+						  Padding="0">
+		<TabItem Header="File" Classes="RibbonMenu">
+			<StackPanel Orientation="Horizontal">
+				<rbc:ProjectRibbonCard/>
+				<Rectangle Width="1" Fill="#1F000000" Margin="0,5"/>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="28"/>
+					</Grid.RowDefinitions>
+					<Rectangle Fill="#1F000000" Height="1" Margin="10,0" Grid.Row="1" VerticalAlignment="Top"/>
+					<TextBlock Text="Source" FontFamily="Roboto" Margin="0,4" FontSize="12" FontWeight="500" TextAlignment="Center" MinWidth="100" Grid.Row="1"/>
+				</Grid>
+			</StackPanel>
+		</TabItem>
+		<TabItem Header="Design" Classes="RibbonMenu">
+		</TabItem>
+		<TabItem Header="Insert" Classes="RibbonMenu">
+		</TabItem>
+		<TabItem Header="View" Classes="RibbonMenu">
+		</TabItem>
+		<TabItem Header="Help" Classes="RibbonMenu">
+		</TabItem>
+	</TabControl>
+</UserControl>

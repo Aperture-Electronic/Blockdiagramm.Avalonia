@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" MinWidth="56" Height="150"
+             x:Class="Blockdiagramm.Controls.Ribbon.RibbonCard"
+			 x:Name="card">
+	<Grid MinWidth="100">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="34"/>
+		</Grid.RowDefinitions>
+		<ContentPresenter Content="{Binding CardContent, ElementName=card}" Grid.Row="0"/>
+		<Rectangle Fill="#1F000000" Height="1" Margin="10,0" Grid.Row="1" VerticalAlignment="Top"/>
+		<TextBlock Text="{Binding Path=Title, ElementName=card}" FontFamily="Roboto" Margin="0,4" FontSize="12" FontWeight="500" TextAlignment="Center" Grid.Row="1"/>
+	</Grid>
+</UserControl>
