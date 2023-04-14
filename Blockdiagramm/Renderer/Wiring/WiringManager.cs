@@ -27,11 +27,14 @@ namespace Blockdiagramm.Renderer.Wiring
         private WireModel wiringWireModel = null!;
 
         private readonly Canvas canvas;
+        private readonly AStarRouter router;
 
-        public bool CheckConflict(VertexWire wire)
+        public bool CheckConflict(VertexWire wire, bool updateObstacles = false)
         {
-            AStarRouter router = new(canvas);
-            router.UpdateObstacles();
+            if (updateObstacles)
+            {
+                router.UpdateObstacles();
+            }
 
             int count = wire.Vertices.Count;
 
@@ -47,13 +50,13 @@ namespace Blockdiagramm.Renderer.Wiring
         }
 
         public void Route(VertexWire wire, Point startPoint, Point endPoint,
-            PortDirection startDirection, PortDirection endDirection)
+            PortDirection startDirection, PortDirection endDirection, bool updateObstacles = false)
         {
-            AStarRouter router = new(canvas);
-            router.Configuration.TurnCost = 50;
-            router.Configuration.CrossCost = 100;
+            if (updateObstacles)
+            {
+                router.UpdateObstacles();
+            }
 
-            router.UpdateObstacles();
             var route = router.GetRoute(startPoint, endPoint, startDirection, endDirection);
 
             wire.Vertices.Clear();
@@ -61,7 +64,17 @@ namespace Blockdiagramm.Renderer.Wiring
             wire.ReduceVertices();
         }
 
-        public WiringManager(Canvas canvas) => this.canvas = canvas;    
+        public void AddWireAsObstacle(VertexWire wire) => router.AddLineObstacle(wire);
+
+        public WiringManager(Canvas canvas, RouterConfiguration? configuration = null)
+        {
+            this.canvas = canvas;
+            router = new AStarRouter(canvas, configuration);
+
+            // Only for debug
+            router.Configuration.TurnCost = 50;
+            router.Configuration.CrossCost = 100;
+        }
 
         public void StartWiring(Point startPoint, PortDirection direction)
         {
@@ -95,7 +108,7 @@ namespace Blockdiagramm.Renderer.Wiring
             Point startPoint = WiringWire.Vertices[0];
 
             // Use router to route
-            Route(WiringWire, startPoint, endPoint, startDirection, direction);
+            Route(WiringWire, startPoint, endPoint, startDirection, direction, updateObstacles: true);
 
             // Set wire to normal
             wiringWireModel.WireStatus = WireStatus.Normal;

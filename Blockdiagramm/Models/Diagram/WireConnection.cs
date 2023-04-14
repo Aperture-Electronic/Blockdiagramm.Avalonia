@@ -36,10 +36,10 @@ namespace Blockdiagramm.Models.Diagram
             Wire = wire;
         }
 
-        public bool TranslateWire(WiringManager manager, Point delta)
+        public bool TranslateWire(WiringManager manager, Point delta, bool updateObstacles = false)
         {
             // Check if we can translation the wire without conflict
-            if (!manager.CheckConflict(Wire))
+            if (!manager.CheckConflict(Wire, updateObstacles))
             {
                 Wire.Translate(delta);
 
@@ -48,14 +48,14 @@ namespace Blockdiagramm.Models.Diagram
             return false;
         }
 
-        public void RerouteWire(WiringManager manager)
+        public void RerouteWire(WiringManager manager, bool updateObstacles = false)
         {
             Point startPosition = From.Part.GetPortPosition(From.Port);
             Point endPosition = To.Part.GetPortPosition(To.Port);
             PortDirection startDirection = From.Part.GetPortDirection(From.Port);
             PortDirection endDirection = To.Part.GetPortDirection(To.Port);
 
-            manager.Route(Wire, startPosition, endPosition, startDirection, endDirection);
+            manager.Route(Wire, startPosition, endPosition, startDirection, endDirection, updateObstacles);
         }
 
         public bool IsRelatedTo(IPart<IPartModel<IPortModel>, IPortModel> part)

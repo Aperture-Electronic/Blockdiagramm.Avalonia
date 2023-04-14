@@ -21,9 +21,7 @@ namespace Blockdiagramm.Renderer.Wiring.Router
 
         private readonly Canvas canvas;
         private List<Rect> rectObstacles = null!;
-        // private List<ILineObstacle> lineObstacles = null!;
-        // private Dictionary<OrthogonalDirection, Dictionary<double, LinkedList<OrthogonalSegment>>> lineObstacles
-        private Dictionary<OrthogonalDirection, SortedList<double, List<OrthogonalSegment>>> lineObstacles
+        private readonly Dictionary<OrthogonalDirection, SortedList<double, SortedList<double, OrthogonalSegment>>> lineObstacles
             = new()
             {
                 { OrthogonalDirection.Vertical, new() },
@@ -40,11 +38,20 @@ namespace Blockdiagramm.Renderer.Wiring.Router
                 .Where(rect => rect.IsObstacleValid)
                 .Select(rect => rect.BoundBox.Deflate(Configuration.BoundBoxDeflate)).ToList();
 
+            // Add the segments
+            lineObstacles[OrthogonalDirection.Horizontal].Clear();
+            lineObstacles[OrthogonalDirection.Vertical].Clear();
+
             // Create the segments
             var lineObstacleItems = children.Where(obj => obj is ILineObstacle).Cast<ILineObstacle>().Where(l => l.IsObstacleValid);
             var segments = lineObstacleItems.SelectMany((l) => l.Segments);
-            var segmentGroup = from segment in segments group segment by segment.Direction into g select g;
+            AddSegments(segments);
+        }
 
+        private void AddSegments(IEnumerable<OrthogonalSegment> segments)
+        {
+            var segmentGroup = from segment in segments group segment by segment.Direction into g select g;
+            
             foreach (var group in segmentGroup)
             {
                 if (group.Key == OrthogonalDirection.NotOrthogonal) continue;
@@ -52,80 +59,36 @@ namespace Blockdiagramm.Renderer.Wiring.Router
 
                 foreach (var segment in group)
                 {
-                    if (targetGroup.TryGetValue(segment.CoordinateA, out List<OrthogonalSegment>? value))
+                    if (targetGroup.TryGetValue(segment.CoordinateA, out SortedList<double, OrthogonalSegment>? value))
                     {
-                        value.Add(segment);
-                        //var node = value.First;
-                        //do
-                        //{
-                        //    if (node == null)
-                        //    {
-                        //        value.AddFirst(segment);
-                        //        break;
-                        //    }
-
-                        //    if (segment.CoordinateBMin < node.Value.CoordinateBMin)
-                        //    {
-                        //        value.AddBefore(node, segment);
-                        //        break;
-                        //    }
-
-                        //    if (node.Next == null)
-                        //    {
-                        //        value.AddLast(segment);
-                        //        break;
-                        //    }
-                        //} while (true);
+                        value.Add(segment.CoordinateBMin, segment);
                     }
                     else
                     {
-                        //LinkedList<OrthogonalSegment> segmentsOfSameCoorA = new(); // { segment };
-                        List<OrthogonalSegment> segmentsOfSameCoorA = new() { segment };
-                        //segmentsOfSameCoorA.AddFirst(segment);
+                        // List<OrthogonalSegment> segmentsOfSameCoorA = new() { segment };
+                        SortedList<double, OrthogonalSegment> segmentsOfSameCoorA = new(1)
+                        {
+                            { segment.CoordinateBMin, segment }
+                        };
                         targetGroup.Add(segment.CoordinateA, segmentsOfSameCoorA);
                     }
-                }
-
-                OrthogonalSegmentComparer comparer = new();
-                foreach (var subset in targetGroup)
-                {
-                    subset.Value.Sort(comparer);
                 }
             }
         }
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public bool CheckConflictParallel(Point point, Point relative)
-        //{
-        //    ParallelLoopResult result = Parallel.ForEach(rectObstacles, delegate (Rect rect, ParallelLoopState state)
-        //    {
-        //        if (rect.Contains(point))
-        //        {
-        //            state.Break();
-        //        }
-        //    });
+        public void AddLineObstacle(ILineObstacle lineObstacle)
+        {
+            var segments = lineObstacle.Segments;
+            AddSegments(segments);
+        }
 
-        //    if (!result.IsCompleted)
-        //    {
-        //        return true;
-        //    }
-
-        //    result = Parallel.ForEach(lineObstacles, delegate (ILineObstacle line, ParallelLoopState state)
-        //    {
-        //        if (line.IsOverSegment(point, relative, Configuration.Threshold))
-        //        {
-        //            state.Break();
-        //        }
-        //    });
-
-        //    if (!result.IsCompleted)
-        //    {
-        //        return true;
-        //    }
-
-        //    return false;
-        //}
-
+        /// <summary>
+        /// Check if the point (and segment by relative point) conflict 
+        /// to any rectangle bound, or any other segment
+        /// </summary>
+        /// <param name="point">Point to check</param>
+        /// <param name="relative">Segment relative point</param>
+        /// <returns>If any point (or segment) conflicted, return true</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool CheckConflict(Point point, Point relative)
         {
@@ -140,22 +103,16 @@ namespace Blockdiagramm.Renderer.Wiring.Router
             OrthogonalSegment segment = new(point, relative);
             var targetSegmentSet = lineObstacles[segment.Direction];
             //if (targetSegmentSet.TryGetValue(segment.CoordinateA, out LinkedList<OrthogonalSegment>? targetSubset))
-            if (targetSegmentSet.TryGetValue(segment.CoordinateA, out List<OrthogonalSegment>? targetSubset))
+            if (targetSegmentSet.TryGetValue(segment.CoordinateA, out SortedList<double, OrthogonalSegment>? targetSubset))
             {
                 foreach (var other in targetSubset)
                 {
-                    if (segment.IsOverOrthogonalSegment(other))
+                    if (segment.IsOverOrthogonalSegment(other.Value))
                     {
                         return true;
                     }
                 }
             }
-
-            //bool hasSegmentConflict = lineObstacles.Any((o) => o.IsOverSegment(point, relative, Configuration.Threshold));
-            //if (hasSegmentConflict)
-            //{
-            //    return true;
-            //}
 
             return false;
         }
@@ -163,11 +120,11 @@ namespace Blockdiagramm.Renderer.Wiring.Router
         private IEnumerable<(Point, double)> GetNeighbor(Point point)
         {
             var neighbor = point.GetOrthogonalNeighbor(Configuration.Step);
-
+            
             foreach (var n in neighbor)
             {
                 // Check if the neighbor point conflict with any rectangle bound
-                // Check if the segment of neighbor point and relative point
+                // Check if the segment of neighbor point and relative point conflict
                 if(CheckConflict(n, point))
                 {
                     continue;
@@ -193,15 +150,14 @@ namespace Blockdiagramm.Renderer.Wiring.Router
                 // For each segments in the span
                 for (int i = lowerIndex; i <= upperIndex; i++)
                 {
-                    var key = targetSegmentSet.Keys[i];
-                    var segmentSubset = targetSegmentSet[key];
-                    int count = segmentSubset.Count;
-                    OrthogonalSegment node = segmentSubset[0];
+                    var segmentSubset = targetSegmentSet.GetValueAtIndex(i);
+                    int subsetCount = segmentSubset.Count;
 
-                    // Find if the segment crossed
-                    for (int j = 0; (j < count) && (node.CoordinateBMin <= segment.CoordinateA); j++)
-                    {
-                        node = segmentSubset[j];
+                    var foundIndex = segmentSubset.Keys.BinarySearch(segment.CoordinateA);
+                    foundIndex = foundIndex < 0 ? ~foundIndex - 1 : foundIndex;
+                    if ((foundIndex >= 0) && (foundIndex < subsetCount))
+                    { 
+                        var node = segmentSubset.GetValueAtIndex(foundIndex);
                         if (node.CoordinateBMax >= segment.CoordinateA)
                         {
                             crossCount++;
@@ -262,7 +218,6 @@ namespace Blockdiagramm.Renderer.Wiring.Router
                         continue;
                     }
 
-                    // if (!openList.Any(e => e.Value.Equals(node.Value)))
                     if (!openList.UnorderedItems.Any(e => e.Element.Equals(node.Value)))
                     {
                         node.SetFather(currentNode);
@@ -276,7 +231,6 @@ namespace Blockdiagramm.Renderer.Wiring.Router
                         node.UpdateH(to, distanceFunction);
 
                         // Enqueue the node by priority equals its cost (F = G + H)
-                        // openList.Enqueue(node, (float)node.F);
                         openList.Enqueue(node, node.F);
                     }
                     else if (node.F > currentNode.G + node.H)

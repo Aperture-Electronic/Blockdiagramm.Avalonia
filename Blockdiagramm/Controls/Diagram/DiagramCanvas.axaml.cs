@@ -94,18 +94,24 @@ namespace Blockdiagramm.Controls.Diagram
                 connsRelatedToPart.Apply(conn => conn.WireModel.WireStatus = WireStatus.Temporary);
 
                 // Re-route these connections
+                bool firstConnect = true;
                 foreach (WireConnection conn in connsRelatedToPart)
                 {
-                    if (!conn.TranslateWire(wiringManager, delta))
+                    if (!conn.TranslateWire(wiringManager, delta, updateObstacles: firstConnect))
                     {
                         // Need re-route
                         part.IsObstacleValid = true;
                         conn.RerouteWire(wiringManager);
                         part.IsObstacleValid = false;
 
+                        // After reroute, we need add new wire to the obstacles list
+                        wiringManager.AddWireAsObstacle(conn.Wire);
+
                         // Set re-routed connection to normal
                         conn.WireModel.WireStatus = WireStatus.Normal;
                     }                
+
+                    firstConnect = false;
                 }
 
                 // Set these connections to normal
