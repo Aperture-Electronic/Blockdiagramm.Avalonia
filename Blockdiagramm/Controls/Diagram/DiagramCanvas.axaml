@@ -10,15 +10,27 @@
              x:Class="Blockdiagramm.Controls.Diagram.DiagramCanvas"
 			 xmlns:test="clr-namespace:Blockdiagramm.ViewModels.Diagram.Component;assembly=Blockdiagramm">
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-		<Canvas x:Name="canvas" Background="White" PointerPressed="OnCanvasPointerPressed">
+		<Canvas x:Name="canvas" Background="White" 
+				PointerPressed="OnCanvasPointerPressed"
+				PointerMoved="OnCanvasPointerMoved">
 			<dg:DiagramGrid x:Name="bgGrid" Width="600" Height="300" Canvas.Left="0" Canvas.Top="0" ZIndex="-1"/>
-			<dcm:ComponentPart PortPressed="OnPortPressed">
+			<dcm:ComponentPart PortPressed="OnPortPressed"
+							   ComponentMoved="OnComponentMoved">
 				<dcm:ComponentPart.DataContext>
 					<test:ComponentPartModel Name="test_part" InstanceName="test_part_inst_0">
 						<test:ComponentPartModel.Ports>
-							<test:ComponentPortModel Name="clk" Direction="Slave"/>
-							<test:ComponentPortModel Name="rst_n" Direction="Slave"/>
-							<test:ComponentPortModel Name="dout" Direction="Master"/>
+							<test:ComponentPortModel Name="aclk" Direction="Slave"/>
+							<test:ComponentPortModel Name="aresetn" Direction="Slave"/>
+							<test:ComponentPortModel Name="s_axis_tvalid" Direction="Slave"/>
+							<test:ComponentPortModel Name="s_axis_tlast" Direction="Slave"/>
+							<test:ComponentPortModel Name="s_axis_tuser [1:0]" Direction="Slave"/>
+							<test:ComponentPortModel Name="s_axis_tdata [15:0]" Direction="Slave"/>
+							<test:ComponentPortModel Name="m_axis_tready" Direction="Slave"/>
+							<test:ComponentPortModel Name="s_axis_tready" Direction="Master"/>
+							<test:ComponentPortModel Name="m_axis_tvalid" Direction="Master"/>
+							<test:ComponentPortModel Name="m_axis_tlast" Direction="Master"/>
+							<test:ComponentPortModel Name="m_axis_tuser [15:0]" Direction="Master"/>
+							<test:ComponentPortModel Name="m_axis_tdata [31:0]" Direction="Master"/>
 						</test:ComponentPartModel.Ports>
 					</test:ComponentPartModel>
 				</dcm:ComponentPart.DataContext>

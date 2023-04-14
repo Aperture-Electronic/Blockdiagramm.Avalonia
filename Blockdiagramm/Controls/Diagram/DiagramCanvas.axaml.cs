@@ -3,11 +3,16 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Remote.Protocol.Input;
 using Blockdiagramm.Controls.Diagram.Component;
 using Blockdiagramm.Controls.Diagram.Wire;
 using Blockdiagramm.Extensions;
+using Blockdiagramm.Models.Diagram;
+using Blockdiagramm.Renderer.Wiring;
 using Blockdiagramm.ViewModels.Diagram.Wire;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Blockdiagramm.Controls.Diagram
 {
@@ -16,9 +21,15 @@ namespace Blockdiagramm.Controls.Diagram
         private double canvasMaxHeight = 0;
         private double canvasMaxWidth = 0;
 
+        private readonly List<WireConnection> connections = new();
+        private PortOnPart connectFrom;
+        private readonly WiringManager wiringManager;
+
         public DiagramCanvas()
         {
             InitializeComponent();
+
+            wiringManager = new(canvas);
         }
 
         public override void Render(DrawingContext context)
@@ -43,16 +54,63 @@ namespace Blockdiagramm.Controls.Diagram
             bgGrid.Height = canvasMaxHeight;
         }
 
-        private bool isWiring = false;
-        private VertexWire wiringWire = null!;
-
         private void OnCanvasPointerPressed(object sender, PointerPressedEventArgs e)
         {
-            if (isWiring && (wiringWire != null))
+            PointerPoint currentPoint = e.GetCurrentPoint(canvas);
+
+            if (currentPoint.Properties.IsLeftButtonPressed)
             {
-                Point pointerPosition = e.GetCurrentPoint(canvas).Position;
-                Point snapPosition = GridSnap.SnapToRectGrid(e.GetCurrentPoint(canvas).Position, 10);
-                wiringWire.Vertices.Add(snapPosition);
+                if (wiringManager.IsWiring)
+                {
+                    wiringManager.CancelWiring();
+                }
+            }
+        }
+
+        private void OnCanvasPointerMoved(object sender, PointerEventArgs e)
+        {
+            if (wiringManager.IsWiring)
+            {
+                // Get the position
+                Point position = e.GetPosition(canvas);
+                wiringManager.GuideWiring(position);
+            }
+        }
+
+        private void OnComponentMoved(object sender, ComponentMovedEventArgs e)
+        {
+            if (sender is ComponentPart part)
+            {
+                // Get the translation delta of the part
+                Point delta = e.NewPosition - e.PreviousPosition;
+
+                // Query all connections for this part
+                var connsRelatedToPart = from conn in connections
+                                      where conn.IsRelatedTo(part)
+                                      select conn;
+
+                // Set these connections to temp
+                part.IsObstacleValid = false;
+                connsRelatedToPart.Apply(conn => conn.WireModel.WireStatus = WireStatus.Temporary);
+
+                // Re-route these connections
+                foreach (WireConnection conn in connsRelatedToPart)
+                {
+                    if (!conn.TranslateWire(wiringManager, delta))
+                    {
+                        // Need re-route
+                        part.IsObstacleValid = true;
+                        conn.RerouteWire(wiringManager);
+                        part.IsObstacleValid = false;
+
+                        // Set re-routed connection to normal
+                        conn.WireModel.WireStatus = WireStatus.Normal;
+                    }                
+                }
+
+                // Set these connections to normal
+                connsRelatedToPart.Apply(conn => conn.WireModel.WireStatus = WireStatus.Normal);
+                part.IsObstacleValid = true;
             }
         }
 
@@ -62,31 +120,21 @@ namespace Blockdiagramm.Controls.Diagram
             {
                 if (part.RenderTransform is TranslateTransform partTransform)
                 {
-                    Point transformPoint = (partTransform.X, partTransform.Y).ToPoint();
-                    Point canvasPoint = (Canvas.GetLeft(part).NaNAsZero(), Canvas.GetTop(part).NaNAsZero()).ToPoint();
-                    Point portPoint = transformPoint + canvasPoint + e.OnComponentPosition;
+                    Point portPoint = part.GetPortPosition(e.Port);
 
-                    if (isWiring && (wiringWire != null))
+                    if (wiringManager.IsWiring)
                     {
-                        isWiring = false;
-                        wiringWire.Vertices.Add(portPoint);
-                        wiringWire.ReduceVertices();
+                        var wire = wiringManager.CompleteWiring(portPoint, e.PortModel.Direction);
 
-                        if (wiringWire.DataContext is WireModel wm)
-                        {
-                            wm.WireStatus = WireStatus.Normal;
-                        }
+                        // Make new connection
+                        PortOnPart connectTo = new(part, e.Port);
+                        WireConnection connection = new(connectFrom, connectTo, wire);
+                        connections.Add(connection);
                     }
                     else
                     {
-                        isWiring = true;
-                        wiringWire = new();
-                        var wm = new WireModel();
-                        wiringWire.DataContext = wm;
-                        wm.WireStatus = WireStatus.Temporary;
-                        wm.WireType = WireType.Single;
-                        wiringWire.Vertices.Add(portPoint);
-                        canvas.Children.Add(wiringWire);
+                        connectFrom = new(part, e.Port);
+                        wiringManager.StartWiring(portPoint, e.PortModel.Direction);
                     }
                 }
             }

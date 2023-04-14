@@ -4,16 +4,20 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Blockdiagramm.Extensions;
+using Blockdiagramm.Renderer.Wiring.Router;
+using Blockdiagramm.ViewModels.Diagram;
 using Blockdiagramm.ViewModels.Diagram.Component;
 using System;
 
 namespace Blockdiagramm.Controls.Diagram.Component
 {
-    public partial class ComponentPart : UserControl
+    public partial class ComponentPart : UserControl, IRectObstacle, IPart<ComponentPartModel, ComponentPortModel>
     {
         private bool isDragging = false;
         private Point mousePosition;
         private Point previousPosition = (0.0, 0.0).ToPoint();
+
+        public ComponentPartModel? Model => DataContext as ComponentPartModel;
 
         public readonly static StyledProperty<bool> IsSelectedProperty = 
             AvaloniaProperty.Register<ComponentPart, bool>(nameof(IsSelected), false);
@@ -23,6 +27,9 @@ namespace Blockdiagramm.Controls.Diagram.Component
 
         public readonly static RoutedEvent<ComponentPortPressedEventArgs> PortPressedEvent =
             RoutedEvent.Register<ComponentPart, ComponentPortPressedEventArgs>(nameof(PortPressed), RoutingStrategies.Bubble);
+
+        public readonly static RoutedEvent<ComponentMovedEventArgs> ComponentMovedEvent =
+            RoutedEvent.Register<ComponentPart, ComponentMovedEventArgs>(nameof(ComponentMoved), RoutingStrategies.Bubble);
 
         public bool IsSelected
         {
@@ -39,7 +46,13 @@ namespace Blockdiagramm.Controls.Diagram.Component
         public event EventHandler<ComponentPortPressedEventArgs> PortPressed
         {
             add => AddHandler(PortPressedEvent, value);
-            remove => AddHandler(PortPressedEvent, value);
+            remove => RemoveHandler(PortPressedEvent, value);
+        }
+
+        public event EventHandler<ComponentMovedEventArgs> ComponentMoved
+        {
+            add => AddHandler(ComponentMovedEvent, value);
+            remove => RemoveHandler(ComponentMovedEvent, value);
         }
 
         public ComponentPart()
@@ -61,7 +74,20 @@ namespace Blockdiagramm.Controls.Diagram.Component
 
             if (RenderTransform is TranslateTransform transform)
             {
-                previousPosition = (transform.X, transform.Y).ToPoint();
+                Point currentPosition = (transform.X, transform.Y).ToPoint();
+
+                if (currentPosition != previousPosition)
+                {
+                    // Create the arguments for event
+                    ComponentMovedEventArgs args = new(previousPosition, currentPosition);
+                    args.RoutedEvent = ComponentMovedEvent;
+
+                    // Update previous positon
+                    previousPosition = currentPosition;
+
+                    // Raise the event
+                    RaiseEvent(args);
+                }
             }
         }
 
@@ -93,12 +119,58 @@ namespace Blockdiagramm.Controls.Diagram.Component
         {
             if (DataContext is ComponentPartModel partModel)
             {
-                Point position = partModel.GetPortPosition(e.PortModel, Bounds);
-                e.OnComponentPosition = position;
                 e.PartModel = partModel;
                 e.RoutedEvent = PortPressedEvent;
                 RaiseEvent(e);
             }      
+        }
+
+        public Point GetPortPosition(IPort<IPortModel> port)
+        {
+            if (Model == null)
+            {
+                throw new Exception("The part has not a valid data context of part model");
+            }
+
+            if (port.Model is not ComponentPortModel model)
+            {
+                throw new Exception("The port has not a valid data context of port model");
+            }
+
+            Point transformPoint = (RenderTransform is TranslateTransform partTransform) ?
+                (partTransform.X, partTransform.Y).ToPoint() : new();
+            Point canvasPoint = (Canvas.GetLeft(this).NaNAsZero(), Canvas.GetTop(this).NaNAsZero()).ToPoint();
+            Point portRelativePosition = Model.GetPortPosition(model, Bounds);
+            
+            return transformPoint + canvasPoint + portRelativePosition; 
+        }
+
+        public PortDirection GetPortDirection(IPort<IPortModel> port)
+        {
+            if (port.Model is not ComponentPortModel model)
+            {
+                throw new Exception("The port has not a valid data context of port model");
+            }
+
+            return model.Direction;
+        }
+
+        public bool IsObstacleValid { get; set; } = true;
+
+        /// <summary>
+        /// The bound box of component for hit test
+        /// </summary>
+        public Rect BoundBox
+        {
+            get
+            {
+                if (RenderTransform is TranslateTransform transfrom)
+                {
+                    return new Rect(transfrom.X, transfrom.Y, Bounds.Width, Bounds.Height);
+                }
+
+                return new Rect(0, 0, Bounds.Width, Bounds.Height);
+            }
         }
     }
 }

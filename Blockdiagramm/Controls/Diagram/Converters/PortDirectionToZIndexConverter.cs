@@ -13,9 +13,9 @@ namespace Blockdiagramm.Controls.Diagram.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is ComponentPortDirection direction)
+            if (value is PortDirection direction)
             {
-                return direction == ComponentPortDirection.Master ? -1 : 1;
+                return direction == PortDirection.Master ? -1 : 1;
             }
 
             return -1;
@@ -23,9 +23,9 @@ namespace Blockdiagramm.Controls.Diagram.Converters
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if ((value is int zIndex) && (targetType == typeof(ComponentPortDirection)))
+            if ((value is int zIndex) && (targetType == typeof(PortDirection)))
             {
-                return zIndex >= 0 ? ComponentPortDirection.Master : ComponentPortDirection.Slave;
+                return zIndex >= 0 ? PortDirection.Master : PortDirection.Slave;
             }
 
             return null;

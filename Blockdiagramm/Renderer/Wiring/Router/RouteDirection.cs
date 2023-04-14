@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blockdiagramm.ViewModels.Diagram.Component
+namespace Blockdiagramm.Renderer.Wiring.Router
 {
-    public enum ComponentPortDirection
+    public enum RouteDirection
     {
-        Master,
-        Slave
+        North,
+        West,
+        East,
+        South
     }
 }

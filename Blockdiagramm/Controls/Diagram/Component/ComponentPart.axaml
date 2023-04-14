@@ -50,11 +50,11 @@
 				Margin="10"
 				Background="#FFFCDB"
 				Grid.ColumnSpan="3"/>
-		<StackPanel Grid.Column="0" Margin="5,20" HorizontalAlignment="Left">
+		<StackPanel Grid.Column="0" Margin="5,20">
 			<ItemsControl Items="{Binding SlavePorts}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<dgc:ComponentPort PortPressed="OnPortPressed"/>
+						<dgc:ComponentPort  HorizontalAlignment="Left" PortPressed="OnPortPressed"/>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
@@ -66,12 +66,12 @@
 			<Rectangle Height="1" Fill="#7F000000" Margin="2,3"/>
 			<TextBlock Classes="InstanceName" Text="{Binding InstanceName}" DoubleTapped="OnInstanceNameDoubleTapped"/>
 		</StackPanel>
-		<StackPanel Grid.Column="2" Margin="6,20"
-				HorizontalAlignment="Right">
+		<StackPanel Grid.Column="2" Margin="6,20">
 			<ItemsControl Items="{Binding MasterPorts}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<dgc:ComponentPort PortPressed="OnPortPressed"/>
+						<dgc:ComponentPort PortPressed="OnPortPressed"
+										    HorizontalAlignment="Right"/>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>

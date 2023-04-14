@@ -21,13 +21,9 @@ namespace Blockdiagramm.Controls.Diagram
                 (e) => e.PointsGuid,
                 (e, v) => e.PointsGuid = v);
 
-        private AvaloniaList<Point> points = new();
         private Guid pointsGuid = Guid.Empty;
 
-        public AvaloniaList<Point> Points
-        {
-            get => points;
-        }
+        public AvaloniaList<Point> Points { get; } = new();
 
         public Guid PointsGuid
         {
@@ -43,7 +39,15 @@ namespace Blockdiagramm.Controls.Diagram
 
         public DynamicPolyline()
         {
-            points.CollectionChanged += OnPointsChanged;
+            Points.CollectionChanged += OnPointsChanged;
+        }
+
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            // Fix the bug when stroke thickness > 1, the width of lines on edge is cutted
+            // make a confusing visual
+            Size baseSize = base.MeasureOverride(availableSize);
+            return baseSize.Inflate(new Thickness(StrokeThickness));
         }
 
         private void OnPointsChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

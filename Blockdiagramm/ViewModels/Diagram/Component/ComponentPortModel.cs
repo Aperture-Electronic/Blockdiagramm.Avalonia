@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Blockdiagramm.ViewModels.Diagram.Component
 {
-    public class ComponentPortModel : INotifyPropertyChanged
+    public class ComponentPortModel : INotifyPropertyChanged, IPortModel
     {
         #region Internal fields
-        private ComponentPortDirection direction = ComponentPortDirection.Master;
+        private PortDirection direction = PortDirection.Master;
         private string name = "";
         #endregion
 
@@ -22,7 +22,7 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
         #endregion
 
         #region Notify properties
-        public ComponentPortDirection Direction
+        public PortDirection Direction
         {
             get => direction;
             set
@@ -60,7 +60,7 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
             =>PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         #endregion
 
-        public ComponentPortModel(ComponentPortDirection direction, string name)
+        public ComponentPortModel(PortDirection direction, string name)
         {
             this.direction = direction;
             this.name = name;

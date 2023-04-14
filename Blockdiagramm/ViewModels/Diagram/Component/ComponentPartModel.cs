@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Blockdiagramm.ViewModels.Diagram.Component
 {
-    public class ComponentPartModel : INotifyPropertyChanged
+    public class ComponentPartModel : INotifyPropertyChanged, IPartModel<ComponentPortModel>
     {
         #region Internal fields
         private string name = "";
@@ -28,8 +28,8 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
 
         private static double PortVerticalMargin => 20 + ComponentMargin;
 
-        public IEnumerable<ComponentPortModel> SlavePorts => ports.Where(p => p.Direction == ComponentPortDirection.Slave);
-        public IEnumerable<ComponentPortModel> MasterPorts => ports.Where(p => p.Direction == ComponentPortDirection.Master);
+        public IEnumerable<ComponentPortModel> SlavePorts => ports.Where(p => p.Direction == PortDirection.Slave);
+        public IEnumerable<ComponentPortModel> MasterPorts => ports.Where(p => p.Direction == PortDirection.Master);
         #endregion
 
         #region Notify properties
@@ -64,7 +64,7 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
                     return;
                 }
 
-                IEnumerable<ComponentPortModel> slaveQuery = ports.OfType<ComponentPortModel>().Where(p => p.Direction == ComponentPortDirection.Slave);
+                IEnumerable<ComponentPortModel> slaveQuery = ports.OfType<ComponentPortModel>().Where(p => p.Direction == PortDirection.Slave);
                 int slaveCount = slaveQuery.Count();
 
                 if (slaveCount == 0)
@@ -111,19 +111,19 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
             }
         }
     
-        public Point GetPortPosition(ComponentPortModel portModel, Rect partBound)
+        public Point GetPortPosition(IPortModel portModel, Rect partBound)
         {
-            if (!ports.Contains(portModel))
+            if ((portModel is not ComponentPortModel model) || !ports.Contains(model))
             {
                 throw new Exception("No such port in the part");
             }
 
-            int index = portModel.Direction == ComponentPortDirection.Master ? 
+            int index = model.Direction == PortDirection.Master ? 
                 MasterPorts.IndexOf(portModel) : 
                 SlavePorts.IndexOf(portModel);
 
-            double y = PortVerticalMargin + index * ComponentPortModel.PortHeight;
-            double x = portModel.Direction == ComponentPortDirection.Master ?
+            double y = PortVerticalMargin + (index * ComponentPortModel.PortHeight);
+            double x = model.Direction == PortDirection.Master ?
                        partBound.Width - PortHorizontalMargin - 1 :
                        PortHorizontalMargin;
 

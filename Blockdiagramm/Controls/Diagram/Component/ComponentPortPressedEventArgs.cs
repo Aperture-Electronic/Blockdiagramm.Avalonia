@@ -14,22 +14,33 @@ namespace Blockdiagramm.Controls.Diagram.Component
         /// <summary>
         /// The port model of the port that is pressed
         /// </summary>
-        public ComponentPortModel PortModel { get; }
+        public ComponentPortModel PortModel
+        {
+            get
+            {
+                if (Port.DataContext is ComponentPortModel model)
+                {
+                    return model;
+                }
+
+                throw new Exception("The port has not a data context of port model");
+            }
+        }
 
         /// <summary>
-        /// The position of the port on the component
+        /// The port that is pressed
         /// </summary>
-        public Point OnComponentPosition { get; set; }
+        public ComponentPort Port { get; }
 
         /// <summary>
         /// The part model of the component that contains the port
         /// </summary>
         public ComponentPartModel PartModel { get; set; } = null!;
 
-        public ComponentPortPressedEventArgs(RoutedEvent e, ComponentPortModel portModel)
+        public ComponentPortPressedEventArgs(RoutedEvent e, ComponentPort port)
         {
             RoutedEvent = e;
-            PortModel = portModel;
+            Port = port;
         }
     }
 }
