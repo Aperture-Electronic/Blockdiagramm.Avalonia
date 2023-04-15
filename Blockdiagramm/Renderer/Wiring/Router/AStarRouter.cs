@@ -117,6 +117,46 @@ namespace Blockdiagramm.Renderer.Wiring.Router
             return false;
         }
 
+        private int CheckCrossPoint(Point point, Point relative)
+        {
+            // Count the cross point to any existing segment
+            // Each cross point will take an additional cost
+            OrthogonalSegment segment = new(point, relative);
+            var targetSegmentSet = lineObstacles[segment.Direction == OrthogonalDirection.Horizontal ?
+                OrthogonalDirection.Vertical : OrthogonalDirection.Horizontal];
+            int crossCount = 0;
+            int setCount = targetSegmentSet.Count;
+
+            // Get the span
+            // The lower index is the index of smallest number greater than Bmin
+            // The upper index is the index of largest number less than Bmax
+            int lowerIndex = targetSegmentSet.Keys.BinarySearch(segment.CoordinateBMin);
+            int upperIndex = targetSegmentSet.Keys.BinarySearch(segment.CoordinateBMax);
+            lowerIndex = lowerIndex < 0 ? (~lowerIndex) : lowerIndex;
+            upperIndex = upperIndex < 0 ? (~upperIndex) - 1 : upperIndex;
+            upperIndex = upperIndex >= setCount ? setCount - 1 : upperIndex;
+
+            // For each segments in the span
+            for (int i = lowerIndex; i <= upperIndex; i++)
+            {
+                var segmentSubset = targetSegmentSet.GetValueAtIndex(i);
+                int subsetCount = segmentSubset.Count;
+
+                var foundIndex = segmentSubset.Keys.BinarySearch(segment.CoordinateA);
+                foundIndex = foundIndex < 0 ? ~foundIndex - 1 : foundIndex;
+                if ((foundIndex >= 0) && (foundIndex < subsetCount))
+                {
+                    var node = segmentSubset.GetValueAtIndex(foundIndex);
+                    if (node.CoordinateBMax >= segment.CoordinateA)
+                    {
+                        crossCount++;
+                    }
+                }
+            }
+
+            return crossCount;
+        }
+
         private IEnumerable<(Point, double)> GetNeighbor(Point point)
         {
             var neighbor = point.GetOrthogonalNeighbor(Configuration.Step);
@@ -130,42 +170,8 @@ namespace Blockdiagramm.Renderer.Wiring.Router
                     continue;
                 }
 
-                // Count the cross point to any existing segment
-                // Each cross point will take an additional cost
-                OrthogonalSegment segment = new(n, point);
-                var targetSegmentSet = lineObstacles[segment.Direction == OrthogonalDirection.Horizontal ? 
-                    OrthogonalDirection.Vertical : OrthogonalDirection.Horizontal];
-                int crossCount = 0;
-                int setCount = targetSegmentSet.Count;
-
-                // Get the span
-                // The lower index is the index of smallest number greater than Bmin
-                // The upper index is the index of largest number less than Bmax
-                int lowerIndex = targetSegmentSet.Keys.BinarySearch(segment.CoordinateBMin);
-                int upperIndex = targetSegmentSet.Keys.BinarySearch(segment.CoordinateBMax);
-                lowerIndex = lowerIndex < 0 ? (~lowerIndex) : lowerIndex;
-                upperIndex = upperIndex < 0 ? (~upperIndex) - 1 : upperIndex;
-                upperIndex = upperIndex >= setCount ? setCount - 1 : upperIndex;
-
-                // For each segments in the span
-                for (int i = lowerIndex; i <= upperIndex; i++)
-                {
-                    var segmentSubset = targetSegmentSet.GetValueAtIndex(i);
-                    int subsetCount = segmentSubset.Count;
-
-                    var foundIndex = segmentSubset.Keys.BinarySearch(segment.CoordinateA);
-                    foundIndex = foundIndex < 0 ? ~foundIndex - 1 : foundIndex;
-                    if ((foundIndex >= 0) && (foundIndex < subsetCount))
-                    { 
-                        var node = segmentSubset.GetValueAtIndex(foundIndex);
-                        if (node.CoordinateBMax >= segment.CoordinateA)
-                        {
-                            crossCount++;
-                        }
-                    }
-                }
-
-                double additionalCost = crossCount * Configuration.CrossCost;
+                int crossPointCount = CheckCrossPoint(n, point);
+                double additionalCost = crossPointCount * Configuration.CrossCost;
 
                 yield return (n, additionalCost);
             }
