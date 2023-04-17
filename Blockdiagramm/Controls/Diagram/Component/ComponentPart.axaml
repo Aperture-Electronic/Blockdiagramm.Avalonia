@@ -3,11 +3,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:dgc="using:Blockdiagramm.Controls.Diagram.Component"
+			 xmlns:dgcvt="clr-namespace:Blockdiagramm.Controls.Diagram.Converters;assembly=Blockdiagramm"
              mc:Ignorable="d" 
              x:Class="Blockdiagramm.Controls.Diagram.Component.ComponentPart"
 			 x:Name="component"
 			 xmlns:test="clr-namespace:Blockdiagramm.ViewModels.Diagram.Component;assembly=Blockdiagramm"
 			 >
+	<UserControl.Resources>
+		<dgcvt:XYMarginConverter x:Key="XYMarginConverter"/>
+	</UserControl.Resources>
 	<UserControl.Styles>
 		<Style Selector="TextBlock.ComponentName">
 			<Setter Property="FontWeight" Value="650" />
@@ -47,10 +51,16 @@
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 		<Border BorderBrush="Black" BorderThickness="1" 
-				Margin="10"
+				Margin="{Binding ComponentMargin, Converter={StaticResource XYMarginConverter}}"
 				Background="#FFFCDB"
 				Grid.ColumnSpan="3"/>
-		<StackPanel Grid.Column="0" Margin="5,20">
+		<StackPanel Grid.Column="0">
+			<StackPanel.Margin>
+				<MultiBinding Converter="{StaticResource XYMarginConverter}">
+					<Binding Path="PortHorizontalMargin"/>
+					<Binding Path="PortVerticalMargin"/>
+				</MultiBinding>
+			</StackPanel.Margin>
 			<ItemsControl Items="{Binding SlavePorts}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
@@ -60,13 +70,25 @@
 			</ItemsControl>
 		</StackPanel>
 		<StackPanel Grid.Column="1" VerticalAlignment="Center"
-					HorizontalAlignment="Center"
-					Margin="20,0">
+					HorizontalAlignment="Center">
+			<StackPanel.Margin>
+				<MultiBinding Converter="{StaticResource XYMarginConverter}">
+					<Binding Path="LabelHorizontalMargin"/>
+					<Binding Path="LabelVerticalMargin"/>
+				</MultiBinding>
+			</StackPanel.Margin>
 			<TextBlock Classes="ComponentName" Text="{Binding Name}"/>
 			<Rectangle Height="1" Fill="#7F000000" Margin="2,3"/>
 			<TextBlock Classes="InstanceName" Text="{Binding InstanceName}" DoubleTapped="OnInstanceNameDoubleTapped"/>
 		</StackPanel>
-		<StackPanel Grid.Column="2" Margin="6,20">
+		<StackPanel Grid.Column="2">
+			<StackPanel.Margin>
+				<MultiBinding Converter="{StaticResource XYMarginConverter}"
+							  ConverterParameter="1,0">
+					<Binding Path="PortHorizontalMargin"/>
+					<Binding Path="PortVerticalMargin"/>
+				</MultiBinding>
+			</StackPanel.Margin>
 			<ItemsControl Items="{Binding MasterPorts}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>

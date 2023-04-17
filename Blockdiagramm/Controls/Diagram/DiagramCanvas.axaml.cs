@@ -28,7 +28,7 @@ namespace Blockdiagramm.Controls.Diagram
         public DiagramCanvas()
         {
             InitializeComponent();
-
+            
             wiringManager = new(canvas);
         }
 

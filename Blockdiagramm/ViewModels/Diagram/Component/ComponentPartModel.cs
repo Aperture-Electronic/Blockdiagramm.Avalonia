@@ -22,11 +22,15 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
         #endregion
 
         #region Readonly properties
+        private static double LabelHorizontalMargin => 20;
+
         private static double PortHorizontalMargin => 5;
 
         private static double ComponentMargin => 10;
 
-        private static double PortVerticalMargin => 20 + ComponentMargin;
+        private static double PortVerticalMargin => 20;
+
+        private static double LabelVerticalMargin => 0;
 
         public IEnumerable<ComponentPortModel> SlavePorts => ports.Where(p => p.Direction == PortDirection.Slave);
         public IEnumerable<ComponentPortModel> MasterPorts => ports.Where(p => p.Direction == PortDirection.Master);
@@ -122,7 +126,7 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
                 MasterPorts.IndexOf(portModel) : 
                 SlavePorts.IndexOf(portModel);
 
-            double y = PortVerticalMargin + (index * ComponentPortModel.PortHeight);
+            double y = ComponentMargin + PortVerticalMargin + (index * ComponentPortModel.PortHeight);
             double x = model.Direction == PortDirection.Master ?
                        partBound.Width - PortHorizontalMargin - 1 :
                        PortHorizontalMargin;

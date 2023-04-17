@@ -30,10 +30,7 @@ namespace Blockdiagramm.Test.Renderer.Wiring.Router
                 Assert.IsNotNull(lineObstaclesField);
 
                 Canvas canvas = new();
-                RouterConfiguration configuration = new()
-                {
-
-                };
+                RouterConfiguration configuration = new();
 
                 AStarRouter router = new(canvas, configuration);
 

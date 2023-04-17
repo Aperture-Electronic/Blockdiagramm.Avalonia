@@ -11,6 +11,7 @@
     <Folder Include="Assets\Fonts\" />
     <Folder Include="Assets\Icons\" />
     <AvaloniaResource Include="Assets\**" />
+    <EmbeddedResource Remove="Assets\Localization.resx" />
     <None Remove=".gitignore" />
   </ItemGroup>
 
@@ -32,5 +33,17 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Controls\Ribbon\BigButton.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Localization\Resources\en-us.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>en-us.resx</DependentUpon>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Localization\Resources\en-us.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+    </AvaloniaResource>
   </ItemGroup>
 </Project>
