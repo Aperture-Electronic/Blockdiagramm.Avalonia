@@ -35,4 +35,22 @@
   <ItemGroup>
     <UpToDateCheckInput Remove="Controls\Ribbon\BigButton.axaml" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HDLAbstractSyntaxTree">
+      <HintPath>..\HDLParserSharp\solution\HDLParserSharp\HDLElaborateRoslyn\bin\Release\net7\HDLAbstractSyntaxTree.dll</HintPath>
+    </Reference>
+    <Reference Include="HDLElaborateRoslyn">
+      <HintPath>..\HDLParserSharp\solution\HDLParserSharp\HDLElaborateRoslyn\bin\Release\net7\HDLElaborateRoslyn.dll</HintPath>
+    </Reference>
+    <Reference Include="HDLParserBase">
+      <HintPath>..\HDLParserSharp\solution\HDLParserSharp\HDLElaborateRoslyn\bin\Release\net7\HDLParserBase.dll</HintPath>
+    </Reference>
+    <Reference Include="HDLParserSharp">
+      <HintPath>..\HDLParserSharp\solution\HDLParserSharp\HDLElaborateRoslyn\bin\Release\net7\HDLParserSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SystemVerilog2017Interpreter">
+      <HintPath>..\HDLParserSharp\solution\HDLParserSharp\HDLElaborateRoslyn\bin\Release\net7\SystemVerilog2017Interpreter.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
