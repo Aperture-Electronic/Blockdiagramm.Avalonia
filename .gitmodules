@@ -1,0 +1,3 @@
+[submodule "HDLParserSharp"]
+	path = HDLParserSharp
+	url = https://github.com/Aperture-Electronic/HDLParserSharp.git
