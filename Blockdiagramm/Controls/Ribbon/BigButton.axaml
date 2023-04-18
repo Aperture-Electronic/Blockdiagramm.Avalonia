@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
 			 xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
-             mc:Ignorable="d" Width="56" Height="100"
+             mc:Ignorable="d" Height="100"
              x:Class="Blockdiagramm.Controls.Ribbon.BigButton"
 			 x:Name="button">
 	<UserControl.Styles>
@@ -24,8 +24,14 @@
 		<Style Selector="Button.BigButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
 			<Setter Property="Background" Value="White"/>
 		</Style>
+		<Style Selector="Button.BigButton:disabled Panel Grid i|Icon">
+			<Setter Property="Foreground" Value="Gray"/>
+		</Style>
+		<Style Selector="Button.BigButton:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="White"/>
+		</Style>
 	</UserControl.Styles>
-	<Button Width="56" Height="100" 
+	<Button MinWidth="56" Height="100" 
 			Classes="BigButton" Margin="0" Padding="0"
 			ToolTip.Placement="Bottom" Command="{Binding Command, ElementName=button}">
 		<Panel>
@@ -46,16 +52,17 @@
 					<RowDefinition Height="50"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
-				<i:Icon Value="{Binding Path=Icon, ElementName=button}" FontSize="32" Foreground="Black" HorizontalAlignment="Center"/>
-				<TextBlock Text="{Binding Path=Title, ElementName=button}"
+				<i:Icon Value="{Binding Path=Icon, ElementName=button}" FontSize="32" HorizontalAlignment="Center"/>
+				<TextBlock Text="{Binding Path=Title, ElementName=button}" TextAlignment="Center"
 							HorizontalAlignment="Center"
-						    VerticalAlignment="Center"
+							VerticalAlignment="Center"
 							FontSize="12.8"
-						    Margin="0"
-						    Grid.Row="1"/>
+							Margin="0"
+							Grid.Row="1"/>
 			</Grid>
 			<ToolTip.Tip>
-				<rb:RibbonTooltip Tooltip="{Binding Tooltip, ElementName=button}"/>
+				<rb:RibbonTooltip TooltipTitle="{Binding TooltipTitle, ElementName=button}" 
+								  TooltipContent="{Binding TooltipContent, ElementName=button}"/>
 			</ToolTip.Tip>
 		</Panel>
 	</Button>

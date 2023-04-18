@@ -50,7 +50,7 @@
 					   VerticalAlignment="Center" HorizontalAlignment="Center"/>
 		</Grid>
 		<ToolTip.Tip>
-			<rb:RibbonTooltip Tooltip="{Binding Tooltip, ElementName=menu}"/>
+			<rb:RibbonTooltip TooltipTitle="{Binding TooltipTitle, ElementName=menu}" TooltipContent="{Binding TooltipContent, ElementName=menu}"/>
 		</ToolTip.Tip>
 	</Button>
 </UserControl>

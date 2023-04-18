@@ -53,7 +53,7 @@
 					</StackPanel>
 
 					<ToolTip.Tip>
-						<rb:RibbonTooltip Tooltip="{Binding Tooltip, ElementName=button}"/>
+						<rb:RibbonTooltip TooltipTitle="{Binding TooltipTitle, ElementName=button}" TooltipContent="{Binding TooltipContent, ElementName=button}"/>
 					</ToolTip.Tip>
 				</Panel>
 			</Button>

@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+			 xmlns:rbm="clr-namespace:Blockdiagramm.Models.Ribbon;assembly=Blockdiagramm"
+			 mc:Ignorable="d"
+             x:Class="Blockdiagramm.Views.RibbonCards.SourceRibbonCard">
+	<rb:RibbonCard Title="Source">
+		<rb:RibbonCard.CardContent>
+			<Grid Grid.Row="0" Margin="5">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<rb:BigButton Title="Add&#x000D;&#x000A;File"
+							  Grid.RowSpan="3"
+							  Grid.Column="0"
+							  Icon="mdi-file-import-outline"
+							  Command="{Binding WindowModel.AddSourceFileCommand}"
+							  TooltipTitle="Add File"
+							  TooltipContent="Add a HDL source file to the project."/>
+				<rb:BigButton Title="Add&#x000D;&#x000A;Directory"
+							  Grid.RowSpan="3"
+							  Grid.Column="1"
+							  Icon="mdi-folder-plus-outline"
+							  Command="{Binding WindowModel.AddSourceDirectoryCommand}"
+							  TooltipTitle="Add Directory"
+							  TooltipContent="Add a directory of HDL source files to the project."/>
+				<rb:SmallButton Title="" Icon="mdi-file-replace-outline"
+								Grid.Column="2"
+								Grid.Row="0"
+								TooltipTitle="Replace Source"
+								TooltipContent="Replace the source file of a HDL entity.">
+				</rb:SmallButton>
+				<rb:SmallButton Title="" Icon="mdi-file-alert-outline"
+								Grid.Column="2"
+								Grid.Row="1"
+								TooltipTitle="Remove Invalid Source"
+								TooltipContent="Remove the source file of a HDL entity that is no longer valid.">
+				</rb:SmallButton>
+				<rb:SmallButton Title="" Icon="mdi-file-remove-outline"
+								Grid.Column="2"
+								Grid.Row="2"
+								TooltipTitle="Remove Source"
+								TooltipContent="Remove the source file of a HDL entity.">
+				</rb:SmallButton>
+			</Grid>
+		</rb:RibbonCard.CardContent>
+	</rb:RibbonCard>
+</UserControl>

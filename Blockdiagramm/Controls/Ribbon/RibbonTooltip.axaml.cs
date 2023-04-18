@@ -1,23 +1,28 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
-using Blockdiagramm.Models.Ribbon;
+using JetBrains.Annotations;
 
 namespace Blockdiagramm.Controls.Ribbon
 {
     public partial class RibbonTooltip : UserControl
     {
-        public static readonly StyledProperty<RibbonTooltipModel> TooltipProperty =
-            AvaloniaProperty.Register<RibbonCard, RibbonTooltipModel>(nameof(Tooltip),
-#if DEBUG
-                defaultValue: new("Tooltip title", "Tooltip content"),
-#endif
-                defaultBindingMode: BindingMode.OneWay);
+        public static readonly StyledProperty<string> TooltipTitleProperty =
+            AvaloniaProperty.Register<RibbonCard, string>(nameof(TooltipTitle));
 
-        public RibbonTooltipModel Tooltip
+        public static readonly StyledProperty<object> TooltipContentProperty =
+            AvaloniaProperty.Register<RibbonCard, object>(nameof(TooltipContent));
+
+        public string TooltipTitle
         {
-            get => GetValue(TooltipProperty);
-            set => SetValue(TooltipProperty, value);
+            get => GetValue(TooltipTitleProperty);
+            set => SetValue(TooltipTitleProperty, value);
+        }
+
+        public object TooltipContent
+        {
+            get => GetValue(TooltipContentProperty);
+            set => SetValue(TooltipContentProperty, value);
         }
 
         public RibbonTooltip()

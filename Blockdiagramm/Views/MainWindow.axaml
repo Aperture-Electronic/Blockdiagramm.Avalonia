@@ -45,8 +45,8 @@
 				<RowDefinition Height="50"/>
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
-			<c:TitleBar BeginDrag="BeginDrag"/>
-			<rb:RibbonPanel Grid.Row="1" />
+			<c:TitleBar BeginDrag="BeginDrag" DataContext="{Binding TitleBarModel}"/>
+			<rb:RibbonPanel Grid.Row="1" DataContext="{Binding RibbonPanelViewModel}"/>
 		</Grid>
 		<Grid Grid.Row="1" ColumnDefinitions="350, 4, *">
 			<StackPanel Orientation="Horizontal">

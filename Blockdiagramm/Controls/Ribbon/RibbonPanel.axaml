@@ -26,14 +26,7 @@
 			<StackPanel Orientation="Horizontal">
 				<rbc:ProjectRibbonCard/>
 				<Rectangle Width="1" Fill="#1F000000" Margin="0,5"/>
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*"/>
-						<RowDefinition Height="28"/>
-					</Grid.RowDefinitions>
-					<Rectangle Fill="#1F000000" Height="1" Margin="10,0" Grid.Row="1" VerticalAlignment="Top"/>
-					<TextBlock Text="Source" FontFamily="Roboto" Margin="0,4" FontSize="12" FontWeight="500" TextAlignment="Center" MinWidth="100" Grid.Row="1"/>
-				</Grid>
+				<rbc:SourceRibbonCard IsEnabled="{Binding Project.IsValid}"/>
 			</StackPanel>
 		</TabItem>
 		<TabItem Header="Design" Classes="RibbonMenu">

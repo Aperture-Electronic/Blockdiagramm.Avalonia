@@ -8,25 +8,31 @@
              x:Class="Blockdiagramm.Controls.Ribbon.SmallButton"
 			 x:Name="button">
 	<UserControl.Styles>
-		<Style Selector="Button.BigButton">
+		<Style Selector="Button.SmallButton">
 			<Setter Property="Background" Value="White"/>
 			<Setter Property="CornerRadius" Value="3"/>
 		</Style>
-		<Style Selector="Button.BigButton Panel Border.Background">
+		<Style Selector="Button.SmallButton Panel Border.Background">
 			<Setter Property="Opacity" Value="0"/>
 		</Style>
-		<Style Selector="Button.BigButton:pointerover Panel Border.Background">
+		<Style Selector="Button.SmallButton:pointerover Panel Border.Background">
 			<Setter Property="Opacity" Value="0.15"/>
 		</Style>
-		<Style Selector="Button.BigButton:pointerover Panel Border.Edge">
+		<Style Selector="Button.SmallButton:pointerover Panel Border.Edge">
 			<Setter Property="BorderThickness" Value="0.25"/>
 		</Style>
-		<Style Selector="Button.BigButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Style Selector="Button.SmallButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="White"/>
+		</Style>
+		<Style Selector="Button.SmallButton:disabled Panel StackPanel i|Icon">
+			<Setter Property="Foreground" Value="Gray"/>
+		</Style>
+		<Style Selector="Button.SmallButton:disabled /template/ ContentPresenter#PART_ContentPresenter">
 			<Setter Property="Background" Value="White"/>
 		</Style>
 	</UserControl.Styles>
 	<Button Height="32" 
-			Classes="BigButton" Margin="0" Padding="0"
+			Classes="SmallButton" Margin="0" Padding="0"
 			ToolTip.Placement="Bottom"
 			Command="{Binding Command, ElementName=button}">
 		<Panel>
@@ -43,14 +49,14 @@
 			</Border>
 			<Border Classes="Edge" BorderBrush="Black" CornerRadius="3"/>
 			<StackPanel Orientation="Horizontal" Margin="5">
-				<i:Icon Value="{Binding Path=Icon, ElementName=button}" FontSize="14" Foreground="Black" Height="50"/>
+				<i:Icon Value="{Binding Path=Icon, ElementName=button}" FontSize="14" Height="50"/>
 				<TextBlock Text="{Binding Path=Title, ElementName=button}"
 							VerticalAlignment="Center"
 							FontSize="12.8"
 						    Padding="5,0,0,0"/>
 			</StackPanel>
 			<ToolTip.Tip>
-				<rb:RibbonTooltip Tooltip="{Binding Tooltip, ElementName=button}"/>
+				<rb:RibbonTooltip TooltipTitle="{Binding TooltipTitle, ElementName=button}" TooltipContent="{Binding TooltipContent, ElementName=button}"/>
 			</ToolTip.Tip>
 		</Panel>
 	</Button>

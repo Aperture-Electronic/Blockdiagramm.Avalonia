@@ -1,7 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
-using Blockdiagramm.Models.Ribbon;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -22,8 +21,12 @@ namespace Blockdiagramm.Controls.Ribbon
             AvaloniaProperty.Register<RibbonButtonControl, string>(nameof(Icon), "mdi-flask-empty-outline",
                 defaultBindingMode: BindingMode.OneWay);
 
-        public static readonly StyledProperty<RibbonTooltipModel> TooltipProperty =
-            AvaloniaProperty.Register<RibbonButtonControl, RibbonTooltipModel>(nameof(Tooltip),
+        public static readonly StyledProperty<string> TooltipTitleProperty = 
+            AvaloniaProperty.Register<RibbonButtonControl, string>(nameof(TooltipTitle), "Tooltip Title",
+                               defaultBindingMode: BindingMode.OneWay);
+
+        public static readonly StyledProperty<object> TooltipContentProperty =
+            AvaloniaProperty.Register<RibbonButtonControl, object>(nameof(TooltipContent),
                 defaultBindingMode: BindingMode.OneWay);
 
         public static readonly StyledProperty<IReactiveCommand> CommandProperty =
@@ -41,10 +44,16 @@ namespace Blockdiagramm.Controls.Ribbon
             set => SetValue(IconProperty, value);
         }
 
-        public RibbonTooltipModel Tooltip
+        public string TooltipTitle
         {
-            get => GetValue(TooltipProperty);
-            set => SetValue(TooltipProperty, value);
+            get => GetValue(TooltipTitleProperty);
+            set => SetValue(TooltipTitleProperty, value);
+        }
+
+        public object TooltipContent
+        {
+            get => GetValue(TooltipContentProperty);
+            set => SetValue(TooltipContentProperty, value);
         }
 
         public IReactiveCommand Command

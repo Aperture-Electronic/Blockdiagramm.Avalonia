@@ -19,39 +19,36 @@
 					<RowDefinition Height="*"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
-				<rb:BigButtonMenu Title="Save" Icon="mdi-database-check-outline" Grid.RowSpan="3">
-					<rb:BigButtonMenu.Tooltip>
-						<rbm:RibbonTooltipModel Title="Save Project" Content="Save the current project." />
-					</rb:BigButtonMenu.Tooltip>
+				<rb:BigButtonMenu Title="Save" Icon="mdi-database-check-outline" Grid.RowSpan="3"
+								  TooltipTitle="Save Project"
+								  TooltipContent="Save the current project.">
 					<rb:BigButtonMenu.MenuItems>
-						<rb:RibbonMenuItem Title="Save As..." Icon="mdi-database-check-outline">
-							<rb:RibbonMenuItem.Tooltip>
-								<rbm:RibbonTooltipModel Title="Save As" Content="Save the current project with a new name." />
-							</rb:RibbonMenuItem.Tooltip>
+						<rb:RibbonMenuItem Title="Save As..." Icon="mdi-database-check-outline"
+										   TooltipTitle="Save As"
+										   TooltipContent="Save the current project with a new name.">
 						</rb:RibbonMenuItem>
 					</rb:BigButtonMenu.MenuItems>
 				</rb:BigButtonMenu>
 				<rb:SmallButton Title="{DynamicResource Strings.New}"
 								Icon="mdi-database-plus-outline" Grid.Column="1" Margin="0"
-								Command="{Binding NewProjectCommand}">
-					<rb:SmallButton.Tooltip>
-						<rbm:RibbonTooltipModel Title="New Project" Content="Create a new project." />
-					</rb:SmallButton.Tooltip>
+								Command="{Binding WindowModel.NewProjectCommand}"
+								TooltipTitle="New Project"
+								TooltipContent="Create a new project.">
 				</rb:SmallButton>
-				<rb:SmallButton Title="Open" Icon="mdi-database-edit-outline" Grid.Column="1" Grid.Row="1" Margin="0">
-					<rb:SmallButton.Tooltip>
-						<rbm:RibbonTooltipModel Title="Open Project" Content="Open an existing project." />
-					</rb:SmallButton.Tooltip>
+				<rb:SmallButton Title="Open" Icon="mdi-database-edit-outline"
+								Grid.Column="1" Grid.Row="1" Margin="0"
+								TooltipTitle="Open Project"
+								TooltipContent="Open an existing project.">
 				</rb:SmallButton>
-				<rb:SmallButton Title="Close" Icon="mdi-database-remove-outline" Grid.Column="1" Grid.Row="2" Margin="0">
-					<rb:SmallButton.Tooltip>
-						<rbm:RibbonTooltipModel Title="Close Project" Content="Close the current project." />
-					</rb:SmallButton.Tooltip>
+				<rb:SmallButton Title="Close" Icon="mdi-database-remove-outline"
+								Grid.Column="1" Grid.Row="2" Margin="0"
+								TooltipTitle="Close Projec"
+								TooltipContent="Close the current project.">
 				</rb:SmallButton>
-				<rb:SmallButton Title="" Icon="mdi-database-cog-outline" Grid.Column="2">
-					<rb:SmallButton.Tooltip>
-						<rbm:RibbonTooltipModel Title="Project Settings" Content="Edit the project settings." />
-					</rb:SmallButton.Tooltip>
+				<rb:SmallButton Title="" Icon="mdi-database-cog-outline"
+								Grid.Column="2"
+								TooltipTitle="Project Settings"
+								TooltipContent="Edit the project settings.">
 				</rb:SmallButton>
 			</Grid>
 		</rb:RibbonCard.CardContent>
