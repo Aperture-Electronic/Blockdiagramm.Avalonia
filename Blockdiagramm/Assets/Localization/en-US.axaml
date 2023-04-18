@@ -2,6 +2,10 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="Strings.RibbonNewProject">New</system:String>
-    <system:String x:Key="Strings.HelloWorld">Hello World</system:String>
+    <system:String x:Key="Strings.New">New</system:String>
+    <system:String x:Key="Strings.NewProject">New Project</system:String>
+    <system:String x:Key="Strings.ProjectName">Project Name</system:String>
+    <system:String x:Key="Strings.ProjectPath">Path</system:String>
+    <system:String x:Key="Strings.Create">Create</system:String>
+    <system:String x:Key="Strings.Cancel">Cancel</system:String>
 </ResourceDictionary>

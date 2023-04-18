@@ -32,8 +32,13 @@ namespace Blockdiagramm.ViewModels
             });
         }
     
-        public static void SetDefaultLanguage(string language = "en-US")
+        public static void SetDefaultLanguage()
         {
+            string language = System.Globalization.CultureInfo.CurrentCulture.Name;
+
+            // TODO
+            language = "en-US";
+
             if (Application.Current == null) return;
             Application app = Application.Current;
 

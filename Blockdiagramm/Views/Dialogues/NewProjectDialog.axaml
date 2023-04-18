@@ -13,8 +13,9 @@
 		ExtendClientAreaTitleBarHeightHint="-1"
 		ExtendClientAreaToDecorationsHint="True">
 	<c:DialogueFrame BeginDrag="BeginDrag" 
-					 Title="New Project"
-					 ConfirmButtonText="Create"
+					 Title="{DynamicResource Strings.NewProject}"
+					 CancelButtonText="{DynamicResource Strings.Cancel}"
+					 ConfirmButtonText="{DynamicResource Strings.Create}"
 					 ConfirmCommand="{Binding ConfirmCreateProjectCommand}">
 		<c:DialogueFrame.DialogContent>
 			<Grid Margin="15">
@@ -32,7 +33,7 @@
 				<c:FloatingLabelTextBox 
 					Text="{Binding ProjectName}"
 					IsInvalid="{Binding ProjectNameInvalid}"
-					LengthLimit="20" Placeholder="Project Name" 
+					LengthLimit="20" Placeholder="{DynamicResource Strings.ProjectName}" 
 					TipText="At least one character, without whitespace"
 					InvalidTipText="{Binding ProjectNameInvalidReason}"
 					Grid.Column="1" Grid.ColumnSpan="2" Margin="10,5"/>
@@ -40,7 +41,7 @@
 				<c:FloatingLabelTextBox
 					Text="{Binding Path}"
 					IsInvalid="{Binding PathInvalid}"
-					LengthLimit="-1" Placeholder="Path" 
+					LengthLimit="-1" Placeholder="{DynamicResource Strings.ProjectPath}" 
 					TipText="Path not existed will be created"
 					InvalidTipText="{Binding PathInvalidReason}"
 					Grid.Column="1" Grid.Row="1" Margin="10,5"/>

@@ -31,7 +31,7 @@
 						</rb:RibbonMenuItem>
 					</rb:BigButtonMenu.MenuItems>
 				</rb:BigButtonMenu>
-				<rb:SmallButton Title="{DynamicResource Strings.RibbonNewProject}" 
+				<rb:SmallButton Title="{DynamicResource Strings.New}"
 								Icon="mdi-database-plus-outline" Grid.Column="1" Margin="0"
 								Command="{Binding NewProjectCommand}">
 					<rb:SmallButton.Tooltip>

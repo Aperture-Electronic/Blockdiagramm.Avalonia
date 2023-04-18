@@ -15,6 +15,6 @@ namespace Blockdiagramm.ViewModels
     {
         public ICommand NewProjectCommand { get; }
 
-        public Interaction<object?, NewProjectDialogViewModel?> NewProject { get; } = new();
+        public Interaction<object?, NewProjectDialogViewModel> NewProject { get; } = new();
     }
 }

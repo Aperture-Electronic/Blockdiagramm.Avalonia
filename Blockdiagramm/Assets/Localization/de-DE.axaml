@@ -1,7 +1,0 @@
-﻿
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="Strings.RibbonNewProject">Willkommen bei Avalonia :-)</system:String>
-    <system:String x:Key="Strings.HelloWorld">Hallo Welt</system:String>
-</ResourceDictionary>
