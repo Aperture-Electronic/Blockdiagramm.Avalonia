@@ -27,7 +27,8 @@
 	</UserControl.Styles>
 	<Button Height="32" 
 			Classes="BigButton" Margin="0" Padding="0"
-			ToolTip.Placement="Bottom">
+			ToolTip.Placement="Bottom"
+			Command="{Binding Command, ElementName=button}">
 		<Panel>
 			<Border Classes="Background" Background="Black" CornerRadius="3">
 				<Border.Transitions>

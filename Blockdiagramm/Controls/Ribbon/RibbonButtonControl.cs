@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Data;
 using Blockdiagramm.Models.Ribbon;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +14,20 @@ namespace Blockdiagramm.Controls.Ribbon
     public abstract class RibbonButtonControl : UserControl
     {
         public static readonly StyledProperty<string> TitleProperty =
-            AvaloniaProperty.Register<BigButton, string>(nameof(Title), "Title",
+            AvaloniaProperty.Register<RibbonButtonControl, string>(nameof(Title), "Title",
                 defaultBindingMode: BindingMode.OneWay);
 
 
         public static readonly StyledProperty<string> IconProperty =
-            AvaloniaProperty.Register<RibbonCard, string>(nameof(Icon), "mdi-flask-empty-outline",
+            AvaloniaProperty.Register<RibbonButtonControl, string>(nameof(Icon), "mdi-flask-empty-outline",
                 defaultBindingMode: BindingMode.OneWay);
 
         public static readonly StyledProperty<RibbonTooltipModel> TooltipProperty =
-            AvaloniaProperty.Register<RibbonCard, RibbonTooltipModel>(nameof(Tooltip),
+            AvaloniaProperty.Register<RibbonButtonControl, RibbonTooltipModel>(nameof(Tooltip),
                 defaultBindingMode: BindingMode.OneWay);
+
+        public static readonly StyledProperty<IReactiveCommand> CommandProperty =
+            AvaloniaProperty.Register<RibbonButtonControl, IReactiveCommand>(nameof(Command));
 
         public string Title
         {
@@ -41,6 +45,12 @@ namespace Blockdiagramm.Controls.Ribbon
         {
             get => GetValue(TooltipProperty);
             set => SetValue(TooltipProperty, value);
+        }
+
+        public IReactiveCommand Command
+        {
+            get => GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
     }
 }

@@ -1,0 +1,127 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+			 xmlns:cvt="clr-namespace:Blockdiagramm.Controls.Converters;assembly=Blockdiagramm"
+			 xmlns:ext="clr-namespace:Blockdiagramm.Extensions;assembly=Blockdiagramm"
+             mc:Ignorable="d" d:DesignWidth="350" Height="64"
+             x:Class="Blockdiagramm.Controls.FloatingLabelTextBox"
+			 x:Name="textcontrol">
+	<UserControl.Resources>
+		<cvt:HasValueAndFocusedConverter x:Key="HasValueAndFocusedConverter"/>
+		<cvt:ValueAndLimitIndicateConverter x:Key="ValueAndLimitIndicateConverter"/>
+		<cvt:ValueGreaterThanConveter x:Key="ValueGreaterThanConveter"/>
+		<cvt:TernaryConverter x:Key="TernaryConverter"/>	
+	</UserControl.Resources>
+	<UserControl.Styles>
+		<Style Selector="TextBlock.Placeholder">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontWeight" Value="500"/>
+			<Setter Property="Margin" Value="5,3"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Foreground" Value="#545454"/>
+			<Setter Property="IsHitTestVisible" Value="False"/>
+			<Setter Property="RenderTransform" Value="translateY(-8px)"/>
+		</Style>
+		<Style Selector="TextBlock.Placeholder.HasValueAndFocused">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="RenderTransform" Value="translateY(-20px)"/>
+		</Style>
+		<Style Selector="TextBlock.Tip">
+			<Setter Property="VerticalAlignment" Value="Bottom"/>
+			<Setter Property="Margin" Value="5,0"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Foreground" Value="#545454"/>
+		</Style>
+		<Style Selector="TextBlock.Tip.Invalid">
+			<Setter Property="Foreground" Value="Red"/>
+		</Style>
+		<Style Selector="TextBlock.Length">
+			<Setter Property="FontWeight" Value="275"/>
+			<Setter Property="VerticalAlignment" Value="Bottom"/>
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="Margin" Value="5,0"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Foreground" Value="#545454"/>
+		</Style>
+		<Style Selector="TextBox">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="Margin" Value="0,0,0,15"/>
+			<Setter Property="VerticalContentAlignment" Value="Bottom"/>
+		</Style>
+		<Style Selector="TextBox.Invalid">
+			<Setter Property="BorderBrush" Value="Red"/>
+			<Setter Property="BorderThickness" Value="1"/>
+		</Style>
+		<Style Selector="TextBox.Invalid:pointerover /template/ Border#PART_BorderElement">
+			<Setter Property="BorderBrush" Value="Red"/>
+		</Style>
+		<Style Selector="TextBox.Invalid:focus /template/ Border#PART_BorderElement">
+			<Setter Property="BorderBrush" Value="Red"/>
+		</Style>
+		<Style Selector="Button.Clear">
+			<Setter Property="Width" Value="30" />
+			<Setter Property="Height" Value="30"/>
+			<Setter Property="RenderTransform" Value="translateY(-8px)"/>
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="Margin" Value="10,0"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="Background" Value="LightGray"/>
+			<Setter Property="CornerRadius" Value="15"/>
+		</Style>
+		<Style Selector="Panel.ValidationError">
+			<Setter Property="Width" Value="30" />
+			<Setter Property="Height" Value="30"/>
+			<Setter Property="RenderTransform" Value="translateY(-8px)"/>
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="Margin" Value="10,0"/>
+			<Setter Property="Background" Value="White"/>
+		</Style>
+	</UserControl.Styles>
+	<Panel>
+		<TextBox x:Name="textbox" Text="{Binding Text, ElementName=textcontrol}"
+				 Classes.Invalid="{Binding IsInvalid, ElementName=textcontrol}"
+				 MaxLength="{Binding LengthLimit, ElementName=textcontrol}"
+				 LostFocus="OnTextBoxLostFocus"/>
+		<TextBlock Classes.Placeholder="True"
+				   Classes.HasValueAndFocused="{ext:MultiBinding {Binding Text, ElementName=textbox}, {Binding IsFocused, ElementName=textbox}, {StaticResource HasValueAndFocusedConverter}}"
+				   Text="{Binding Placeholder, ElementName=textcontrol}">
+			<TextBlock.Transitions>
+				<Transitions>
+					<DoubleTransition Property="FontSize" Duration="0:0:0.2">
+						<DoubleTransition.Easing>
+							<SplineEasing X1="0.25" Y1="0.8" X2="0.5" Y2="1"/>
+						</DoubleTransition.Easing>
+					</DoubleTransition>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+				</Transitions>
+			</TextBlock.Transitions>
+		</TextBlock>
+		<TextBlock Classes="Tip" Classes.Invalid="{Binding IsInvalid, ElementName=textcontrol}">
+			<TextBlock.Text>
+				<MultiBinding Converter="{StaticResource TernaryConverter}">
+					<Binding Path="IsInvalid" ElementName="textcontrol"/>
+					<Binding Path="InvalidTipText" ElementName="textcontrol"/>
+					<Binding Path="TipText" ElementName="textcontrol"/>
+				</MultiBinding>
+			</TextBlock.Text>
+		</TextBlock>
+		<TextBlock Classes="Length">
+			<TextBlock.Text>
+				<MultiBinding Converter="{StaticResource ValueAndLimitIndicateConverter}">
+					<Binding Path="Text.Length" ElementName="textbox"/>
+					<Binding Path="LengthLimit" ElementName="textcontrol"/>
+				</MultiBinding>
+			</TextBlock.Text>
+		</TextBlock>
+		<Button Classes="Clear" Click="OnClearButtonClick"
+				IsTabStop="False"
+				IsVisible="{Binding Text.Length, ElementName=textbox, Converter={StaticResource ValueGreaterThanConveter}, ConverterParameter=0}">
+			<i:Icon Value="mdi-close"/>
+		</Button>
+		<Panel Classes="ValidationError" IsVisible="{Binding IsInvalid, ElementName=textcontrol}">
+			<i:Icon Value="mdi-alert-circle-outline" Foreground="Red" FontSize="20"/>
+		</Panel>
+	</Panel>
+</UserControl>

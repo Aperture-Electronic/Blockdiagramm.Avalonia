@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="100"
+             x:Class="Blockdiagramm.Controls.ActionButton"
+			 x:Name="button">
+	<UserControl.Styles>
+		<Style Selector="Button">
+			<Setter Property="Foreground" Value="#1976D2"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="FontWeight" Value="500"/>
+			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="Margin" Value="0"/>
+		</Style>
+		<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+		<Style Selector="Button Panel Border.Background">
+			<Setter Property="Opacity" Value="0"/>
+		</Style>
+		<Style Selector="Button:pointerover Panel Border.Background">
+			<Setter Property="Opacity" Value="0.15"/>
+		</Style>
+	</UserControl.Styles>
+	<Button Classes="ActionButton" Command="{Binding Command, ElementName=button}">
+		<Panel HorizontalAlignment="Stretch" Margin="0">
+			<Border Classes="Background" CornerRadius="3" Background="#1976D2">
+				<Border.Transitions>
+					<Transitions>
+						<DoubleTransition Property="Opacity" Duration="0:0:0.3">
+							<DoubleTransition.Easing>
+								<SplineEasing X1="0.25" Y1="0.8" X2="0.5" Y2="1"/>
+							</DoubleTransition.Easing>
+						</DoubleTransition>
+					</Transitions>
+				</Border.Transitions>
+			</Border>
+			<TextBlock Margin="10" Text="{Binding Text, ElementName=button}" 
+					   Foreground="#1976D2" TextAlignment="Center"/>
+		</Panel>
+	</Button>
+</UserControl>

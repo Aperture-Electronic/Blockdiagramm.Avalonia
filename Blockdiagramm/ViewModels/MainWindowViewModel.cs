@@ -3,11 +3,12 @@ using Avalonia.Controls;
 using ReactiveUI;
 using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Windows.Input;
 
 namespace Blockdiagramm.ViewModels
 {
-    public class MainWindowViewModel : ReactiveObject
+    public partial class MainWindowViewModel : ReactiveObject, IWindowBaseViewModel
     {
         public ICommand CloseWindowCommand { get; }
         public ICommand MaximizeWindowCommand { get; }
@@ -22,6 +23,10 @@ namespace Blockdiagramm.ViewModels
             CloseWindowCommand = ReactiveCommand.CreateFromObservable(() => CloseWindow.Handle(null));
             MaximizeWindowCommand = ReactiveCommand.CreateFromObservable(() => MaximizeWindow.Handle(null));
             MinimizeWindowCommand = ReactiveCommand.CreateFromObservable(() => MinimizeWindow.Handle(null));
+
+            #region Project commands
+            NewProjectCommand = ReactiveCommand.CreateFromTask(async () => await NewProject.Handle(null));
+            #endregion
         }
     }
 }

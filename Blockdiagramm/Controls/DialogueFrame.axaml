@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+			 xmlns:c="using:Blockdiagramm.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="350"
+             x:Class="Blockdiagramm.Controls.DialogueFrame"
+			 x:Name="dialog">
+	<UserControl.Styles>
+		<Style Selector="Button.TitleButton">
+			<Setter Property="RelativePanel.AlignVerticalCenterWithPanel" Value="True" />
+			<Setter Property="RelativePanel.AlignRightWithPanel" Value="True"/>
+			<Setter Property="Margin" Value="12,0,0,0"/>
+			<Setter Property="Width" Value="32"/>
+			<Setter Property="Height" Value="32"/>
+			<Setter Property="Margin" Value="0,0,15,0"/>
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+		<Style Selector="c|ActionButton">
+			<Setter Property="MinWidth" Value="75"/>
+			<Setter Property="Height" Value="36"/>
+		</Style>
+	</UserControl.Styles>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="65"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Grid Background="#512da8">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<StackPanel Orientation="Horizontal" Grid.Column="0">
+				<i:Icon Value="{Binding Icon,ElementName=dialog}" FontSize="32" Foreground="White"
+					Margin="15,0,0,0" VerticalAlignment="Center"/>
+				<TextBlock Text="{Binding Title,ElementName=dialog}" FontSize="24" Foreground="White"
+						   Margin="15,0,0,0" VerticalAlignment="Center"/>
+			</StackPanel>
+			<Button x:Name="btnClose" Command="{Binding CloseWindowCommand}" Classes="TitleButton"  Grid.Column="2">
+				<i:Icon Value="mdi-window-close" Foreground="White"/>
+			</Button>
+			<Rectangle Fill="Transparent" Grid.Column="1" PointerPressed="OnTitleBarBeginDrag"/>
+		</Grid>
+		<ContentControl Grid.Row="1" Content="{Binding DialogContent, ElementName=dialog}"/>
+		<Grid Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<ReversibleStackPanel Grid.Column="1" Orientation="Horizontal" ReverseOrder="True" Margin="5">
+				<c:ActionButton MinWidth="70" Height="36" Text="{Binding CancelButtonText, ElementName=dialog}" Command="{Binding CloseWindowCommand}"/>
+				<c:ActionButton MinWidth="70" Height="36" Text="{Binding ConfirmButtonText, ElementName=dialog}" Command="{Binding ConfirmCommand, ElementName=dialog}" />
+			</ReversibleStackPanel>
+		</Grid>
+	</Grid>
+</UserControl>

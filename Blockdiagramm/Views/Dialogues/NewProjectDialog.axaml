@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+		xmlns:c="using:Blockdiagramm.Controls"
+        mc:Ignorable="d" Width="500" Height="280"
+        x:Class="Blockdiagramm.Views.Dialogues.NewProjectDialog"
+        Title="NewProjectDialog"
+		CanResize="False"
+		WindowStartupLocation="CenterOwner"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		ExtendClientAreaToDecorationsHint="True">
+	<c:DialogueFrame BeginDrag="BeginDrag" 
+					 Title="New Project"
+					 ConfirmButtonText="Create"
+					 ConfirmCommand="{Binding ConfirmCreateProjectCommand}">
+		<c:DialogueFrame.DialogContent>
+			<Grid Margin="15">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="32"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="48"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<i:Icon Value="mdi-database-outline" FontSize="24" Foreground="Black"
+					VerticalAlignment="Center"/>
+				<c:FloatingLabelTextBox 
+					Text="{Binding ProjectName}"
+					IsInvalid="{Binding ProjectNameInvalid}"
+					LengthLimit="20" Placeholder="Project Name" 
+					TipText="At least one character, without whitespace"
+					InvalidTipText="{Binding ProjectNameInvalidReason}"
+					Grid.Column="1" Grid.ColumnSpan="2" Margin="10,5"/>
+				<i:Icon Value="mdi-folder-outline" FontSize="24" Foreground="Black" Grid.Row="1"/>
+				<c:FloatingLabelTextBox
+					Text="{Binding Path}"
+					IsInvalid="{Binding PathInvalid}"
+					LengthLimit="-1" Placeholder="Path" 
+					TipText="Path not existed will be created"
+					InvalidTipText="{Binding PathInvalidReason}"
+					Grid.Column="1" Grid.Row="1" Margin="10,5"/>
+				<Button Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,0,15"
+						Width="36" Height="36"
+						Background="White"
+						Command="{Binding BrowsePathCommand}"
+						CornerRadius="36">
+					<i:Icon Value="mdi-dots-horizontal" FontSize="18" Foreground="Black"/>
+				</Button>
+			</Grid>
+		</c:DialogueFrame.DialogContent>
+	</c:DialogueFrame>
+</Window>

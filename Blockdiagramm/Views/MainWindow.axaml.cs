@@ -1,49 +1,36 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.ReactiveUI;
+using Blockdiagramm.Models;
 using Blockdiagramm.ViewModels;
+using Blockdiagramm.ViewModels.Dialogues;
+using Blockdiagramm.Views.Dialogues;
 using ReactiveUI;
 using System.Reactive;
+using System.Threading.Tasks;
 
 namespace Blockdiagramm.Views
 {
-    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
+    public partial class MainWindow : DiagrammeWindowBase<MainWindowViewModel>
     {
         public MainWindow()
         {
             InitializeComponent();
             this.WhenActivated(d =>
             {
-                d(ViewModel!.CloseWindow.RegisterHandler(CloseWindow));
-                d(ViewModel!.MaximizeWindow.RegisterHandler(MaximizeWindow));
-                d(ViewModel!.MinimizeWindow.RegisterHandler(MinimizeWindow));
+                RegisterBaseHandlers(d);
+
+                d(ViewModel!.NewProject.RegisterHandler(OpenNewProjectDialog));
             });
         }
 
-        private void CloseWindow(InteractionContext<object?, object?> args)
+        private async Task OpenNewProjectDialog(InteractionContext<object?, NewProjectDialogViewModel> args)
         {
-            Close();
-            args.SetOutput(null);
-        }
-
-        private void MaximizeWindow(InteractionContext<object?, object?> args)
-        {
-            WindowState = WindowState == WindowState.Maximized ?
-                WindowState.Normal : WindowState.Maximized;
-            args.SetOutput(null);
-        }
-
-        private void MinimizeWindow(InteractionContext<object?, object?> args)
-        {
-            WindowState = WindowState.Minimized;
-            args.SetOutput(null);
-        }
-
-
-        private void BeginDrag(object sender, PointerPressedEventArgs e)
-        {
-            BeginMoveDrag(e);
-            e.Handled = true;
-        }
+            NewProjectDialog dialog = new();
+            NewProjectDialogViewModel viewModel = new();
+            dialog.DataContext = viewModel;
+            var result = await dialog.ShowDialog<NewProjectDialogViewModel>(this);
+            args.SetOutput(result);
+        }   
     }
 }

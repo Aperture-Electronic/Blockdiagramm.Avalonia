@@ -11,6 +11,8 @@
     <Folder Include="Assets\Fonts\" />
     <Folder Include="Assets\Icons\" />
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Remove="Assets\Localization\LocalizationHelper.xlsm" />
+    <AvaloniaResource Remove="Assets\Localization\~%24LocalizationHelper.xlsm" />
     <EmbeddedResource Remove="Assets\Localization.resx" />
     <None Remove=".gitignore" />
   </ItemGroup>
@@ -26,24 +28,11 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.19" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19" />
     <PackageReference Include="Avalonia.Svg.Skia" Version="0.10.18" />
-    <PackageReference Include="OptimizedPriorityQueue" Version="5.1.0" />
     <PackageReference Include="Projektanker.Icons.Avalonia.MaterialDesign" Version="5.12.0" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Controls\Ribbon\BigButton.axaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaResource Include="Localization\Resources\en-us.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>en-us.resx</DependentUpon>
-    </AvaloniaResource>
-    <AvaloniaResource Include="Localization\Resources\en-us.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Localization.Designer.cs</LastGenOutput>
-    </AvaloniaResource>
   </ItemGroup>
 </Project>
