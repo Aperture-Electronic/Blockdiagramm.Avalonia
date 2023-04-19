@@ -1,6 +1,9 @@
 # Blockdiagramm 
 Blockdiagramm is a graphical block design tool for integrated circuit (IC) design.  
 
+## Building status
+![workflow](https://github.com/Aperture-Electronic/Blockdiagramm.Avalonia/actions/workflows/dotnet.yml/badge.svg)
+
 ## Main Features
 * Add and analysis your HDL design files and create the visual component in block design enviroment;
 * Use your mouse to connect modules and IPs in diagrams;
