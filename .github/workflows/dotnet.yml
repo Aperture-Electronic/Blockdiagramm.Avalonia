@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Checkout submodules
+      uses: snickerbockers/submodules-init@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
