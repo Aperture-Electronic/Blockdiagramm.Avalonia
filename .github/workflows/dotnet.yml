@@ -22,6 +22,12 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Build HDL library
+      uses: EasyDesk/action-dotnet-build@v1.0.0
+      with: 
+        # build-args:
+        build-configuration: Release
+        path: ./HDLParserSharp
     - name: Build
       run: dotnet build --no-restore
     - name: Test
