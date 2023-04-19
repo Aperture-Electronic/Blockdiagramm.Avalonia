@@ -23,12 +23,12 @@ namespace Blockdiagramm.Views.Dialogues
             {
                 RegisterBaseHandlers(d);
 
-                d(ViewModel!.BrowsePath.RegisterHandler(BrowsePath));
+                d(ViewModel!.BrowsePath.RegisterHandler(BrowsePathAsync));
                 d(ViewModel!.ConfirmCreateProject.RegisterHandler(ConfirmCreateProject));
             });
         }
 
-        private async Task BrowsePath(InteractionContext<string, (string, bool)> args)
+        private async Task BrowsePathAsync(InteractionContext<string, (string, bool)> args)
         {
             OpenFolderDialog ofd = new()
             {

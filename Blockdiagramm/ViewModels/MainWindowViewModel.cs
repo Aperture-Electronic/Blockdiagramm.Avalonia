@@ -34,6 +34,10 @@ namespace Blockdiagramm.ViewModels
             #region Project commands
             NewProjectCommand = ReactiveCommand.CreateFromTask(NewProjectTask);
             #endregion
+
+            #region Source commands
+            AddSourceFileCommand = ReactiveCommand.CreateFromTask(AddSourceTask);
+            #endregion
         }
     }
 }

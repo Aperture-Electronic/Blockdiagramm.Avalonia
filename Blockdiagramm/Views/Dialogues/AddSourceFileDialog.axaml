@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+		xmlns:c="using:Blockdiagramm.Controls"
+		xmlns:cvt="clr-namespace:Blockdiagramm.Controls.Converters;assembly=Blockdiagramm"
+        mc:Ignorable="d" Width="500" Height="280"
+        x:Class="Blockdiagramm.Views.Dialogues.AddSourceFileDialog"
+		x:Name="dialog"
+        Title="AddSourceFileDialog"
+		CanResize="False"
+		WindowStartupLocation="CenterOwner"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		ExtendClientAreaToDecorationsHint="True">
+	<Window.Resources>
+		<cvt:SourceFileTypeIndexConverter x:Key="SourceFileTypeIndexConverter"/>
+	</Window.Resources>
+	<c:DialogueFrame BeginDrag="BeginDrag"
+					Icon="mdi-file-import-outline"
+					Title="{DynamicResource Strings.AddSource}"
+					TitleBarBackground="#2e7d32"
+					CancelButtonText="{DynamicResource Strings.Cancel}"
+					ConfirmButtonText="{DynamicResource Strings.Add}"
+					ConfirmCommand="{Binding ConfirmAddSourceCommand}">
+		<c:DialogueFrame.DialogContent>
+			<Grid Margin="15">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="32"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="48"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<i:Icon Value="mdi-file-document-multiple-outline" FontSize="24" Foreground="Black" Grid.Row="0"/>
+				<c:FloatingLabelTextBox
+					Text="{Binding SourceFilePaths}"
+					IsInvalid="{Binding SourceFilePathsInvalid}"
+					LengthLimit="-1" Placeholder="{DynamicResource Strings.SourcePath}"
+					TipText=""
+					InvalidTipText="{Binding SourceFilePathsInvalidReason}"
+					Grid.Column="1" Grid.Row="0" Margin="10,5"/>
+				<Button Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,0,15"
+						Width="36" Height="36"
+						Background="White"
+						Command="{Binding BrowseFilesCommand}"
+						CornerRadius="36">
+					<i:Icon Value="mdi-dots-horizontal" FontSize="18" Foreground="Black"/>
+				</Button>
+				<i:Icon Value="mdi-code-brackets" FontSize="24" Foreground="Black" Grid.Row="1"/>
+				<c:FloatingLabelComboBox
+					x:Name="cboSourceType"
+					SelectableItems="{Binding SourceFileTypes, ElementName=dialog}"
+					SelectedIndex="{Binding SourceFileType, Converter={StaticResource SourceFileTypeIndexConverter}}"
+					Placeholder="{DynamicResource Strings.SourceType}"
+					Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,5" />
+			</Grid>
+		</c:DialogueFrame.DialogContent>
+	</c:DialogueFrame>
+</Window>

@@ -8,4 +8,13 @@
     <system:String x:Key="Strings.ProjectPath">Path</system:String>
     <system:String x:Key="Strings.Create">Create</system:String>
     <system:String x:Key="Strings.Cancel">Cancel</system:String>
+    <system:String x:Key="Strings.AddSource">Add Source</system:String>
+    <system:String x:Key="Strings.Add">Add</system:String>
+    <system:String x:Key="Strings.SourcePath">Source Path</system:String>
+    <system:String x:Key="Strings.SourceType">Source Type</system:String>
+    <system:String x:Key="Strings.Auto">Auto</system:String>
+    <system:String x:Key="Strings.VerilogSource">Verilog</system:String>
+    <system:String x:Key="Strings.SystemVerilogSource">System Verilog</system:String>
+    <system:String x:Key="Strings.VHDLSource">VHDL</system:String>
+    <system:String x:Key="Strings.SystemVerilogHeader">System Verilog Header</system:String>
 </ResourceDictionary>

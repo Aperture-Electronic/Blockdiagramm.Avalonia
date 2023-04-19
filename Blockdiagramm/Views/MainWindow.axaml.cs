@@ -21,6 +21,8 @@ namespace Blockdiagramm.Views
                 RegisterBaseHandlers(d);
 
                 d(ViewModel!.NewProject.RegisterHandler(OpenNewProjectDialog));
+
+                d(ViewModel!.AddSourceFile.RegisterHandler(OpenAddSourceFileDialog));
             });
         }
 
@@ -32,5 +34,14 @@ namespace Blockdiagramm.Views
             var result = await dialog.ShowDialog<NewProjectDialogViewModel>(this);
             args.SetOutput(result);
         }   
+
+        private async Task OpenAddSourceFileDialog(InteractionContext<object?, AddSourceFileDialogViewModel> args)
+        {
+            AddSourceFileDialog dialog = new();
+            AddSourceFileDialogViewModel viewModel = new();
+            dialog.DataContext = viewModel;
+            var result = await dialog.ShowDialog<AddSourceFileDialogViewModel>(this);
+            args.SetOutput(result);
+        }
     }
 }

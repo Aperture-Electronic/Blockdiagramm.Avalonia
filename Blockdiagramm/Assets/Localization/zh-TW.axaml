@@ -5,7 +5,16 @@
     <system:String x:Key="Strings.New">新建</system:String>
     <system:String x:Key="Strings.NewProject">新建專案</system:String>
     <system:String x:Key="Strings.ProjectName">專案名稱</system:String>
-    <system:String x:Key="Strings.ProjectPath">專案路徑</system:String>
+    <system:String x:Key="Strings.ProjectPath">位置</system:String>
     <system:String x:Key="Strings.Create">建立</system:String>
     <system:String x:Key="Strings.Cancel">取消</system:String>
+    <system:String x:Key="Strings.AddSource">添加檔案</system:String>
+    <system:String x:Key="Strings.Add">添加</system:String>
+    <system:String x:Key="Strings.SourcePath">檔案位置</system:String>
+    <system:String x:Key="Strings.SourceType">檔案類型</system:String>
+    <system:String x:Key="Strings.Auto">自動</system:String>
+    <system:String x:Key="Strings.VerilogSource">Verilog</system:String>
+    <system:String x:Key="Strings.SystemVerilogSource">System Verilog</system:String>
+    <system:String x:Key="Strings.VHDLSource">VHDL</system:String>
+    <system:String x:Key="Strings.SystemVerilogHeader">System Verilog 標頭檔</system:String>
 </ResourceDictionary>

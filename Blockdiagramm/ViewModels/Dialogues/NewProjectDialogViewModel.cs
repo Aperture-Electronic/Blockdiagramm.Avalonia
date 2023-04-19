@@ -61,25 +61,25 @@ namespace Blockdiagramm.ViewModels.Dialogues
         public bool ProjectNameInvalid
         {
             get => projectNameInvalid;
-            set => this.RaiseAndSetIfChanged(ref projectNameInvalid, value);
+            private set => this.RaiseAndSetIfChanged(ref projectNameInvalid, value);
         }
 
         public bool PathInvalid
         {
             get => pathInvalid;
-            set => this.RaiseAndSetIfChanged(ref pathInvalid, value);
+            private set => this.RaiseAndSetIfChanged(ref pathInvalid, value);
         }
 
         public string ProjectNameInvalidReason
         {
             get => projectNameInvalidReason;
-            set => this.RaiseAndSetIfChanged(ref projectNameInvalidReason, value);
+            private set => this.RaiseAndSetIfChanged(ref projectNameInvalidReason, value);
         }
 
         public string PathInvalidReason
         {
             get => pathInvalidReason;
-            set => this.RaiseAndSetIfChanged(ref pathInvalidReason, value);
+            private set => this.RaiseAndSetIfChanged(ref pathInvalidReason, value);
         }
 
         public bool ViewModelValid => !PathInvalid && !ProjectNameInvalid;

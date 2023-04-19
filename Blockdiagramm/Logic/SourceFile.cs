@@ -45,20 +45,23 @@ namespace Blockdiagramm.Logic
         /// <param name="projectPath">Project path relative to</param>
         public string GetRelativePath(string projectPath) => Path.GetRelativePath(projectPath, FilePath);
 
-        public SourceFile(string filePath) : this(filePath, Path.GetExtension(filePath) switch
+        private static SourceFileType GetTypeByExtension(string filePath) => Path.GetExtension(filePath) switch
         {
             "v" => SourceFileType.VerilogSource,
             "sv" => SourceFileType.SystemVerilogSource,
             "svh" => SourceFileType.SystemVerilogHeader,
             "vhd" => SourceFileType.VHDLSource,
             _ => SourceFileType.SystemVerilogSource // Default
-        })
+        };
+
+
+        public SourceFile(string filePath) : this(filePath, GetTypeByExtension(filePath))
         { }
 
         public SourceFile(string filePath, SourceFileType type)
         {
             FilePath = filePath;
-            Type = type;
+            Type = type == SourceFileType.Auto ? GetTypeByExtension(filePath) : type;
 
             // Calculate the path hash
             byte[] hashValue = SHA256.HashData(Encoding.UTF8.GetBytes(filePath));

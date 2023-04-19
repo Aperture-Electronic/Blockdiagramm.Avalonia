@@ -8,4 +8,13 @@
     <system:String x:Key="Strings.ProjectPath">路径</system:String>
     <system:String x:Key="Strings.Create">创建</system:String>
     <system:String x:Key="Strings.Cancel">取消</system:String>
+    <system:String x:Key="Strings.AddSource">添加源文件</system:String>
+    <system:String x:Key="Strings.Add">添加</system:String>
+    <system:String x:Key="Strings.SourcePath">源文件路径</system:String>
+    <system:String x:Key="Strings.SourceType">源文件类型</system:String>
+    <system:String x:Key="Strings.Auto">自动</system:String>
+    <system:String x:Key="Strings.VerilogSource">Verilog</system:String>
+    <system:String x:Key="Strings.SystemVerilogSource">System Verilog</system:String>
+    <system:String x:Key="Strings.VHDLSource">VHDL</system:String>
+    <system:String x:Key="Strings.SystemVerilogHeader">System Verilog 头文件</system:String>
 </ResourceDictionary>

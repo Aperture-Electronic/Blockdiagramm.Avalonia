@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="350" Height="64"  d:DesignHeight="220"
+             x:Class="Blockdiagramm.Controls.FloatingLabelComboBox"
+			 x:Name="combobox">
+	<UserControl.Styles>
+		<Style Selector="TextBlock.Placeholder">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="RenderTransform" Value="translateY(-20px)"/>
+			<Setter Property="FontWeight" Value="500"/>
+			<Setter Property="Margin" Value="5,3"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Foreground" Value="#545454"/>
+			<Setter Property="IsHitTestVisible" Value="False"/>
+		</Style>
+		<Style Selector="TextBlock.Text">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="Margin" Value="0,0,50,5"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="10,0"/>
+		</Style>
+		<Style Selector="Panel.Mask">
+			<Setter Property="Margin" Value="0,0,0,15"/>
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+		<Style Selector="Panel.Mask Border">
+			<Setter Property="BorderBrush" Value="#1976D2"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="CornerRadius" Value="3"/>
+		</Style>
+		<Style Selector="Panel.Mask:pointerover Border">
+			<Setter Property="BorderThickness" Value="1.5"/>
+		</Style>
+		<Style Selector="Border.Indicator">
+			<Setter Property="Width" Value="30" />
+			<Setter Property="Height" Value="30"/>
+			<Setter Property="RenderTransform" Value="translateY(-8px)"/>
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="Margin" Value="10,0"/>
+			<Setter Property="Background" Value="#9FFFFFFF"/>
+			<Setter Property="CornerRadius" Value="15"/>
+		</Style>
+		<Style Selector="Border.Indicator Border.Opened">
+			<Setter Property="RenderTransform" Value="rotate(180deg)"/>
+		</Style>
+	</UserControl.Styles>
+	<Panel>
+		<TextBlock Classes="Text" x:Name="textbox" Text="{Binding Text, ElementName=combobox}"/>
+		<Border x:Name="textboxBorder" BorderBrush="Black" CornerRadius="3" BorderThickness="1" Margin="0,0,0,15"/>
+		<TextBlock Classes="Placeholder"
+				   Text="{Binding Placeholder, ElementName=combobox}"/>
+		<Border Classes="Indicator">
+			<Border Classes.Opened="{Binding IsOpened, ElementName=combobox}">
+				<Border.Transitions>
+					<Transitions>
+						<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+					</Transitions>
+				</Border.Transitions>
+				<i:Icon Value="mdi-menu-down" FontSize="20"/>
+			</Border>
+		</Border>
+		<Panel Classes="Mask" PointerPressed="OnMaskPointerPressed" LostFocus="OnMaskLostFocus">
+			<Border>
+				<Border.Transitions>
+					<Transitions>
+						<ThicknessTransition Property="BorderThickness" Duration="0:0:0.25"/>
+					</Transitions>
+				</Border.Transitions>
+			</Border>
+		</Panel>
+		<Popup IsOpen="{Binding IsOpened, ElementName=combobox}" PlacementTarget="{Binding ElementName=textboxBorder}" 
+			   PlacementMode="Bottom" StaysOpen="True"
+			   Width="{Binding Bounds.Width, ElementName=textboxBorder}">
+			<Panel Background="White">
+				<ItemsControl Items="{Binding SelectableItems, ElementName=combobox}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<ComboBoxItem Content="{Binding}" Margin="0,3" PointerPressed="OnItemPointerPressed"/>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+				<Border CornerRadius="3" BorderBrush="Black" BorderThickness="1"/>
+			</Panel>
+		</Popup>
+	</Panel>
+</UserControl>

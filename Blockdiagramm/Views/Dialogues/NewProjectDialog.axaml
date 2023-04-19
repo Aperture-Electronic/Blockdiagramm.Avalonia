@@ -15,6 +15,7 @@
 	<c:DialogueFrame BeginDrag="BeginDrag" 
 					 Icon="mdi-database-plus-outline"
 					 Title="{DynamicResource Strings.NewProject}"
+					 TitleBarBackground="#512da8"
 					 CancelButtonText="{DynamicResource Strings.Cancel}"
 					 ConfirmButtonText="{DynamicResource Strings.Create}"
 					 ConfirmCommand="{Binding ConfirmCreateProjectCommand}">

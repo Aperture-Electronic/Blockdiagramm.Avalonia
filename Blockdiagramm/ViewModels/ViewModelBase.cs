@@ -9,7 +9,7 @@ namespace Blockdiagramm.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {
-        private const string LocalizationDictionary = "Localization";
+        public const string LocalizationDictionary = "Localization";
 
         public void Translate(string targetLanguage = "en-US")
         {

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Blockdiagramm.Logic
 {
-    public class Project : INotifyPropertyChanged
+    public partial class Project : INotifyPropertyChanged
     {
         #region Notify Property Changed
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -30,7 +30,6 @@ namespace Blockdiagramm.Logic
         #endregion
 
         #region Public readonly properties
-        public AvaloniaList<SourceFile> SourceFiles { get; } = new();
         #endregion
 
         /// <summary>

@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Blockdiagramm.Views;
 using System;
 using System.Windows.Input;
@@ -27,6 +28,9 @@ namespace Blockdiagramm.Controls
 
         public static readonly StyledProperty<ICommand> ConfirmCommandProperty
             = AvaloniaProperty.Register<DialogueFrame, ICommand>(nameof(ConfirmCommand));
+
+        public static readonly StyledProperty<IBrush> TitleBarBackgroundProperty
+            = AvaloniaProperty.Register<DialogueFrame, IBrush>(nameof(TitleBarBackground));
 
         public string Title
         {
@@ -62,6 +66,12 @@ namespace Blockdiagramm.Controls
         {
             get => GetValue(ConfirmCommandProperty);
             set => SetValue(ConfirmCommandProperty, value);
+        }
+
+        public IBrush TitleBarBackground
+        {
+            get => GetValue(TitleBarBackgroundProperty);
+            set => SetValue(TitleBarBackgroundProperty, value);
         }
 
         public readonly static RoutedEvent<PointerPressedEventArgs> BeginDragEvent =
