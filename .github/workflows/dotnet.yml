@@ -27,7 +27,7 @@ jobs:
       with: 
         # build-args:
         build-configuration: Release
-        path: ./HDLParserSharp
+        path: ./HDLParserSharp/solution/HDLParserSharp/
     - name: Build
       run: dotnet build --no-restore
     - name: Test
