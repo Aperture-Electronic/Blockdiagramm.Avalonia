@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Avalonia.Media;
+using Blockdiagramm.Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,6 +29,16 @@ namespace Blockdiagramm.Logic
         /// This will determine how to interpret the source
         /// </summary>
         public SourceFileType Type { get; }
+
+        /// <summary>
+        /// The abbreviate string of the file type, only for display
+        /// </summary>
+        public string TypeAbbreviate => Type.Abbreviate();
+
+        /// <summary>
+        /// The theme color of the file type, only for display
+        /// </summary>
+        public IBrush TypeThemeColor => Type.ThemeColor();
 
         /// <summary>
         /// The short name of the file (without the path)

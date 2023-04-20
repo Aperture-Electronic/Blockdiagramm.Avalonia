@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Collections;
 using Blockdiagramm.Extensions;
 using Blockdiagramm.Logic.Exceptions;
+using DynamicData;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Blockdiagramm.Logic
     public partial class Project
     {
         #region Public readonly properties
-        public AvaloniaList<SourceFile> SourceFiles { get; } = new();
+        public SourceList<SourceFile> SourceFiles { get; } = new();
         #endregion
 
         public void AddSources(string[] paths, SourceFileType type = SourceFileType.Auto)
@@ -64,7 +65,7 @@ namespace Blockdiagramm.Logic
             }
 
             // Check the hash value in the file list
-            var query = from file in SourceFiles
+            var query = from file in SourceFiles.Items
                         where file.Hash.Equals(sourceFile.Hash)
                         select file;
 

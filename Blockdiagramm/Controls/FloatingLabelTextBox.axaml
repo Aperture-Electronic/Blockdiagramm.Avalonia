@@ -5,7 +5,7 @@
 			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
 			 xmlns:cvt="clr-namespace:Blockdiagramm.Controls.Converters;assembly=Blockdiagramm"
 			 xmlns:ext="clr-namespace:Blockdiagramm.Extensions;assembly=Blockdiagramm"
-             mc:Ignorable="d" d:DesignWidth="350" Height="64"
+             mc:Ignorable="d" d:DesignWidth="350" Height="54"
              x:Class="Blockdiagramm.Controls.FloatingLabelTextBox"
 			 x:Name="textcontrol">
 	<UserControl.Resources>
@@ -16,7 +16,7 @@
 	</UserControl.Resources>
 	<UserControl.Styles>
 		<Style Selector="TextBlock.Placeholder">
-			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontSize" Value="14"/>
 			<Setter Property="FontWeight" Value="500"/>
 			<Setter Property="Margin" Value="5,3"/>
 			<Setter Property="VerticalAlignment" Value="Center"/>
@@ -25,8 +25,8 @@
 			<Setter Property="RenderTransform" Value="translateY(-8px)"/>
 		</Style>
 		<Style Selector="TextBlock.Placeholder.HasValueAndFocused">
-			<Setter Property="FontSize" Value="12"/>
-			<Setter Property="RenderTransform" Value="translateY(-20px)"/>
+			<Setter Property="FontSize" Value="11"/>
+			<Setter Property="RenderTransform" Value="translateY(-16px)"/>
 		</Style>
 		<Style Selector="TextBlock.Tip">
 			<Setter Property="VerticalAlignment" Value="Bottom"/>
@@ -46,9 +46,11 @@
 			<Setter Property="Foreground" Value="#545454"/>
 		</Style>
 		<Style Selector="TextBox">
-			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontSize" Value="14"/>
 			<Setter Property="Margin" Value="0,0,0,15"/>
 			<Setter Property="VerticalContentAlignment" Value="Bottom"/>
+		</Style>
+		<Style Selector="TextBox /template/ TextPresenter#PART_TextPresenter">
 		</Style>
 		<Style Selector="TextBox.Invalid">
 			<Setter Property="BorderBrush" Value="Red"/>

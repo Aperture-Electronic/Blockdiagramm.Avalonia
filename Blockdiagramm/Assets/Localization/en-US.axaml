@@ -17,4 +17,16 @@
     <system:String x:Key="Strings.SystemVerilogSource">System Verilog</system:String>
     <system:String x:Key="Strings.VHDLSource">VHDL</system:String>
     <system:String x:Key="Strings.SystemVerilogHeader">System Verilog Header</system:String>
+    <system:String x:Key="Strings.OK">OK</system:String>
+    <system:String x:Key="Strings.Error">Error</system:String>
+    <system:String x:Key="Strings.AnExceptionHasOccurred">An exception has occurred.</system:String>
+    <system:String x:Key="Strings.AnExceptionHasOccurredWhile">An exception has occurred while {0}.</system:String>
+    <system:String x:Key="Strings.Filter">Filter</system:String>
+    <system:String x:Key="Strings.Elaborate">Elaborate</system:String>
+    <system:String x:Key="Strings.ElaborateTooltip">Elaborate current HDL entity. This will get its generics (with default value) and ports,  and create a component in the project.</system:String>
+    <system:String x:Key="Strings.ElaborateAll">Elaborate
+All</system:String>
+    <system:String x:Key="Strings.ElaborateAllTooltip">Elaborate all HDL entities.</system:String>
+    <system:String x:Key="Strings.ElaborateUpdate">Update</system:String>
+    <system:String x:Key="Strings.ElaborateUpdateTooltip">Elaborate any HDL entity that has changed.</system:String>
 </ResourceDictionary>

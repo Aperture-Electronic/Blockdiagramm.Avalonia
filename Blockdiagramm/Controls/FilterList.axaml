@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:c="using:Blockdiagramm.Controls"
+			 xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+			 xmlns:dc="using:Blockdiagramm.Controls.Diagram"
+			 xmlns:rbc="using:Blockdiagramm.Views.RibbonCards"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="500"
+             x:Class="Blockdiagramm.Controls.FilterList"
+			 x:Name="list">
+	<Grid RowDefinitions="64, *">
+		<c:FloatingLabelTextBox LengthLimit="-1"
+			Placeholder="{DynamicResource Strings.Filter}"
+			Text="{Binding FilterString}" Margin="5,5,5,-10"/>
+		<ListBox Grid.Row="1" Items="{Binding FilteredItems}" ItemTemplate="{Binding ItemTemplate, ElementName=list}"/>
+	</Grid>
+</UserControl>

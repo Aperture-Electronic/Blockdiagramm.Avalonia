@@ -17,4 +17,15 @@
     <system:String x:Key="Strings.SystemVerilogSource">System Verilog</system:String>
     <system:String x:Key="Strings.VHDLSource">VHDL</system:String>
     <system:String x:Key="Strings.SystemVerilogHeader">System Verilog 標頭檔</system:String>
+    <system:String x:Key="Strings.OK">確認</system:String>
+    <system:String x:Key="Strings.Error">錯誤</system:String>
+    <system:String x:Key="Strings.AnExceptionHasOccurred">出現了一個異常情況。</system:String>
+    <system:String x:Key="Strings.AnExceptionHasOccurredWhile">{0}時出現了一個異常情況。</system:String>
+    <system:String x:Key="Strings.Filter">過濾</system:String>
+    <system:String x:Key="Strings.Elaborate">解析</system:String>
+    <system:String x:Key="Strings.ElaborateTooltip">解析當前的HDL檔。這將從該檔中解析出其參數（與預設值）和埠，並在當前專案中創建一個可用元件。</system:String>
+    <system:String x:Key="Strings.ElaborateAll">解析全部</system:String>
+    <system:String x:Key="Strings.ElaborateAllTooltip">解析專案中全部的HDL檔。</system:String>
+    <system:String x:Key="Strings.ElaborateUpdate">更新</system:String>
+    <system:String x:Key="Strings.ElaborateUpdateTooltip">解析並更新已修改的HDL檔。</system:String>
 </ResourceDictionary>

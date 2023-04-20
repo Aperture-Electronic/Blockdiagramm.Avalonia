@@ -9,5 +9,11 @@
 
 	<Application.Styles>
 		<FluentTheme Mode="Light"/>
+		<Style Selector="ToolTip">
+			<Setter Property="Background" Value="White"/>
+		</Style>
+		<Style Selector="ToolTip /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="White"/>
+		</Style>
 	</Application.Styles>
 </Application>

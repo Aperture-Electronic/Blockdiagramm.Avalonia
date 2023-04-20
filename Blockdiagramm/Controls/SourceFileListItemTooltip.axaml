@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:cvt="clr-namespace:Blockdiagramm.Controls.Converters;assembly=Blockdiagramm"
+             mc:Ignorable="d"
+             x:Class="Blockdiagramm.Controls.SourceFileListItemTooltip">
+	<UserControl.Resources>
+		<cvt:EnumNameConverter x:Key="EnumNameConverter"/>
+	</UserControl.Resources>
+	<UserControl.Styles>
+		<Style Selector="TextBlock.FileShortName">
+			<Setter Property="Foreground" Value="DarkCyan"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="FontWeight" Value="700"/>
+			<Setter Property="Margin" Value="0,0,0,5"/>
+		</Style>
+		<Style Selector="TextBlock.FileType">
+			<Setter Property="Foreground" Value="DarkGoldenrod"/>
+			<Setter Property="FontSize" Value="13"/>
+			<Setter Property="FontWeight" Value="400"/>
+		</Style>
+		<Style Selector="TextBlock.FilePath">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="FontFamily" Value="Iosevka"/>
+			<Setter Property="Margin" Value="0,10,0,0"/>
+		</Style>
+		<Style Selector="TextBlock.Hash">
+			<Setter Property="Foreground" Value="#6F6F6F"/>
+			<Setter Property="FontSize" Value="9"/>
+			<Setter Property="FontFamily" Value="Iosevka"/>
+		</Style>
+	</UserControl.Styles>
+	<Panel>
+		<Grid Margin="4">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<TextBlock Classes="FileShortName" Text="{Binding ShortName}" />
+			<Rectangle Fill="#7F000000" Height="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+			<TextBlock Classes="FileType" Text="{Binding Type, Converter={StaticResource EnumNameConverter}}" Grid.Row="1"/>
+			<TextBlock Classes="FilePath" Text="{Binding FilePath}" Grid.Row="2"/>
+			<TextBlock Classes="Hash" Text="{Binding Hash}" Grid.Row="3"/>
+		</Grid>
+	</Panel>
+</UserControl>

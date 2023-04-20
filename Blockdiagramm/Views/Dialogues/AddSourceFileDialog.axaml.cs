@@ -52,7 +52,7 @@ namespace Blockdiagramm.Views.Dialogues
                 }
 
                 // Find the field with corresponding to the language in dynamic resource
-                if ((localization != null) && (localization.Loaded.TryGetResource($"Strings.{typeName}", out object? value)))
+                if ((localization != null) && localization.Loaded.TryGetResource($"Strings.{typeName}", out object? value))
                 {
                     if (value is string langString)
                     {
@@ -67,9 +67,13 @@ namespace Blockdiagramm.Views.Dialogues
 
         private async Task BrowseFilesAsync(InteractionContext<string, (string, bool, SourceFileType)> args)
         {
+            // Set the default path to project path if there is no path pass from UI
+            string defaultPath = string.IsNullOrWhiteSpace(args.Input) ?
+                GlobalStatic.Project.Path : args.Input;
+
             OpenFileDialog ofd = new()
             {
-                Directory = args.Input,
+                Directory = defaultPath,
                 Title = "Select files to add to the project",
                 AllowMultiple = true,
                 Filters = new List<FileDialogFilter>()

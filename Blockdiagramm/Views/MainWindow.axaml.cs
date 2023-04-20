@@ -20,10 +20,23 @@ namespace Blockdiagramm.Views
             {
                 RegisterBaseHandlers(d);
 
+                d(ViewModel!.ShowException.RegisterHandler(ShowException));
+
                 d(ViewModel!.NewProject.RegisterHandler(OpenNewProjectDialog));
 
                 d(ViewModel!.AddSourceFile.RegisterHandler(OpenAddSourceFileDialog));
             });
+        }
+
+        private async Task ShowException(InteractionContext<ExceptionErrorDialogViewModel, object?> args)
+        {
+            var model = args.Input;
+            ExceptionErrorDialog dialog = new()
+            {
+                DataContext = model
+            };
+            await dialog.ShowDialog(this);
+            args.SetOutput(null);
         }
 
         private async Task OpenNewProjectDialog(InteractionContext<object?, NewProjectDialogViewModel> args)

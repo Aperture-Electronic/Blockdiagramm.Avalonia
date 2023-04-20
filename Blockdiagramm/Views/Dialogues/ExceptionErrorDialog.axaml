@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+		xmlns:c="using:Blockdiagramm.Controls"
+		xmlns:cvt="clr-namespace:Blockdiagramm.Controls.Converters;assembly=Blockdiagramm"
+		xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d" Width="500" Height="280"
+        x:Class="Blockdiagramm.Views.Dialogues.ExceptionErrorDialog"
+        Title="ExceptionErrorDialog"
+		CanResize="False"
+		WindowStartupLocation="CenterOwner"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		ExtendClientAreaToDecorationsHint="True">
+	<Window.Resources>
+		<cvt:TernaryConverter x:Key="TernaryConverter"/>
+	</Window.Resources>
+	<c:DialogueFrame  BeginDrag="BeginDrag"
+					  Icon="mdi-alert-circle-outline"
+					  Title="{DynamicResource Strings.Error}"
+					  TitleBarBackground="#FF2E2E"
+					  CancelButtonText="{DynamicResource Strings.Cancel}"
+					  ConfirmButtonText="{DynamicResource Strings.OK}"
+					  ConfirmCommand="{Binding OKCommand}">
+		<c:DialogueFrame.DialogContent>
+			<StackPanel x:Name="panel" Margin="10">
+				<TextBlock Text="{DynamicResource Strings.AnExceptionHasOccurred}" FontSize="16" FontWeight="SemiBold"/>
+				<TextBlock Text="{Binding Message}"
+						   TextWrapping="Wrap"
+						   FontSize="16"
+						   Width="{Binding Bound.Width, ElementName=panel}"/>
+			</StackPanel>
+		</c:DialogueFrame.DialogContent>
+	</c:DialogueFrame>
+</Window>

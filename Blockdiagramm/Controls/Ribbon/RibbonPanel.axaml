@@ -27,6 +27,8 @@
 				<rbc:ProjectRibbonCard/>
 				<Rectangle Width="1" Fill="#1F000000" Margin="0,5"/>
 				<rbc:SourceRibbonCard IsEnabled="{Binding Project.IsValid}"/>
+				<Rectangle Width="1" Fill="#1F000000" Margin="0,5"/>
+				<rbc:ElaborateRibbonCard IsEnabled="{Binding Project.IsValid}"/>
 			</StackPanel>
 		</TabItem>
 		<TabItem Header="Design" Classes="RibbonMenu">

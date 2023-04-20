@@ -3,13 +3,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
-             mc:Ignorable="d" d:DesignWidth="350" Height="64"  d:DesignHeight="220"
+             mc:Ignorable="d" d:DesignWidth="350" Height="54"  d:DesignHeight="220"
              x:Class="Blockdiagramm.Controls.FloatingLabelComboBox"
 			 x:Name="combobox">
 	<UserControl.Styles>
 		<Style Selector="TextBlock.Placeholder">
-			<Setter Property="FontSize" Value="12"/>
-			<Setter Property="RenderTransform" Value="translateY(-20px)"/>
+			<Setter Property="FontSize" Value="11"/>
+			<Setter Property="RenderTransform" Value="translateY(-16px)"/>
 			<Setter Property="FontWeight" Value="500"/>
 			<Setter Property="Margin" Value="5,3"/>
 			<Setter Property="VerticalAlignment" Value="Center"/>
@@ -17,7 +17,7 @@
 			<Setter Property="IsHitTestVisible" Value="False"/>
 		</Style>
 		<Style Selector="TextBlock.Text">
-			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="FontSize" Value="14"/>
 			<Setter Property="Margin" Value="0,0,50,5"/>
 			<Setter Property="VerticalAlignment" Value="Center"/>
 			<Setter Property="Padding" Value="10,0"/>

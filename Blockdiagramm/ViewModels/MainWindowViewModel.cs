@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Blockdiagramm.Logic;
+using Blockdiagramm.ViewModels.Dialogues;
+using DynamicData;
 using ReactiveUI;
 using System;
 using System.Reactive;
@@ -22,10 +24,19 @@ namespace Blockdiagramm.ViewModels
         public Interaction<object?, object?> MaximizeWindow { get; } = new();
         public Interaction<object?, object?> MinimizeWindow { get; } = new();
 
+        public Interaction<ExceptionErrorDialogViewModel, object?> ShowException { get; } = new();
+
         public MainWindowViewModel()
         {
+            #region Common view model
             TitleBarModel = new(this, "beta", GlobalStatic.Project);
             RibbonPanelViewModel = new(this, GlobalStatic.Project);
+            #endregion
+
+            #region Source view model
+            SourceFileListViewModel = new(GlobalStatic.Project.SourceFiles.Connect(), (file, filterText) => file.ShortName.Contains(filterText));
+            
+            #endregion
 
             CloseWindowCommand = ReactiveCommand.CreateFromObservable(() => CloseWindow.Handle(null));
             MaximizeWindowCommand = ReactiveCommand.CreateFromObservable(() => MaximizeWindow.Handle(null));

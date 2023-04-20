@@ -1,5 +1,6 @@
 ﻿using Blockdiagramm.Logic;
 using Blockdiagramm.ViewModels.Dialogues;
+using Blockdiagramm.Views.Dialogues;
 using Microsoft.VisualBasic;
 using ReactiveUI;
 using System;
@@ -18,7 +19,9 @@ namespace Blockdiagramm.ViewModels
 
 		public Interaction<object?, AddSourceFileDialogViewModel> AddSourceFile { get; } = new();
 
-		private async Task AddSourceTask()
+		public FilterListViewModel<SourceFile> SourceFileListViewModel { get; }
+
+        private async Task AddSourceTask()
 		{
 			AddSourceFileDialogViewModel result = await AddSourceFile.Handle(null);
 			if (result?.ViewModelValid ?? false)
@@ -29,7 +32,8 @@ namespace Blockdiagramm.ViewModels
 				}
 				catch (Exception ex)
 				{
-					throw;
+					ExceptionErrorDialogViewModel model = new(ex.Message, "Add Source");
+					await ShowException.Handle(model);
                 }
             }
 		}

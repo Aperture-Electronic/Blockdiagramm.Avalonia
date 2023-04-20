@@ -19,20 +19,20 @@ namespace Blockdiagramm.Views
             d(ViewModel!.MinimizeWindow.RegisterHandler(MinimizeWindow));
         }
 
-        private void CloseWindow(InteractionContext<object?, object?> args)
+        protected void CloseWindow(InteractionContext<object?, object?> args)
         {
             Close();
             args.SetOutput(null);
         }
 
-        private void MaximizeWindow(InteractionContext<object?, object?> args)
+        protected void MaximizeWindow(InteractionContext<object?, object?> args)
         {
             WindowState = WindowState == WindowState.Maximized ?
                 WindowState.Normal : WindowState.Maximized;
             args.SetOutput(null);
         }
 
-        private void MinimizeWindow(InteractionContext<object?, object?> args)
+        protected void MinimizeWindow(InteractionContext<object?, object?> args)
         {
             WindowState = WindowState.Minimized;
             args.SetOutput(null);

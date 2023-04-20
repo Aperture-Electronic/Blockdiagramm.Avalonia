@@ -49,7 +49,7 @@
 			<rb:RibbonPanel Grid.Row="1" DataContext="{Binding RibbonPanelViewModel}"/>
 		</Grid>
 		<Grid Grid.Row="1" ColumnDefinitions="350, 4, *">
-			<StackPanel Orientation="Horizontal">
+			<Grid ColumnDefinitions="45, *">
 				<StackPanel Background="#ECECEC" Width="45">
 					<Button Classes="LeftMenuButton">
 						<i:Icon Value="mdi-file-cabinet"/>
@@ -61,7 +61,14 @@
 						<i:Icon Value="mdi-graph-outline"/>
 					</Button>
 				</StackPanel>
-			</StackPanel>
+				<c:FilterList Grid.Column="1" DataContext="{Binding SourceFileListViewModel}">
+					<c:FilterList.ItemTemplate>
+						<DataTemplate>
+							<c:SourceFileListItem />
+						</DataTemplate>
+					</c:FilterList.ItemTemplate>
+				</c:FilterList>
+			</Grid>
 			<GridSplitter Grid.Column="1" 
 						  Background="#2B579A" ResizeDirection="Columns"
 						  BorderBrush="Transparent"
