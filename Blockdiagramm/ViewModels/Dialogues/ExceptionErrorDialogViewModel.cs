@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -38,7 +39,7 @@ namespace Blockdiagramm.ViewModels.Dialogues
 
         public ICommand OKCommand { get; }
 
-        public Interaction<object?, object?> OK { get; } = new();
+        public Interaction<Unit, Unit> OK { get; } = new();
 
         public ExceptionErrorDialogViewModel(string message, string working = "")
         {
@@ -46,7 +47,7 @@ namespace Blockdiagramm.ViewModels.Dialogues
             this.working = working;
             showWorking = !string.IsNullOrWhiteSpace(working);
 
-            OKCommand = ReactiveCommand.Create(() => OK.Handle(null));
+            OKCommand = ReactiveCommand.CreateFromObservable(() => OK.Handle(Unit.Default));
         }
     }
 }

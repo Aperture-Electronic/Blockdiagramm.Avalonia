@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Blockdiagramm.ViewModels;
 using Blockdiagramm.ViewModels.Dialogues;
 using ReactiveUI;
+using System.Reactive;
 
 namespace Blockdiagramm.Views.Dialogues
 {
@@ -15,10 +16,8 @@ namespace Blockdiagramm.Views.Dialogues
             {
                 RegisterBaseHandlers(d);
 
-                d(ViewModel!.OK.RegisterHandler(OK));
+                d(ViewModel!.OK.RegisterHandler(CloseWindow));
             });
         }
-
-        private void OK(InteractionContext<object?, object?> args) => CloseWindow(args);
     }
 }

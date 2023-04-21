@@ -20,14 +20,15 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
         #region Internal fields
         private readonly ReadOnlyObservableCollection<ComponentPortModel> slavePorts;
         private readonly ReadOnlyObservableCollection<ComponentPortModel> masterPorts;
-        private string instanceName;   
+        private string instanceName;
+        private readonly ObservableAsPropertyHelper<string> name;
         #endregion
 
         public ComponentPartModel PartModel { get; }
         public ReadOnlyObservableCollection<ComponentPortModel> SlavePorts => slavePorts;
         public ReadOnlyObservableCollection<ComponentPortModel> MasterPorts => masterPorts;
 
-        public string Name { get; private set; } = "";
+        public string Name => name.Value;
 
         #region Static properties
         private static double LabelHorizontalMargin => 20;
@@ -56,7 +57,7 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
             this.instanceName = instanceName;
 
             // Bind name
-            this.WhenAnyValue(p => p.PartModel.Name).Subscribe(n => Name = n);
+            this.WhenAnyValue(p => p.PartModel.Name).ToProperty(this, nameof(Name), out name);
 
             // Bind ports
             PartModel.Ports.Connect().Filter(p => p.Direction == PortDirection.Slave)

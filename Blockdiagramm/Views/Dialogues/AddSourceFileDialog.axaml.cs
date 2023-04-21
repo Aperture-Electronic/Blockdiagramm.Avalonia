@@ -11,6 +11,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Threading.Tasks;
 
 namespace Blockdiagramm.Views.Dialogues
@@ -110,7 +111,7 @@ namespace Blockdiagramm.Views.Dialogues
             args.SetOutput(("", false, SourceFileType.Auto));
         }
 
-        private void ConfirmAddSource(InteractionContext<object?, bool> args)
+        private void ConfirmAddSource(InteractionContext<Unit, bool> args)
         {
             if (DataContext is AddSourceFileDialogViewModel model)
             {

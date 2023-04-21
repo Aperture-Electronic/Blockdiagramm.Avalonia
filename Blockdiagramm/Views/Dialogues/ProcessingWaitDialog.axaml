@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+			 xmlns:c="using:Blockdiagramm.Controls"
+		     xmlns:cvt="clr-namespace:Blockdiagramm.Controls.Converters;assembly=Blockdiagramm"
+             mc:Ignorable="d" Width="500" Height="280"
+             x:Class="Blockdiagramm.Views.Dialogues.ProcessingWaitDialog"
+			 CanResize="False"
+			 WindowStartupLocation="CenterOwner"
+			 ExtendClientAreaChromeHints="NoChrome"
+			 ExtendClientAreaTitleBarHeightHint="-1"
+			 ExtendClientAreaToDecorationsHint="True"
+		     x:Name="dialog">
+	<Window.Resources>
+		<cvt:InvertConverter x:Key="InvertConverter"/>	
+	</Window.Resources>
+	<c:DialogueFrame 
+		ShowButtons="False"
+		Title="{Binding Title}"
+		Icon="{Binding Icon}"
+		TitleBarBackground="{Binding TitleBarBackground}">
+		<c:DialogueFrame.DialogContent>
+			<Grid Margin="15" RowDefinitions="*,Auto,*">
+				<TextBlock Text="Please Wait" TextAlignment="Center" VerticalAlignment="Bottom"
+						   FontSize="20" FontWeight="SemiBold"/>
+				<ProgressBar Grid.Row="1" IsIndeterminate="{Binding IsIndeterminate}"
+							 Minimum="0" Maximum="{Binding Maximum}"
+							 Value="{Binding Value}"
+							 Height="10" Margin="50,10"/>
+				<StackPanel Orientation="Horizontal" Grid.Row="2" VerticalAlignment="Top"
+							HorizontalAlignment="Center"
+							IsVisible="{Binding IsIndeterminate, Converter={StaticResource InvertConverter}}">
+					<TextBlock Text="{Binding Value}" />
+					<TextBlock Text="/"/>
+					<TextBlock Text="{Binding Maximum}"/>
+				</StackPanel>
+			</Grid>
+		</c:DialogueFrame.DialogContent>
+	</c:DialogueFrame>
+</Window>

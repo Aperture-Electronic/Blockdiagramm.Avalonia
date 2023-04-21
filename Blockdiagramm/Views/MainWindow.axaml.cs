@@ -21,6 +21,7 @@ namespace Blockdiagramm.Views
                 RegisterBaseHandlers(d);
 
                 d(ViewModel!.ShowException.RegisterHandler(ShowException));
+                d(ViewModel!.ShowProcessingWait.RegisterHandler(ShowProcessingWait));
 
                 d(ViewModel!.NewProject.RegisterHandler(OpenNewProjectDialog));
 
@@ -28,7 +29,7 @@ namespace Blockdiagramm.Views
             });
         }
 
-        private async Task ShowException(InteractionContext<ExceptionErrorDialogViewModel, object?> args)
+        private async Task ShowException(InteractionContext<ExceptionErrorDialogViewModel, Unit> args)
         {
             var model = args.Input;
             ExceptionErrorDialog dialog = new()
@@ -36,10 +37,10 @@ namespace Blockdiagramm.Views
                 DataContext = model
             };
             await dialog.ShowDialog(this);
-            args.SetOutput(null);
+            args.SetOutput(Unit.Default);
         }
 
-        private async Task OpenNewProjectDialog(InteractionContext<object?, NewProjectDialogViewModel> args)
+        private async Task OpenNewProjectDialog(InteractionContext<Unit, NewProjectDialogViewModel> args)
         {
             NewProjectDialog dialog = new();
             NewProjectDialogViewModel viewModel = new();
@@ -48,13 +49,24 @@ namespace Blockdiagramm.Views
             args.SetOutput(result);
         }   
 
-        private async Task OpenAddSourceFileDialog(InteractionContext<object?, AddSourceFileDialogViewModel> args)
+        private async Task OpenAddSourceFileDialog(InteractionContext<Unit, AddSourceFileDialogViewModel> args)
         {
             AddSourceFileDialog dialog = new();
             AddSourceFileDialogViewModel viewModel = new();
             dialog.DataContext = viewModel;
             var result = await dialog.ShowDialog<AddSourceFileDialogViewModel>(this);
             args.SetOutput(result);
+        }
+
+        private void ShowProcessingWait(InteractionContext<ProcessingWaitDialogViewModel, ProcessingWaitDialog> args)
+        {
+            ProcessingWaitDialog dialog = new()
+            {
+                DataContext = args.Input
+            };
+
+            dialog.ShowDialog(this);
+            args.SetOutput(dialog);
         }
     }
 }

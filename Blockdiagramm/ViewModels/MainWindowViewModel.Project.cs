@@ -6,6 +6,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +18,11 @@ namespace Blockdiagramm.ViewModels
     {
         public ICommand NewProjectCommand { get; }
 
-        public Interaction<object?, NewProjectDialogViewModel> NewProject { get; } = new();
+        public Interaction<Unit, NewProjectDialogViewModel> NewProject { get; } = new();
 
         private async Task NewProjectTask()
         {
-            NewProjectDialogViewModel result = await NewProject.Handle(null);
+            NewProjectDialogViewModel result = await NewProject.Handle(Unit.Default);
             if (result?.ViewModelValid ?? false)
             {
                 GlobalStatic.Project.NewProject(result.ProjectName, result.Path);

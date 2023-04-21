@@ -30,7 +30,7 @@
 				<TextBlock Text="{Binding Message}"
 						   TextWrapping="Wrap"
 						   FontSize="16"
-						   Width="{Binding Bound.Width, ElementName=panel}"/>
+						   Width="{Binding Bounds.Width, ElementName=panel}"/>
 			</StackPanel>
 		</c:DialogueFrame.DialogContent>
 	</c:DialogueFrame>

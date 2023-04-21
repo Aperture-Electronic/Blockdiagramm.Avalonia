@@ -40,13 +40,15 @@
 				<TextBlock Text="{Binding Title,ElementName=dialog}" FontSize="24" Foreground="White"
 						   Margin="15,0,0,0" VerticalAlignment="Center"/>
 			</StackPanel>
-			<Button x:Name="btnClose" Command="{Binding CloseWindowCommand}" Classes="TitleButton"  Grid.Column="2">
+			<Button x:Name="btnClose" Command="{Binding CloseWindowCommand}" 
+					IsVisible="{Binding ShowButtons, ElementName=dialog}"
+					Classes="TitleButton"  Grid.Column="2">
 				<i:Icon Value="mdi-window-close" Foreground="White"/>
 			</Button>
 			<Rectangle Fill="Transparent" Grid.Column="1" PointerPressed="OnTitleBarBeginDrag"/>
 		</Grid>
 		<ContentControl Grid.Row="1" Content="{Binding DialogContent, ElementName=dialog}"/>
-		<Grid Grid.Row="2">
+		<Grid Grid.Row="2" IsVisible="{Binding ShowButtons, ElementName=dialog}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />

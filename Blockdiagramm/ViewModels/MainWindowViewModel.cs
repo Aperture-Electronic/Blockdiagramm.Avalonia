@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Blockdiagramm.Logic;
 using Blockdiagramm.ViewModels.Dialogues;
+using Blockdiagramm.Views.Dialogues;
 using DynamicData;
 using ReactiveUI;
 using System;
@@ -20,11 +21,13 @@ namespace Blockdiagramm.ViewModels
         public TitleBarViewModel TitleBarModel { get; }
         public RibbonPanelViewModel RibbonPanelViewModel { get; }
 
-        public Interaction<object?, object?> CloseWindow { get; } = new();
-        public Interaction<object?, object?> MaximizeWindow { get; } = new();
-        public Interaction<object?, object?> MinimizeWindow { get; } = new();
+        public Interaction<Unit, Unit> CloseWindow { get; } = new();
+        public Interaction<Unit, Unit> MaximizeWindow { get; } = new();
+        public Interaction<Unit, Unit> MinimizeWindow { get; } = new();
 
-        public Interaction<ExceptionErrorDialogViewModel, object?> ShowException { get; } = new();
+        public Interaction<ExceptionErrorDialogViewModel, Unit> ShowException { get; } = new();
+
+        public Interaction<ProcessingWaitDialogViewModel, ProcessingWaitDialog> ShowProcessingWait { get; } = new();
 
         public MainWindowViewModel()
         {
@@ -39,9 +42,9 @@ namespace Blockdiagramm.ViewModels
             #endregion
 
             #region Common commands
-            CloseWindowCommand = ReactiveCommand.CreateFromObservable(() => CloseWindow.Handle(null));
-            MaximizeWindowCommand = ReactiveCommand.CreateFromObservable(() => MaximizeWindow.Handle(null));
-            MinimizeWindowCommand = ReactiveCommand.CreateFromObservable(() => MinimizeWindow.Handle(null));
+            CloseWindowCommand = ReactiveCommand.CreateFromObservable(() => CloseWindow.Handle(Unit.Default));
+            MaximizeWindowCommand = ReactiveCommand.CreateFromObservable(() => MaximizeWindow.Handle(Unit.Default));
+            MinimizeWindowCommand = ReactiveCommand.CreateFromObservable(() => MinimizeWindow.Handle(Unit.Default));
             #endregion
 
             #region Side panel commands
@@ -54,6 +57,10 @@ namespace Blockdiagramm.ViewModels
 
             #region Source commands
             AddSourceFileCommand = ReactiveCommand.CreateFromTask(AddSourceTask);
+            #endregion
+
+            #region Elaborate commands
+            ElaborateAllCommand = ReactiveCommand.CreateFromTask(ElaborateAllTask);
             #endregion
         }
     }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace Blockdiagramm.ViewModels.Dialogues
 
         public Interaction<string, (string, bool)> BrowsePath { get; } = new();
 
-        public Interaction<object?, bool> ConfirmCreateProject { get; } = new();
+        public Interaction<Unit, bool> ConfirmCreateProject { get; } = new();
 
         public string ProjectName
         {
@@ -151,7 +152,7 @@ namespace Blockdiagramm.ViewModels.Dialogues
 
             ConfirmCreateProjectCommand = ReactiveCommand.CreateFromTask(async () => 
             {
-                var success = await ConfirmCreateProject.Handle(null);
+                var success = await ConfirmCreateProject.Handle(Unit.Default);
                 if (!success)
                 {
                     // Nothing to do

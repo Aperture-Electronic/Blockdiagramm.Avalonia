@@ -15,8 +15,6 @@ namespace Blockdiagramm.Logic
 {
     public partial class Project
     {
-        private bool elaborating = false;
-
         public SourceList<ComponentPartModel> Components = new();
 
         /// <summary>

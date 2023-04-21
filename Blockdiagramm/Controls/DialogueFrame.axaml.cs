@@ -20,6 +20,9 @@ namespace Blockdiagramm.Controls
         public static readonly StyledProperty<object?> DialogContentProperty
             = AvaloniaProperty.Register<DialogueFrame, object?>(nameof(DialogContent));
 
+        public static readonly StyledProperty<bool> ShowButtonsProperty
+            = AvaloniaProperty.Register<DialogueFrame, bool>(nameof(ShowButtons), true);
+
         public static readonly StyledProperty<string> CancelButtonTextProperty
             = AvaloniaProperty.Register<DialogueFrame, string>(nameof(CancelButtonText), "Cancel");
 
@@ -48,6 +51,12 @@ namespace Blockdiagramm.Controls
         {
             get => GetValue(DialogContentProperty);
             set => SetValue(DialogContentProperty, value);
+        }
+
+        public bool ShowButtons
+        {
+            get => GetValue(ShowButtonsProperty);
+            set => SetValue(ShowButtonsProperty, value);
         }
 
         public string CancelButtonText

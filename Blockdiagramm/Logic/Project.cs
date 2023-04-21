@@ -21,6 +21,7 @@ namespace Blockdiagramm.Logic
         #region Private fields
         private string path = "";
         private string name = "";
+        private ObservableAsPropertyHelper<bool> isValid;
         #endregion
 
         /// <summary>
@@ -46,11 +47,11 @@ namespace Blockdiagramm.Logic
         /// <summary>
         /// Validation of project
         /// </summary>
-        public bool IsValid { get; private set; }
+        public bool IsValid => isValid.Value;
 
         public Project()
         {
-            this.WhenAnyValue(x => x.Path, e => !string.IsNullOrWhiteSpace(e)).Subscribe(value => IsValid = value);
+            this.WhenAnyValue(x => x.Path, e => !string.IsNullOrWhiteSpace(e)).ToProperty(this, nameof(IsValid), out isValid);
         }
 
         /// <summary>

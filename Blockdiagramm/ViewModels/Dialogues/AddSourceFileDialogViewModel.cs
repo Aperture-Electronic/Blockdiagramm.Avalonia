@@ -3,6 +3,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace Blockdiagramm.ViewModels.Dialogues
         #region Interactions
         public Interaction<string, (string, bool, SourceFileType)> BrowseFiles { get; } = new();
 
-        public Interaction<object?, bool> ConfirmAddSource { get; } = new();
+        public Interaction<Unit, bool> ConfirmAddSource { get; } = new();
         #endregion
         
         public string SourceFilePaths
@@ -116,7 +117,7 @@ namespace Blockdiagramm.ViewModels.Dialogues
 
         private async Task ConfirmAddSourceAsync()
         {
-            var success = await ConfirmAddSource.Handle(null);
+            var success = await ConfirmAddSource.Handle(Unit.Default);
             if (success)
             {
                 // Nothing to do

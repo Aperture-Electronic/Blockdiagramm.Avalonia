@@ -6,6 +6,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,13 +18,13 @@ namespace Blockdiagramm.ViewModels
 	{
 		public ICommand AddSourceFileCommand { get; }
 
-		public Interaction<object?, AddSourceFileDialogViewModel> AddSourceFile { get; } = new();
+		public Interaction<Unit, AddSourceFileDialogViewModel> AddSourceFile { get; } = new();
 
 		public FilterListViewModel<SourceFile> SourceFileListViewModel { get; }
 
         private async Task AddSourceTask()
 		{
-			AddSourceFileDialogViewModel result = await AddSourceFile.Handle(null);
+			AddSourceFileDialogViewModel result = await AddSourceFile.Handle(Unit.Default);
 			if (result?.ViewModelValid ?? false)
 			{
 				try

@@ -13,6 +13,7 @@
 							  TooltipTitle="{DynamicResource Strings.Elaborate}"
 							  TooltipContent="{DynamicResource Strings.ElaborateTooltip}"/>
 				<rb:BigButton Title="{DynamicResource Strings.ElaborateAll}" Icon="mdi-data-matrix-scan" Grid.Column="1" Grid.RowSpan="3"
+							  Command="{Binding WindowModel.ElaborateAllCommand}"
 							  TooltipTitle="{DynamicResource Strings.ElaborateAll}"
 							  TooltipContent="{DynamicResource Strings.ElaborateAllTooltip}"/>
 				<rb:SmallButton Title="{DynamicResource Strings.ElaborateUpdate}" Icon="mdi-cube-send" Grid.Column="2"

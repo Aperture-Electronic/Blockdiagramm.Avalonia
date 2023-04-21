@@ -9,6 +9,7 @@ using Blockdiagramm.ViewModels.Dialogues;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Reactive;
 using System.Threading.Tasks;
 
 namespace Blockdiagramm.Views.Dialogues
@@ -47,7 +48,7 @@ namespace Blockdiagramm.Views.Dialogues
             args.SetOutput(("", false));
         }
 
-        private void ConfirmCreateProject(InteractionContext<object?, bool> args)
+        private void ConfirmCreateProject(InteractionContext<Unit, bool> args)
         {
             if (DataContext is NewProjectDialogViewModel model)
             {
