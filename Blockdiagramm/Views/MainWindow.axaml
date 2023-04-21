@@ -8,6 +8,7 @@
 		xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:cvt="clr-namespace:Blockdiagramm.Controls.Converters;assembly=Blockdiagramm"
         mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="768"
         x:Class="Blockdiagramm.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -19,9 +20,12 @@
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
+	<Window.Resources>
+		<cvt:ValueEqualConverter x:Key="ValueEqualConverter"/>		
+	</Window.Resources>
 	<Window.Styles>
 		<Style Selector="Grid.TitleBar">
-			<Setter Property="Background" Value="#1976D2"/>
+			<Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
 		</Style>
 		<Style Selector="Button.LeftMenuButton">
 			<Setter Property="Width" Value="45"/>
@@ -51,17 +55,35 @@
 		<Grid Grid.Row="1" ColumnDefinitions="350, 4, *">
 			<Grid ColumnDefinitions="45, *">
 				<StackPanel Background="#ECECEC" Width="45">
-					<Button Classes="LeftMenuButton">
+					<StackPanel.Styles>
+						<Style Selector="i|Icon">
+							<Setter Property="Foreground" Value="Black"/>
+						</Style>
+						<Style Selector="Button.Selected i|Icon">
+							<Setter Property="Foreground" Value="{DynamicResource PrimaryColor}"/>
+						</Style>
+					</StackPanel.Styles>
+					<Button Classes="LeftMenuButton" 
+							Command="{Binding SelectSidePanelCommand}" 
+							CommandParameter="0"
+							Classes.Selected="{Binding SelectedSidePanelIndex, Converter={StaticResource ValueEqualConverter}, ConverterParameter=0}">
 						<i:Icon Value="mdi-file-cabinet"/>
 					</Button>
-					<Button Classes="LeftMenuButton">
+					<Button Classes="LeftMenuButton"
+							Command="{Binding SelectSidePanelCommand}"
+							CommandParameter="1"
+							Classes.Selected="{Binding SelectedSidePanelIndex, Converter={StaticResource ValueEqualConverter}, ConverterParameter=1}">
 						<i:Icon Value="mdi-cube-outline"/>
 					</Button>
-					<Button Classes="LeftMenuButton">
+					<Button Classes="LeftMenuButton"
+							Command="{Binding SelectSidePanelCommand}"
+							CommandParameter="2"
+							Classes.Selected="{Binding SelectedSidePanelIndex, Converter={StaticResource ValueEqualConverter}, ConverterParameter=2}">
 						<i:Icon Value="mdi-graph-outline"/>
 					</Button>
 				</StackPanel>
-				<c:FilterList Grid.Column="1" DataContext="{Binding SourceFileListViewModel}">
+				<c:FilterList Grid.Column="1" DataContext="{Binding SourceFileListViewModel}"
+							  IsVisible="{Binding $parent.DataContext.SelectedSidePanelIndex, Converter={StaticResource ValueEqualConverter}, ConverterParameter=0}">
 					<c:FilterList.ItemTemplate>
 						<DataTemplate>
 							<c:SourceFileListItem />

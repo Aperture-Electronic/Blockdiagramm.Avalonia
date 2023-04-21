@@ -95,7 +95,7 @@ namespace Blockdiagramm.Logic
         /// Read and update the file content
         /// </summary>
         /// <exception cref="FileNotFoundException">The target file is not on the disk</exception>
-        public async Task ReadFileContent()
+        public async Task ReadFileContentAsync()
         {
             if (!Exist)
             {

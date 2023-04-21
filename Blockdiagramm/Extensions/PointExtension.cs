@@ -1,6 +1,6 @@
 ﻿using Avalonia;
+using Blockdiagramm.Models;
 using Blockdiagramm.Renderer.Wiring.Router;
-using Blockdiagramm.ViewModels.Diagram.Component;
 using DynamicData.Aggregation;
 using System;
 using System.Collections.Generic;

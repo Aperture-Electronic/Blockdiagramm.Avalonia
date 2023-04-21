@@ -1,4 +1,5 @@
 ﻿using Blockdiagramm.Extensions;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Blockdiagramm.ViewModels.Diagram.Wire
 {
-    public class WireModel : INotifyPropertyChanged
+    public class WireModel : ViewModelBase
     {
         #region Internal fields
         private WireType wireType;
@@ -23,19 +24,14 @@ namespace Blockdiagramm.ViewModels.Diagram.Wire
         public WireType WireType
         {
             get => wireType;
-            set => NotifyProperty.ChangeProperty(ref wireType, value, nameof(WireType), OnPropertyChanged);
+            set => this.RaiseAndSetIfChanged(ref wireType, value);
         }
 
         public WireStatus WireStatus
         {
             get => wireStatus;
-            set => NotifyProperty.ChangeProperty(ref wireStatus, value, nameof(WireStatus), OnPropertyChanged);
+            set => this.RaiseAndSetIfChanged(ref wireStatus, value);
         }
-
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #endregion
     }

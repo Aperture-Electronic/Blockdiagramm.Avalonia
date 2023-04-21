@@ -4,8 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Blockdiagramm.ViewModels.Diagram;
 
-namespace Blockdiagramm.ViewModels.Diagram.Component
+namespace Blockdiagramm.Models
 {
     public class ComponentPortModel : INotifyPropertyChanged, IPortModel
     {
@@ -57,7 +58,7 @@ namespace Blockdiagramm.ViewModels.Diagram.Component
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
-            =>PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         #endregion
 
         public ComponentPortModel(PortDirection direction, string name)

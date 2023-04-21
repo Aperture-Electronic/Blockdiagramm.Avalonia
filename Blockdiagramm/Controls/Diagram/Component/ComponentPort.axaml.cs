@@ -3,19 +3,19 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Blockdiagramm.Models;
 using Blockdiagramm.ViewModels.Diagram;
-using Blockdiagramm.ViewModels.Diagram.Component;
 using System;
 using System.Drawing;
 
 namespace Blockdiagramm.Controls.Diagram.Component
 {
-    public partial class ComponentPort : UserControl, IPort<ComponentPortModel>
+    public partial class ComponentPort : UserControl, IPort<Models.ComponentPortModel>
     {
         public readonly static RoutedEvent<ComponentPortPressedEventArgs> PortPressedEvent =
             RoutedEvent.Register<ComponentPort, ComponentPortPressedEventArgs>(nameof(PortPressed), RoutingStrategies.Bubble);
 
-        public ComponentPortModel? Model => DataContext as ComponentPortModel;
+        public Models.ComponentPortModel? Model => DataContext as Models.ComponentPortModel;
 
         public event EventHandler<ComponentPortPressedEventArgs> PortPressed
         {

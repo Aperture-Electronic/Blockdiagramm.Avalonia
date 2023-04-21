@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
 			 xmlns:c="using:Blockdiagramm.Controls"
-             mc:Ignorable="d" d:DesignWidth="350" Height="45"
+             mc:Ignorable="d" d:DesignWidth="350" Height="25"
              x:Class="Blockdiagramm.Controls.SourceFileListItem"
 			 ToolTip.Placement="Bottom"
 			 Background="White">
@@ -15,8 +15,8 @@
 		</Style>
 		<Style Selector="Border.Badge">
 			<Setter Property="CornerRadius" Value="5"/>
-			<Setter Property="Height" Value="25"/>
-			<Setter Property="Margin" Value="10"/>
+			<Setter Property="Height" Value="20"/>
+			<Setter Property="Margin" Value="10,0"/>
 		</Style>
 		<Style Selector="Border.Badge TextBlock">
 			<Setter Property="Foreground" Value="White"/>

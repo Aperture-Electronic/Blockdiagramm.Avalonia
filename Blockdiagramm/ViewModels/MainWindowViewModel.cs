@@ -35,12 +35,18 @@ namespace Blockdiagramm.ViewModels
 
             #region Source view model
             SourceFileListViewModel = new(GlobalStatic.Project.SourceFiles.Connect(), (file, filterText) => file.ShortName.Contains(filterText));
-            
+
             #endregion
 
+            #region Common commands
             CloseWindowCommand = ReactiveCommand.CreateFromObservable(() => CloseWindow.Handle(null));
             MaximizeWindowCommand = ReactiveCommand.CreateFromObservable(() => MaximizeWindow.Handle(null));
             MinimizeWindowCommand = ReactiveCommand.CreateFromObservable(() => MinimizeWindow.Handle(null));
+            #endregion
+
+            #region Side panel commands
+            SelectSidePanelCommand = ReactiveCommand.Create<string>(indexString => SelectedSidePanelIndex = int.Parse(indexString));
+            #endregion
 
             #region Project commands
             NewProjectCommand = ReactiveCommand.CreateFromTask(NewProjectTask);

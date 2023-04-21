@@ -42,7 +42,7 @@
 			<TextBlock Classes="FileShortName" Text="{Binding ShortName}" />
 			<Rectangle Fill="#7F000000" Height="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
 			<TextBlock Classes="FileType" Text="{Binding Type, Converter={StaticResource EnumNameConverter}}" Grid.Row="1"/>
-			<TextBlock Classes="FilePath" Text="{Binding FilePath}" Grid.Row="2"/>
+			<TextBlock Classes="FilePath" TextWrapping="Wrap" Text="{Binding FilePath}" Grid.Row="2"/>
 			<TextBlock Classes="Hash" Text="{Binding Hash}" Grid.Row="3"/>
 		</Grid>
 	</Panel>

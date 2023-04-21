@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blockdiagramm.ViewModels.Diagram.Component
+namespace Blockdiagramm.Models
 {
     public enum PortDirection
     {

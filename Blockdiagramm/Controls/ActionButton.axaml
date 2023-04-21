@@ -7,7 +7,7 @@
 			 x:Name="button">
 	<UserControl.Styles>
 		<Style Selector="Button">
-			<Setter Property="Foreground" Value="#1976D2"/>
+			<Setter Property="Foreground" Value="{DynamicResource PrimaryColor}"/>
 			<Setter Property="Background" Value="Transparent"/>
 			<Setter Property="FontSize" Value="14"/>
 			<Setter Property="FontWeight" Value="500"/>
@@ -29,7 +29,7 @@
 	</UserControl.Styles>
 	<Button Classes="ActionButton" Command="{Binding Command, ElementName=button}">
 		<Panel HorizontalAlignment="Stretch" Margin="0">
-			<Border Classes="Background" CornerRadius="3" Background="#1976D2">
+			<Border Classes="Background" CornerRadius="3" Background="{DynamicResource PrimaryColor}">
 				<Border.Transitions>
 					<Transitions>
 						<DoubleTransition Property="Opacity" Duration="0:0:0.3">
@@ -41,7 +41,7 @@
 				</Border.Transitions>
 			</Border>
 			<TextBlock Margin="10" Text="{Binding Text, ElementName=button}" 
-					   Foreground="#1976D2" TextAlignment="Center"/>
+					   Foreground="{DynamicResource PrimaryColor}" TextAlignment="Center"/>
 		</Panel>
 	</Button>
 </UserControl>

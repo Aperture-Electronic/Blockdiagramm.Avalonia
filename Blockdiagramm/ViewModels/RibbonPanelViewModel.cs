@@ -8,23 +8,18 @@ using System.Threading.Tasks;
 
 namespace Blockdiagramm.ViewModels
 {
-    public class RibbonPanelViewModel : INotifyPropertyChanged
+    public class RibbonPanelViewModel : ViewModelBase
     {
-        #region Notify Property Changed
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void UpdateProperty(string propertyName)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        #endregion
+        private Project project;
 
         public MainWindowViewModel WindowModel { get; }
 
-        public Project Project { get; }
+        public Project Project => project;
         
         public RibbonPanelViewModel(MainWindowViewModel windowModel, Project project)
         {
             WindowModel = windowModel;
-            Project = project;
+            this.project = project;
         }
     }
 }

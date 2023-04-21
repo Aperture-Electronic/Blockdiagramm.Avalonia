@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Blockdiagramm.Extensions;
+using Blockdiagramm.Models;
 using Blockdiagramm.Renderer.Wiring.Router;
 using Blockdiagramm.ViewModels.Diagram;
 using Blockdiagramm.ViewModels.Diagram.Component;
@@ -11,13 +12,13 @@ using System;
 
 namespace Blockdiagramm.Controls.Diagram.Component
 {
-    public partial class ComponentPart : UserControl, IRectObstacle, IPart<ComponentPartModel, ComponentPortModel>
+    public partial class ComponentPart : UserControl, IRectObstacle, IPart<ComponentPartInstanceModel, Models.ComponentPortModel>
     {
         private bool isDragging = false;
         private Point mousePosition;
         private Point previousPosition = (0.0, 0.0).ToPoint();
 
-        public ComponentPartModel? Model => DataContext as ComponentPartModel;
+        public ComponentPartInstanceModel? Model => DataContext as ComponentPartInstanceModel;
 
         public readonly static StyledProperty<bool> IsSelectedProperty = 
             AvaloniaProperty.Register<ComponentPart, bool>(nameof(IsSelected), false);
@@ -117,7 +118,7 @@ namespace Blockdiagramm.Controls.Diagram.Component
 
         private void OnPortPressed(object sender, ComponentPortPressedEventArgs e)
         {
-            if (DataContext is ComponentPartModel partModel)
+            if (DataContext is ComponentPartInstanceModel partModel)
             {
                 e.PartModel = partModel;
                 e.RoutedEvent = PortPressedEvent;
@@ -132,7 +133,7 @@ namespace Blockdiagramm.Controls.Diagram.Component
                 throw new Exception("The part has not a valid data context of part model");
             }
 
-            if (port.Model is not ComponentPortModel model)
+            if (port.Model is not Models.ComponentPortModel model)
             {
                 throw new Exception("The port has not a valid data context of port model");
             }
@@ -147,7 +148,7 @@ namespace Blockdiagramm.Controls.Diagram.Component
 
         public PortDirection GetPortDirection(IPort<IPortModel> port)
         {
-            if (port.Model is not ComponentPortModel model)
+            if (port.Model is not Models.ComponentPortModel model)
             {
                 throw new Exception("The port has not a valid data context of port model");
             }

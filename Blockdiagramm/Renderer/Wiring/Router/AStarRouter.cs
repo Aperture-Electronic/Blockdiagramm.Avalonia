@@ -2,7 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Logging;
 using Blockdiagramm.Extensions;
-using Blockdiagramm.ViewModels.Diagram.Component;
+using Blockdiagramm.Models;
 using DynamicData;
 using System;
 using System.Collections.Generic;

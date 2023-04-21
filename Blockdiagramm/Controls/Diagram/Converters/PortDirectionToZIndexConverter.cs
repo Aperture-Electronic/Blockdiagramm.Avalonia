@@ -1,5 +1,5 @@
 ﻿using Avalonia.Data.Converters;
-using Blockdiagramm.ViewModels.Diagram.Component;
+using Blockdiagramm.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

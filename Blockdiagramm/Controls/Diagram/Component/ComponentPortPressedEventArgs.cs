@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Interactivity;
+using Blockdiagramm.Models;
 using Blockdiagramm.ViewModels.Diagram.Component;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Blockdiagramm.Controls.Diagram.Component
         /// <summary>
         /// The part model of the component that contains the port
         /// </summary>
-        public ComponentPartModel PartModel { get; set; } = null!;
+        public ComponentPartInstanceModel PartModel { get; set; } = null!;
 
         public ComponentPortPressedEventArgs(RoutedEvent e, ComponentPort port)
         {

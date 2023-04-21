@@ -2,63 +2,55 @@
 using Avalonia.Collections;
 using Blockdiagramm.Extensions;
 using DynamicData;
+using ReactiveUI;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Blockdiagramm.Logic
 {
-    public partial class Project : INotifyPropertyChanged
+    [Serializable, DataContract(Name = "Project", Namespace = "www.blockdiagramm.org")]
+    public partial class Project : ReactiveObject
     {
-        #region Notify Property Changed
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        /// <summary>
-        /// Let the UI know that a property has changed
-        /// </summary>
-        public void UpdateProperty(string propertyName)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        #endregion
-
         #region Private fields
         private string path = "";
         private string name = "";
         #endregion
 
-        #region Public readonly properties
-        #endregion
-
         /// <summary>
         /// Path to store project files
         /// </summary>
+        [DataMember]
         public string Path
         {
             get => path;
-            set => NotifyProperty.ChangeProperty(ref path, value, nameof(Path), UpdateProperty);
+            set => this.RaiseAndSetIfChanged(ref path, value);
         }
 
         /// <summary>
         /// Project name
         /// </summary>
+        [DataMember]
         public string Name
         {
             get => name;
-            set => NotifyProperty.ChangeProperty(ref name, value, nameof(Name), UpdateProperty);
+            set => this.RaiseAndSetIfChanged(ref name, value);
         }
 
         /// <summary>
         /// Validation of project
         /// </summary>
-        public bool IsValid => !string.IsNullOrEmpty(Path);
+        public bool IsValid { get; private set; }
 
         public Project()
         {
-
+            this.WhenAnyValue(x => x.Path, e => !string.IsNullOrWhiteSpace(e)).Subscribe(value => IsValid = value);
         }
 
         /// <summary>
@@ -78,9 +70,6 @@ namespace Blockdiagramm.Logic
 
             // Clear the list of project items
             SourceFiles.Clear();
-
-            // Update the valid property
-            UpdateProperty(nameof(IsValid));
         }
 
         /// <summary>
@@ -92,9 +81,6 @@ namespace Blockdiagramm.Logic
             {
                 Path = string.Empty;
                 Name = string.Empty;
-
-                // Update the valid property
-                UpdateProperty(nameof(IsValid));
             }
         }
     }

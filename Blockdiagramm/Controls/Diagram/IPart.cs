@@ -1,6 +1,6 @@
 ﻿using Avalonia;
+using Blockdiagramm.Models;
 using Blockdiagramm.ViewModels.Diagram;
-using Blockdiagramm.ViewModels.Diagram.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;

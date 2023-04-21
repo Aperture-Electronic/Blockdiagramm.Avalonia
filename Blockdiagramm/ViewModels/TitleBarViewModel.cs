@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Blockdiagramm.ViewModels
 {
-    public class TitleBarViewModel
+    public class TitleBarViewModel : ViewModelBase
     {
         public IWindowBaseViewModel WindowModel { get; }
 
-        public string Version { get; set; }
-        public Project Project { get; set; }
+        public string Version { get; }
+        public Project Project { get; }
 
         public TitleBarViewModel(IWindowBaseViewModel model, string version, Project project)
         {

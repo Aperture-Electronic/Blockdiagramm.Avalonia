@@ -3,6 +3,10 @@
              xmlns:local="using:Blockdiagramm"
              x:Class="Blockdiagramm.App"
 			 Name="Blockdiagramm">
+	<Application.Resources>
+		<SolidColorBrush x:Key="PrimaryColor">#1976D2</SolidColorBrush>
+	</Application.Resources>
+	
 	<Application.DataTemplates>
 		<local:ViewLocator/>
 	</Application.DataTemplates>

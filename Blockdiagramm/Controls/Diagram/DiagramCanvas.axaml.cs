@@ -7,9 +7,12 @@ using Avalonia.Remote.Protocol.Input;
 using Blockdiagramm.Controls.Diagram.Component;
 using Blockdiagramm.Controls.Diagram.Wire;
 using Blockdiagramm.Extensions;
+using Blockdiagramm.Models;
 using Blockdiagramm.Models.Diagram;
 using Blockdiagramm.Renderer.Wiring;
+using Blockdiagramm.ViewModels.Diagram.Component;
 using Blockdiagramm.ViewModels.Diagram.Wire;
+using DynamicData;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,6 +33,14 @@ namespace Blockdiagramm.Controls.Diagram
             InitializeComponent();
             
             wiringManager = new(canvas);
+
+            // TODO: Test
+            ComponentPartModel part = new(null!);
+            part.Name = "test";
+            part.Ports.Add(new ComponentPortModel(PortDirection.Slave, "clk"));
+            part.Ports.Add(new ComponentPortModel(PortDirection.Slave, "din"));
+            part.Ports.Add(new ComponentPortModel(PortDirection.Master, "dout"));
+            cpTest.DataContext = new ComponentPartInstanceModel(part, "inst_0");
         }
 
         public override void Render(DrawingContext context)

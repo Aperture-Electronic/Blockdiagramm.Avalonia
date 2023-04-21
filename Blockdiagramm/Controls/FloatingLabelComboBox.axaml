@@ -27,7 +27,7 @@
 			<Setter Property="Background" Value="Transparent"/>
 		</Style>
 		<Style Selector="Panel.Mask Border">
-			<Setter Property="BorderBrush" Value="#1976D2"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}"/>
 			<Setter Property="BorderThickness" Value="0"/>
 			<Setter Property="CornerRadius" Value="3"/>
 		</Style>

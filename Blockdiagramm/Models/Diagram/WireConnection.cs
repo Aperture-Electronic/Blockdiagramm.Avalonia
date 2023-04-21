@@ -3,7 +3,6 @@ using Blockdiagramm.Controls.Diagram;
 using Blockdiagramm.Controls.Diagram.Wire;
 using Blockdiagramm.Renderer.Wiring;
 using Blockdiagramm.ViewModels.Diagram;
-using Blockdiagramm.ViewModels.Diagram.Component;
 using Blockdiagramm.ViewModels.Diagram.Wire;
 using System;
 
