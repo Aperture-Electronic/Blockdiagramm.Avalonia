@@ -14,7 +14,9 @@
 		<c:FloatingLabelTextBox LengthLimit="-1"
 			Placeholder="{DynamicResource Strings.Filter}"
 			Text="{Binding FilterString}" Margin="5,5,5,-10"/>
-		<ListBox Grid.Row="1" Items="{Binding FilteredItems}" ItemTemplate="{Binding ItemTemplate, ElementName=list}">
+		<ListBox Grid.Row="1" Items="{Binding FilteredItems}" 
+				 ItemTemplate="{Binding ItemTemplate, ElementName=list}"
+				 SelectedItem="{Binding SelectedItem}">
 			<ListBox.Styles>
 				<Style Selector="ListBoxItem">
 					<Setter Property="Padding" Value="0,4"/>

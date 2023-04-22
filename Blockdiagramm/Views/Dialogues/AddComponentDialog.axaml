@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+		xmlns:c="using:Blockdiagramm.Controls"
+		xmlns:cvt="clr-namespace:Blockdiagramm.Controls.Converters;assembly=Blockdiagramm"
+        mc:Ignorable="d" Width="500" Height="220"
+        x:Class="Blockdiagramm.Views.Dialogues.AddComponentDialog"
+        Title="AddComponentDialog"
+		CanResize="False"
+		WindowStartupLocation="CenterOwner"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		ExtendClientAreaToDecorationsHint="True"
+		x:Name="dialog">
+	<Window.Resources>
+		<cvt:LocalizationFormatStringConverter x:Key="LocalizationFormatStringConverter"/>
+	</Window.Resources>
+	<c:DialogueFrame BeginDrag="BeginDrag"
+					 Icon="mdi-file-import-outline"
+					 Title="{DynamicResource Strings.AddComponent}"
+					 TitleBarBackground="#3357C1"
+					 CancelButtonText="{DynamicResource Strings.Cancel}"
+					 ConfirmButtonText="{DynamicResource Strings.Add}"
+					 ConfirmCommand="{Binding ConfirmAddComponentCommand}">
+		<c:DialogueFrame.DialogContent>
+			<Grid Margin="15" ColumnDefinitions="32, *" RowDefinitions="Auto, Auto">
+				<TextBlock TextWrapping="Wrap" Grid.ColumnSpan="2">
+					<TextBlock.Text>
+						<MultiBinding Converter="{StaticResource LocalizationFormatStringConverter}">
+							<DynamicResource ResourceKey="Strings.AddComponentDialogTip"/>
+							<Binding Path="Title" ElementName="dialog"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<i:Icon Value="mdi-identifier" FontSize="24" Foreground="Black" Grid.Row="1"/>
+				<c:FloatingLabelTextBox
+					Text="{Binding InstanceName}"
+					IsInvalid="{Binding InstanceNameInvalid}"
+					LengthLimit="-1" Placeholder="{DynamicResource Strings.ComponentInstanceName}"
+					TipText="{DynamicResource Strings.ComponentInstanceNameInputTip}"
+					InvalidTipText="{Binding InstanceNameInvalidReason}"
+					Grid.Column="1" Grid.Row="1" Margin="10,5"/>
+			</Grid>
+		</c:DialogueFrame.DialogContent>
+	</c:DialogueFrame>
+</Window>

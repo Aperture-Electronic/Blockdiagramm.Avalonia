@@ -28,7 +28,8 @@ namespace Blockdiagramm.ViewModels
             bool isExceiption = false;
             try
             {
-                await GlobalStatic.Project.ElaborateAll();
+                // Create a new thread for elaborate
+                await Task.Run(GlobalStatic.Project.ElaborateAll);
             }
             catch (Exception ex)
             {

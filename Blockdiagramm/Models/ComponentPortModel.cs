@@ -2,75 +2,53 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Blockdiagramm.ViewModels.Diagram;
+using ReactiveUI;
 
 namespace Blockdiagramm.Models
 {
-    public class ComponentPortModel : INotifyPropertyChanged, IPortModel
+    public class ComponentPortModel : ReactiveObject, IPortModel
     {
         #region Internal fields
         private PortDirection direction = PortDirection.Master;
         private string name = "";
+        private readonly ObservableAsPropertyHelper<string> displayName;
         #endregion
 
-        #region Readonly properties
+        #region Static properties
         public static double PortStackSize => 10;
 
         public static double PortHeight => 20;
-        private string DisplayName => name;
+        #endregion
+
+        #region Readonly properties
+        private string DisplayName => displayName.Value;
         #endregion
 
         #region Notify properties
         public PortDirection Direction
         {
             get => direction;
-            set
-            {
-                if (direction == value)
-                {
-                    return;
-                }
-
-                direction = value;
-                OnPropertyChanged(nameof(Direction));
-            }
+            set => this.RaiseAndSetIfChanged(ref direction, value); 
         }
 
         public string Name
         {
             get => name;
-            set
-            {
-                if (name == value)
-                {
-                    return;
-                }
-
-                name = value;
-                OnPropertyChanged(nameof(Name));
-
-                // Also, notify changing of dependencies
-                OnPropertyChanged(nameof(DisplayName));
-            }
+            set => this.RaiseAndSetIfChanged(ref name, value);  
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         #endregion
 
         public ComponentPortModel(PortDirection direction, string name)
         {
             this.direction = direction;
             this.name = name;
-        }
 
-        // TODO
-        public ComponentPortModel()
-        {
-
+            // TODO
+            this.WhenAnyValue(x => x.Name).Select(name => name).ToProperty(this, nameof(Name), out displayName);
         }
     }
 }

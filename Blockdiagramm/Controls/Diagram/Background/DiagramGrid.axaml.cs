@@ -1,15 +1,18 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Blockdiagramm.Renderer.Grid;
+using Blockdiagramm.ViewModels.Diagram;
 
 namespace Blockdiagramm.Controls.Diagram.Background
 {
-    public partial class DiagramGrid : UserControl
+    public partial class DiagramGrid : UserControl, IDiagramItem
     {
         public DiagramGrid()
         {
             InitializeComponent();
         }
+
+        public DiagramItemType DiagramType => DiagramItemType.Grid;
 
         public override void Render(DrawingContext context)
         {

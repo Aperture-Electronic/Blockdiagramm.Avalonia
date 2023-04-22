@@ -12,7 +12,7 @@ using System;
 
 namespace Blockdiagramm.Controls.Diagram.Component
 {
-    public partial class ComponentPart : UserControl, IRectObstacle, IPart<ComponentPartInstanceModel, Models.ComponentPortModel>
+    public partial class ComponentPart : UserControl, IRectObstacle, IPart<ComponentPartInstanceModel, Models.ComponentPortModel>, IDiagramItem
     {
         private bool isDragging = false;
         private Point mousePosition;
@@ -31,6 +31,8 @@ namespace Blockdiagramm.Controls.Diagram.Component
 
         public readonly static RoutedEvent<ComponentMovedEventArgs> ComponentMovedEvent =
             RoutedEvent.Register<ComponentPart, ComponentMovedEventArgs>(nameof(ComponentMoved), RoutingStrategies.Bubble);
+
+        public DiagramItemType DiagramType => DiagramItemType.ComponentPart;
 
         public bool IsSelected
         {

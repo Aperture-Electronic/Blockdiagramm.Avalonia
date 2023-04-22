@@ -123,9 +123,6 @@ namespace Blockdiagramm.Views.Dialogues
                     args.SetOutput(true);
                     return;
                 }
-
-                args.SetOutput(false);
-                return;
             }
 
             args.SetOutput(false);  

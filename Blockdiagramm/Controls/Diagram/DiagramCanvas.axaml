@@ -10,12 +10,26 @@
              x:Class="Blockdiagramm.Controls.Diagram.DiagramCanvas"
 			 xmlns:test="clr-namespace:Blockdiagramm.Models;assembly=Blockdiagramm">
 	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-		<Canvas x:Name="canvas" Background="White" 
+		<!-- <Canvas x:Name="canvas" Background="White" 
 				PointerPressed="OnCanvasPointerPressed"
 				PointerMoved="OnCanvasPointerMoved">
 			<dg:DiagramGrid x:Name="bgGrid" Width="600" Height="300" Canvas.Left="0" Canvas.Top="0" ZIndex="-1"/>
 			<dcm:ComponentPart x:Name="cpTest" PortPressed="OnPortPressed"
 							   ComponentMoved="OnComponentMoved"/>
-		</Canvas>
+		</Canvas> -->
+		<ItemsControl x:Name="itemCanvas" Items="{Binding Items}">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Canvas x:Name="canvas" Background="White" 
+							PointerPressed="OnCanvasPointerPressed"
+							PointerMoved="OnCanvasPointerMoved"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<ContentControl Content="{Binding}"/>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
 	</ScrollViewer>
 </UserControl>

@@ -20,7 +20,9 @@ namespace Blockdiagramm.ViewModels.Dialogues
         private bool sourceFilePathsInvalid;
 
         private string sourceFilePathsInvalidReason;
+        #endregion
 
+        #region Commands
         public ICommand BrowseFilesCommand { get; }
         public ICommand ConfirmAddSourceCommand { get; }
         #endregion

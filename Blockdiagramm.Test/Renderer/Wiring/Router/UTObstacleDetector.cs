@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Blockdiagramm.Controls.Diagram.Wire;
 using Blockdiagramm.Extensions;
+using Blockdiagramm.Models.Diagram;
 using Blockdiagramm.Renderer.Wiring.Router;
 
 namespace Blockdiagramm.Test.Renderer.Wiring.Router
@@ -29,10 +30,10 @@ namespace Blockdiagramm.Test.Renderer.Wiring.Router
                 Assert.IsNotNull(addSegmentsMethod);
                 Assert.IsNotNull(lineObstaclesField);
 
-                Canvas canvas = new();
+                DiagramModel model = new("default");
                 RouterConfiguration configuration = new();
 
-                AStarRouter router = new(canvas, configuration);
+                AStarRouter router = new(model, configuration);
 
                 // Add the segments to the router
                 addSegmentsMethod.Invoke(router, new object[1] { testCase.Segments });

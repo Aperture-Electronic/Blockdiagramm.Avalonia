@@ -29,4 +29,9 @@ All</system:String>
     <system:String x:Key="Strings.ElaborateAllTooltip">Elaborate all HDL entities.</system:String>
     <system:String x:Key="Strings.ElaborateUpdate">Update</system:String>
     <system:String x:Key="Strings.ElaborateUpdateTooltip">Elaborate any HDL entity that has changed.</system:String>
+    <system:String x:Key="Strings.AddComponent">Add Component</system:String>
+    <system:String x:Key="Strings.AddComponentTooltip">Add a new component to the diagram.</system:String>
+    <system:String x:Key="Strings.AddComponentDialogTip">You are adding the {0} component to the diagram. Please specify the instance name of it.</system:String>
+    <system:String x:Key="Strings.ComponentInstanceName">Instance Name</system:String>
+    <system:String x:Key="Strings.ComponentInstanceNameInputTip">The name must conform to the naming rules of the HDL language</system:String>
 </ResourceDictionary>

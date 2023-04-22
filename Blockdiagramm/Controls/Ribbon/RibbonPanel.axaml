@@ -32,6 +32,9 @@
 			</StackPanel>
 		</TabItem>
 		<TabItem Header="Design" Classes="RibbonMenu">
+			<StackPanel Orientation="Horizontal">
+				<rbc:ComponentRibbonCard/>
+			</StackPanel>
 		</TabItem>
 		<TabItem Header="Insert" Classes="RibbonMenu">
 		</TabItem>

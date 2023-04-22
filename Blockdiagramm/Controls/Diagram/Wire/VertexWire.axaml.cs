@@ -3,6 +3,7 @@ using Avalonia.Collections;
 using Avalonia.Controls;
 using Blockdiagramm.Extensions;
 using Blockdiagramm.Renderer.Wiring.Router;
+using Blockdiagramm.ViewModels.Diagram;
 using Blockdiagramm.ViewModels.Diagram.Wire;
 using System;
 using System.Collections;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Blockdiagramm.Controls.Diagram.Wire
 {
-    public partial class VertexWire : UserControl, ILineObstacle
+    public partial class VertexWire : UserControl, ILineObstacle, IDiagramItem
     {
         public static readonly DirectProperty<VertexWire, AvaloniaList<Point>> VerticesProperty =
             AvaloniaProperty.RegisterDirect<VertexWire, AvaloniaList<Point>>(nameof(Vertices), o => o.Vertices);
@@ -163,6 +164,8 @@ namespace Blockdiagramm.Controls.Diagram.Wire
                 }
             }
         }
+
+        public DiagramItemType DiagramType => DiagramItemType.Wire;
 
         public void Translate(Point delta)
         {

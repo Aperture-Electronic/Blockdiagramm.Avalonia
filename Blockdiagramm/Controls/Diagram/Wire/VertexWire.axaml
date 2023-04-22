@@ -5,14 +5,14 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:dg="using:Blockdiagramm.Controls.Diagram"
 			 xmlns:dc="clr-namespace:Blockdiagramm.Controls.Diagram.Converters;assembly=Blockdiagramm"
-             x:Class="Blockdiagramm.Controls.Diagram.Wire.VertexWire">
+             x:Class="Blockdiagramm.Controls.Diagram.Wire.VertexWire"
+			 x:Name="line">
 	<UserControl.Resources>
 		<dc:WireTypeToStrokeThicknessConverter x:Key="WireTypeToStrokeThicknessConverter"/>
 		<dc:WireStatusToStrokeConverter x:Key="WireStatusToStrokeConverter"/>
 	</UserControl.Resources>
 	<dg:DynamicPolyline x:Name="dplWire"
-					Stroke="{Binding WireStatus, Converter={StaticResource WireStatusToStrokeConverter}}" 
+					Stroke="{Binding WireStatus, Converter={StaticResource WireStatusToStrokeConverter}}"
 					StrokeThickness="{Binding WireType, Converter={StaticResource WireTypeToStrokeThicknessConverter}}"/>
-
 </UserControl>
 

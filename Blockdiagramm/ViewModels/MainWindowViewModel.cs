@@ -38,7 +38,10 @@ namespace Blockdiagramm.ViewModels
 
             #region Source view model
             SourceFileListViewModel = new(GlobalStatic.Project.SourceFiles.Connect(), (file, filterText) => file.ShortName.Contains(filterText));
+            #endregion
 
+            #region Component view model
+            ComponentListViewModel = new(GlobalStatic.Project.Components.Connect(), (component, filterText) => component.Name.Contains(filterText));
             #endregion
 
             #region Common commands
@@ -62,6 +65,12 @@ namespace Blockdiagramm.ViewModels
             #region Elaborate commands
             ElaborateAllCommand = ReactiveCommand.CreateFromTask(ElaborateAllTask);
             #endregion
+
+            #region Design commands
+            AddComponentCommand = ReactiveCommand.CreateFromTask(AddComponentTask);
+            #endregion
+
+            CurrentDiagram = new("diagram");
         }
     }
 }

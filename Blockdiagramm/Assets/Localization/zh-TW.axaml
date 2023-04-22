@@ -28,4 +28,9 @@
     <system:String x:Key="Strings.ElaborateAllTooltip">解析專案中全部的HDL檔。</system:String>
     <system:String x:Key="Strings.ElaborateUpdate">更新</system:String>
     <system:String x:Key="Strings.ElaborateUpdateTooltip">解析並更新已修改的HDL檔。</system:String>
+    <system:String x:Key="Strings.AddComponent">添加元件</system:String>
+    <system:String x:Key="Strings.AddComponentTooltip">在當前的圖上添加一個新元件。</system:String>
+    <system:String x:Key="Strings.AddComponentDialogTip">您正在向圖上添加元件{0}。請指定該元件的實例名稱。</system:String>
+    <system:String x:Key="Strings.ComponentInstanceName">實例名稱</system:String>
+    <system:String x:Key="Strings.ComponentInstanceNameInputTip">實例名稱必須符合HDL語言的命名規則</system:String>
 </ResourceDictionary>

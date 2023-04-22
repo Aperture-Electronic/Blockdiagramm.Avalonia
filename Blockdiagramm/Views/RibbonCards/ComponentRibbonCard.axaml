@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 xmlns:rb="using:Blockdiagramm.Controls.Ribbon"
+			 xmlns:rbm="clr-namespace:Blockdiagramm.Models.Ribbon;assembly=Blockdiagramm"
+             x:Class="Blockdiagramm.Views.RibbonCards.ComponentRibbonCard">
+	<rb:RibbonCard Title="Component">
+		<rb:RibbonCard.CardContent>
+			<Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
+				<rb:BigButton Title="{DynamicResource Strings.Add}" Icon="mdi-package-variant-closed-plus" Grid.RowSpan="3"
+							  Command="{Binding WindowModel.AddComponentCommand}"
+							  TooltipTitle="{DynamicResource Strings.AddComponent}"
+							  TooltipContent="{DynamicResource Strings.AddComponentTooltip}"/>
+			</Grid>
+		</rb:RibbonCard.CardContent>
+	</rb:RibbonCard>
+</UserControl>

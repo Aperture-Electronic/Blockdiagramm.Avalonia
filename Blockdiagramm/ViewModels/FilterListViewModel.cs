@@ -18,11 +18,18 @@ namespace Blockdiagramm.ViewModels
         private readonly ReadOnlyObservableCollection<T> filteredItems;
         private readonly IObservable<IChangeSet<T>> items;
         private readonly IObservable<Func<T, bool>> filterObservable;
+        private T? selectedItem = default;
 
         public string FilterString
         {
             get => filterString;
             set => this.RaiseAndSetIfChanged(ref filterString, value);
+        }
+
+        public T? SelectedItem
+        {
+            get => selectedItem;
+            set => this.RaiseAndSetIfChanged(ref selectedItem, value);
         }
 
         public ReadOnlyObservableCollection<T> FilteredItems => filteredItems;

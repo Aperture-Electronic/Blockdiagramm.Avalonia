@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Logging;
 using Blockdiagramm.Extensions;
 using Blockdiagramm.Models;
+using Blockdiagramm.Models.Diagram;
 using DynamicData;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Blockdiagramm.Renderer.Wiring.Router
     {
         public RouterConfiguration Configuration { get; set; }
 
-        private readonly Canvas canvas;
+        private readonly DiagramModel diagram;
         private List<Rect> rectObstacles = null!;
         private readonly Dictionary<OrthogonalDirection, SortedList<double, SortedList<double, OrthogonalSegment>>> lineObstacles
             = new()
@@ -33,8 +34,8 @@ namespace Blockdiagramm.Renderer.Wiring.Router
         /// </summary>
         public void UpdateObstacles()
         {
-            var children = canvas.Children;
-            rectObstacles = children.Where(obj => obj is IRectObstacle).Cast<IRectObstacle>()
+            var items = diagram.Items;
+            rectObstacles = items.Where(obj => obj is IRectObstacle).Cast<IRectObstacle>()
                 .Where(rect => rect.IsObstacleValid)
                 .Select(rect => rect.BoundBox.Deflate(Configuration.BoundBoxDeflate)).ToList();
 
@@ -43,7 +44,7 @@ namespace Blockdiagramm.Renderer.Wiring.Router
             lineObstacles[OrthogonalDirection.Vertical].Clear();
 
             // Create the segments
-            var lineObstacleItems = children.Where(obj => obj is ILineObstacle).Cast<ILineObstacle>().Where(l => l.IsObstacleValid);
+            var lineObstacleItems = items.Where(obj => obj is ILineObstacle).Cast<ILineObstacle>().Where(l => l.IsObstacleValid);
             var segments = lineObstacleItems.SelectMany((l) => l.Segments);
             AddSegments(segments);
         }
@@ -177,9 +178,9 @@ namespace Blockdiagramm.Renderer.Wiring.Router
             }
         }
 
-        public AStarRouter(Canvas canvas, RouterConfiguration? configuration = null)
+        public AStarRouter(DiagramModel model, RouterConfiguration? configuration = null)
         {
-            this.canvas = canvas;
+            diagram = model;
             Configuration = configuration ?? new();
         }
 

@@ -90,6 +90,14 @@
 						</DataTemplate>
 					</c:FilterList.ItemTemplate>
 				</c:FilterList>
+				<c:FilterList Grid.Column="1" DataContext="{Binding ComponentListViewModel}"
+							  IsVisible="{Binding $parent.DataContext.SelectedSidePanelIndex, Converter={StaticResource ValueEqualConverter}, ConverterParameter=1}">
+					<c:FilterList.ItemTemplate>
+						<DataTemplate>
+							<c:ComponentListItem />
+						</DataTemplate>
+					</c:FilterList.ItemTemplate>
+				</c:FilterList>
 			</Grid>
 			<GridSplitter Grid.Column="1" 
 						  Background="#2B579A" ResizeDirection="Columns"
@@ -97,7 +105,7 @@
 						  BorderThickness="0"
 						  MinWidth="0"
 						  Width="3"/>
-			<dc:DiagramCanvas Grid.Column="2"/>
+			<dc:DiagramCanvas Grid.Column="2" DataContext="{Binding CurrentDiagram}"/>
 		</Grid>
 	</Grid>
 </Window>

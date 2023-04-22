@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+			 xmlns:c="using:Blockdiagramm.Controls"
+             mc:Ignorable="d" d:DesignWidth="350" Height="25"
+			 ToolTip.Placement="Bottom"
+			 Background="White"
+             x:Class="Blockdiagramm.Controls.ComponentListItem">
+	<UserControl.Styles>
+		<Style Selector="TextBlock.ComponentName">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="FontWeight" Value="500"/>
+		</Style>
+	</UserControl.Styles>
+	<Grid ColumnDefinitions="35,*,60">
+		<i:Icon Value="mdi-cube-outline" FontSize="15"/>
+		<TextBlock Grid.Column="1" Classes="ComponentName" Text="{Binding Name}"/>
+	</Grid>
+</UserControl>

@@ -4,6 +4,7 @@ using Blockdiagramm.Controls.Diagram.Component;
 using Blockdiagramm.Controls.Diagram.Wire;
 using Blockdiagramm.Extensions;
 using Blockdiagramm.Models;
+using Blockdiagramm.Models.Diagram;
 using Blockdiagramm.Renderer.Wiring.Router;
 using Blockdiagramm.ViewModels.Diagram.Wire;
 using HarfBuzzSharp;
@@ -26,7 +27,7 @@ namespace Blockdiagramm.Renderer.Wiring
         public VertexWire WiringWire { get; private set; } = null!;
         private WireModel wiringWireModel = null!;
 
-        private readonly Canvas canvas;
+        private readonly DiagramModel diagram;
         private readonly AStarRouter router;
 
         public bool CheckConflict(VertexWire wire, bool updateObstacles = false)
@@ -66,10 +67,10 @@ namespace Blockdiagramm.Renderer.Wiring
 
         public void AddWireAsObstacle(VertexWire wire) => router.AddLineObstacle(wire);
 
-        public WiringManager(Canvas canvas, RouterConfiguration? configuration = null)
+        public WiringManager(DiagramModel model, RouterConfiguration? configuration = null)
         {
-            this.canvas = canvas;
-            router = new AStarRouter(canvas, configuration);
+            diagram = model;
+            router = new AStarRouter(diagram, configuration);
 
             // Only for debug
             router.Configuration.TurnCost = 50;
@@ -92,7 +93,7 @@ namespace Blockdiagramm.Renderer.Wiring
             WiringWire.IsHitTestVisible = false;
             WiringWire.Vertices.Add(startPoint);
 
-            canvas.Children.Add(WiringWire);
+            diagram.AddWire(WiringWire);
         }
 
         public VertexWire CompleteWiring(Point endPoint, PortDirection direction)
@@ -130,7 +131,7 @@ namespace Blockdiagramm.Renderer.Wiring
                 throw new Exception("Can not cancel wiring until the wiring mode");
             }
 
-            canvas.Children.Remove(WiringWire);
+            diagram.RemoveWire(WiringWire);
             wiringWireModel = null!;
             WiringWire = null!;
 

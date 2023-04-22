@@ -30,7 +30,7 @@ namespace Blockdiagramm.Models
         public string Name
         {
             get => name;
-            set => this.RaiseAndSetIfChanged(ref name, value);
+            private set => this.RaiseAndSetIfChanged(ref name, value);
         }
 
         public SourceList<ComponentPortModel> Ports { get; } = new();
@@ -49,6 +49,8 @@ namespace Blockdiagramm.Models
 
         public void UpdateModule(ElaboratedModule module)
         {
+            Name = module.Name;
+
             InitializePorts(module);
         }
 
@@ -57,7 +59,8 @@ namespace Blockdiagramm.Models
             // TODO
             foreach (var port in module.ElaboratedModulePorts)
             {
-                Ports.Add(new ComponentPortModel(port.Direction == HDLAbstractSyntaxTree.Types.Direction.In ? PortDirection.Slave : PortDirection.Master,
+                Ports.Add(new ComponentPortModel(
+                    port.Direction == HDLAbstractSyntaxTree.Types.Direction.In ? PortDirection.Slave : PortDirection.Master,
                     port.Name));
             }
         }

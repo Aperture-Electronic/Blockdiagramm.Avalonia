@@ -26,6 +26,8 @@ namespace Blockdiagramm.Views
                 d(ViewModel!.NewProject.RegisterHandler(OpenNewProjectDialog));
 
                 d(ViewModel!.AddSourceFile.RegisterHandler(OpenAddSourceFileDialog));
+
+                d(ViewModel!.ShowAddComponentDialog.RegisterHandler(OpenAddComponentDialog));
             });
         }
 
@@ -67,6 +69,15 @@ namespace Blockdiagramm.Views
 
             dialog.ShowDialog(this);
             args.SetOutput(dialog);
+        }
+
+        private async Task OpenAddComponentDialog(InteractionContext<string, AddComponentDialogViewModel> args)
+        {
+            AddComponentDialog dialog = new();
+            AddComponentDialogViewModel viewModel = new(args.Input);
+            dialog.DataContext = viewModel;
+            var result = await dialog.ShowDialog<AddComponentDialogViewModel>(this);
+            args.SetOutput(result);
         }
     }
 }
